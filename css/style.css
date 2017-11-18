@@ -135,6 +135,17 @@ body {
 #timerfab1, #timerfab2 {
   background-color: #96ffbb;
 }
+.alphaversion {
+  font-family: 'Dosis', sans-serif;
+  font-weight: 200;
+  color: black;
+}
+.mdc-theme--primary {
+  color: #237aff !important;
+}
+--mdc-theme-primary {
+  color: #237aff !important;
+}
 
 /* Diable highlighting of FAB & buttons on mobile */
 
