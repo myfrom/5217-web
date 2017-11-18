@@ -88,6 +88,7 @@ function startWork() {
       document.getElementById("heroNumber1").innerHTML = 52;
       document.getElementById("heroNumber2").innerHTML = 52;
 
+
       clearInterval(x);
       return;
     }
@@ -105,6 +106,7 @@ function startBreak() {
   timerRunning = true;
   document.getElementById("resetButton1").classList.add("activeElement");
   document.getElementById("resetButton2").classList.add("activeElement");
+
 
   setTheme(currentCycle);
 
@@ -139,7 +141,6 @@ function startBreak() {
 }
 
 function reset() {
-
 
   if (timerRunning === true) {
     document.getElementById("resetButton1").classList.remove("active-element");
@@ -256,7 +257,6 @@ function updateTimer(cycleType) {
   // Run notification at 51 mins
   if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 51) {
     notify(cycleType, minutesAwayRounded);
-    console.log("Tried to notify.");
   }
 
   if (placeHolderTime != minutesAwayRounded) {
@@ -317,7 +317,7 @@ function setMinuteColors(cycleType) {
   getLayerOrder();
   document.getElementById("layer" + f + "div").style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded)];
   document.getElementById("layer" + r + "div").style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded) + 1];
-  if (minutesAwayRounded === "35") {
+  if (minutesAwayRounded === 35) {
     document.getElementById("heroNumber1").style.color = "#237aff";
     document.getElementById("heroNumber2").style.color = "#237aff";
     document.getElementById("resetButton1").style.color = "#237aff";
@@ -330,7 +330,6 @@ function setMinuteColors(cycleType) {
 
 function swipeLayer() {
   getLayerOrder();
-  console.log("swipeLayer() run");
 
   if (f === "2") {
     document.getElementById("layer2div").classList.add("swipe-background");
@@ -368,6 +367,7 @@ function swipeLayer() {
     }, 1000);
   }
 }
+
 
 /*
   Notification code
