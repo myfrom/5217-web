@@ -41,8 +41,11 @@ function startWork() {
   currentCycle = "work";
   timerRunning = true;
 
-  document.getElementById("resetButton1").classList.add = "activeElement";
-  document.getElementById("resetButton2").classList.add = "activeElement";
+  document.getElementById("resetButton1").classList.remove("inactive-element");
+  document.getElementById("resetButton2").classList.remove("inactive-element");
+
+  document.getElementById("resetButton1").classList.add("active-element");
+  document.getElementById("resetButton2").classList.add("active-element");
 
   setTheme(currentCycle);
 
@@ -100,8 +103,8 @@ function startWork() {
 function startBreak() {
   currentCycle = "break";
   timerRunning = true;
-  document.getElementById("resetButton1").classList.add = "activeElement";
-  document.getElementById("resetButton2").classList.add = "activeElement";
+  document.getElementById("resetButton1").classList.add("activeElement");
+  document.getElementById("resetButton2").classList.add("activeElement");
 
   setTheme(currentCycle);
 
@@ -136,15 +139,20 @@ function startBreak() {
 }
 
 function reset() {
-  document.getElementById("resetButton1").classList.remove = "activeElement";
-  document.getElementById("resetButton2").classList.remove = "activeElement";
-  if (timerRunning === true) {
 
+
+  if (timerRunning === true) {
+    document.getElementById("resetButton1").classList.remove("active-element");
+    document.getElementById("resetButton2").classList.remove("active-element");
     document.getElementById("resetButton1").classList.add("spinit");
     document.getElementById("resetButton2").classList.add("spinit");
+
+
     setTimeout(function() {
       document.getElementById("resetButton1").classList.remove("spinit");
       document.getElementById("resetButton2").classList.remove("spinit");
+      document.getElementById("resetButton1").classList.add("inactive-element");
+      document.getElementById("resetButton2").classList.add("inactive-element");
     }, 610);
 
     timerRunning = false;

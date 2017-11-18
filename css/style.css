@@ -27,6 +27,14 @@ body {
   bottom: 35px;
 }
 
+#layer1div .row .container {
+  min-height: 85vh;
+}
+
+#layer2div .row .container {
+  min-height: 85vh;
+}
+
 #heroNumber1, #heroNumber2 {
   font-size: 80px;
   font-weight: 300;
@@ -87,8 +95,45 @@ body {
   left: 0px;
 }
 
-.activeElement {
-  opacity: 1.0 !important;
+#moreButton1, #moreButton2 {
+  color: #ffffff;cursor: pointer;
+}
+
+.fabimage {
+  color: #1f538f;
+  height: 24px;
+  width: 24px;
+}
+
+#sharefab1, #sharefab2 {
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+#sharefab1>span {
+  color: #237aff;
+}
+#sharefab2>span {
+  color: #237aff;
+}
+
+#resetButton1 {
+  color: #ffffff; cursor:pointer;
+}
+
+#resetButton2 {
+  color: #ffffff; cursor:pointer;
+}
+
+.inactive-element {
+  opacity: 0.5;
+}
+.active-element {
+  opacity: 1.0;
+}
+
+#timerfab1, #timerfab2 {
+  background-color: #96ffbb;
 }
 
 /* Diable highlighting of FAB & buttons on mobile */
