@@ -132,7 +132,7 @@ function startBreak() {
       return;
     }
     if (timerRunning && (minutesAwayRounded === 0)) {
-      startTimer();
+      startWork();
       clearInterval(y);
       return;
     }
@@ -255,7 +255,15 @@ function updateTimer(cycleType) {
   document.getElementById("heroNumber1").innerHTML = minutesAwayRounded;
   document.getElementById("heroNumber2").innerHTML = minutesAwayRounded;
   // Run notification at 51 mins
-  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 51) {
+  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 35) {
+    notify(cycleType, minutesAwayRounded);
+  }
+
+  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 14) {
+    notify(cycleType, minutesAwayRounded);
+  }
+
+  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 5) {
     notify(cycleType, minutesAwayRounded);
   }
 
