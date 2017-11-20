@@ -424,7 +424,7 @@ function notify(type, remainingMinutes) {
         Notification.requestPermission();
       } else {
         var options = {
-          icon: '/images/icon.png',
+          icon: 'images/icon.png',
           body: remainingMinutes + " minutes left - relax!",
         };
         var notification = new Notification('Time for a break', options);
@@ -438,7 +438,7 @@ function notify(type, remainingMinutes) {
         Notification.requestPermission();
       } else {
         var options = {
-          icon: '/images/icon.png',
+          icon: 'images/icon.png',
           body: remainingMinutes + " minutes left in this cycle",
         };
         var notification = new Notification('Keep working!', options);
