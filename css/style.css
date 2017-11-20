@@ -41,6 +41,16 @@ body {
   color: #ffffff;
 }
 
+#breakMessage1, #breakMessage2 {
+  font-size: 25px;
+  font-weight: 400;
+  color: #237aff;
+  visibility: hidden;
+  text-align: center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
 #pulsingDot1, #pulsingDot2 {
   width: 30px;
   height: 30px;

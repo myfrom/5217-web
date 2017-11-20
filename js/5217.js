@@ -45,6 +45,9 @@ var moreButton1Element = document.getElementById("moreButton1");
 var moreButton2Element = document.getElementById("moreButton2");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
+var breakMessage1Element = document.getElementById("breakMessage1");
+var breakMessage2Element = document.getElementById("breakMessage2");
+
 
 /*
   Event Listeners
@@ -202,6 +205,8 @@ function reset() {
 
 function setTheme(cycleType) {
   if (cycleType === "work") {
+    breakMessage1Element.style.visibility = "hidden";
+    breakMessage2Element.style.visibility = "hidden";
     hero1Element.style.color = "#ffffff";
     resetButton1Element.style.color = "#ffffff";
     moreButton1Element.style.color = "#ffffff";
@@ -236,6 +241,8 @@ function setTheme(cycleType) {
     }
   }
   if (cycleType === "break") {
+    breakMessage1Element.style.visibility = "visible";
+    breakMessage2Element.style.visibility = "visible";
     hero1Element.style.color = "#237aff";
     resetButton1Element.style.color = "#237aff";
     moreButton1Element.style.color = "#237aff";
