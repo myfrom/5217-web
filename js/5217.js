@@ -26,14 +26,35 @@ const worktime = 52;
 const breaktime = 17;
 
 /*
+  Elements
+*/
+
+var timerFab1Element = document.getElementById("timerfab1");
+var resetButton1Element = document.getElementById("resetButton1");
+var timerFab2Element = document.getElementById("timerfab2");
+var resetButton2Element = document.getElementById("resetButton2");
+var pulsingDot1Element = document.getElementById("pulsingDot1");
+var pulsingDot1ContainerElement = document.getElementById("pulsingDotContainer1");
+var pulsingDot2Element = document.getElementById("pulsingDot2");
+var pulsingDot2ContainerElement = document.getElementById("pulsingDotContainer2");
+var hero1Element = document.getElementById("heroNumber1");
+var hero2Element = document.getElementById("heroNumber2");
+var shareFab1Element = document.getElementById("sharefab1");
+var shareFab2Element = document.getElementById("sharefab2");
+var moreButton1Element = document.getElementById("moreButton1");
+var moreButton2Element = document.getElementById("moreButton2");
+var layer1DivElement = document.getElementById("layer1div");
+var layer2DivElement = document.getElementById("layer2div");
+
+/*
   Event Listeners
 */
 
 // An event listener must be added for both copies of the elements, as there are two.
-document.getElementById("timerfab1").addEventListener("click", startWork);
-document.getElementById("resetButton1").addEventListener("click", reset);
-document.getElementById("timerfab2").addEventListener("click", startWork);
-document.getElementById("resetButton2").addEventListener("click", reset);
+timerFab1Element.addEventListener("click", startWork);
+resetButton1Element.addEventListener("click", reset);
+timerFab2Element.addEventListener("click", startWork);
+resetButton2Element.addEventListener("click", reset);
 /*
   Functions
 */
@@ -41,11 +62,11 @@ function startWork() {
   currentCycle = "work";
   timerRunning = true;
 
-  document.getElementById("resetButton1").classList.remove("inactive-element");
-  document.getElementById("resetButton2").classList.remove("inactive-element");
+  resetButton1Element.classList.remove("inactive-element");
+  resetButton2Element.classList.remove("inactive-element");
 
-  document.getElementById("resetButton1").classList.add("active-element");
-  document.getElementById("resetButton2").classList.add("active-element");
+  resetButton1Element.classList.add("active-element");
+  resetButton2Element.classList.add("active-element");
 
   setTheme(currentCycle);
 
@@ -57,27 +78,27 @@ function startWork() {
   notify(currentCycle, minutesAwayRounded);
 
   /* Animate FAB out */
-  document.getElementById("timerfab1").classList.add("hide-fab");
-  document.getElementById("timerfab1").classList.remove("show-fab");
+  timerFab1Element.classList.add("hide-fab");
+  timerFab1Element.classList.remove("show-fab");
   setTimeout(function() {
-    document.getElementById("timerfab1").classList.add("hide");
+    timerFab1Element.classList.add("hide");
   }, 200);
 
   /* Animate FAB out */
-  document.getElementById("timerfab2").classList.add("hide-fab");
-  document.getElementById("timerfab2").classList.remove("show-fab");
+  timerFab2Element.classList.add("hide-fab");
+  timerFab2Element.classList.remove("show-fab");
   setTimeout(function() {
-    document.getElementById("timerfab2").classList.add("hide");
+    timerFab2Element.classList.add("hide");
   }, 200);
 
   /* Animate Pulsing Dot in */
-  document.getElementById("pulsingDot1").classList.remove("hide");
-  document.getElementById("pulsingDot1").classList.add("show-dot");
-  document.getElementById("pulsingDotContainer1").classList.add("pulseStart");
+  pulsingDot1Element.classList.remove("hide");
+  pulsingDot1Element.classList.add("show-dot");
+  pulsingDot1ContainerElement.classList.add("pulseStart");
 
-  document.getElementById("pulsingDot2").classList.remove("hide");
-  document.getElementById("pulsingDot2").classList.add("show-dot");
-  document.getElementById("pulsingDotContainer2").classList.add("pulseStart");
+  pulsingDot2Element.classList.remove("hide");
+  pulsingDot2Element.classList.add("show-dot");
+  pulsingDot2ContainerElement.classList.add("pulseStart");
 
   var x = setInterval(function() {
     getCurrentTime();
@@ -85,8 +106,8 @@ function startWork() {
     updateTimer(currentCycle);
     if (!timerRunning) {
       // TODO: Try to animate this down the road
-      document.getElementById("heroNumber1").innerHTML = 52;
-      document.getElementById("heroNumber2").innerHTML = 52;
+      hero1Element.innerHTML = 52;
+      hero2Element.innerHTML = 52;
 
 
       clearInterval(x);
@@ -104,8 +125,8 @@ function startWork() {
 function startBreak() {
   currentCycle = "break";
   timerRunning = true;
-  document.getElementById("resetButton1").classList.add("activeElement");
-  document.getElementById("resetButton2").classList.add("activeElement");
+  resetButton1Element.classList.add("activeElement");
+  resetButton2Element.classList.add("activeElement");
 
 
   setTheme(currentCycle);
@@ -125,8 +146,8 @@ function startBreak() {
     updateTimer(currentCycle);
     if (!timerRunning) {
       // TODO: Try to animate this down the road
-      document.getElementById("heroNumber1").innerHTML = 52;
-      document.getElementById("heroNumber2").innerHTML = 52;
+      hero1Element.innerHTML = 52;
+      hero2Element.innerHTML = 52;
 
       clearInterval(y);
       return;
@@ -143,35 +164,35 @@ function startBreak() {
 function reset() {
 
   if (timerRunning === true) {
-    document.getElementById("resetButton1").classList.remove("active-element");
-    document.getElementById("resetButton2").classList.remove("active-element");
-    document.getElementById("resetButton1").classList.add("spinit");
-    document.getElementById("resetButton2").classList.add("spinit");
+    resetButton1Element.classList.remove("active-element");
+    resetButton2Element.classList.remove("active-element");
+    resetButton1Element.classList.add("spinit");
+    resetButton2Element.classList.add("spinit");
 
 
     setTimeout(function() {
-      document.getElementById("resetButton1").classList.remove("spinit");
-      document.getElementById("resetButton2").classList.remove("spinit");
-      document.getElementById("resetButton1").classList.add("inactive-element");
-      document.getElementById("resetButton2").classList.add("inactive-element");
+      resetButton1Element.classList.remove("spinit");
+      resetButton2Element.classList.remove("spinit");
+      resetButton1Element.classList.add("inactive-element");
+      resetButton2Element.classList.add("inactive-element");
     }, 610);
 
     timerRunning = false;
     minutesAwayRounded = 52;
 
-    document.getElementById("sharefab1").classList.add("hide-fab");
-    document.getElementById("sharefab2").classList.add("hide-fab");
+    shareFab1Element.classList.add("hide-fab");
+    shareFab2Element.classList.add("hide-fab");
 
-    document.getElementById("timerfab1").classList.remove("hide-fab");
-    document.getElementById("timerfab2").classList.remove("hide-fab");
+    timerFab1Element.classList.remove("hide-fab");
+    timerFab2Element.classList.remove("hide-fab");
 
-    if (!document.getElementById("timerfab1").classList.contains("show-fab") || !document.getElementById("timerfab2").classList.contains("show-fab")) {
-      document.getElementById("timerfab1").classList.add("show-fab");
-      document.getElementById("timerfab2").classList.add("show-fab");
+    if (!timerFab1Element.classList.contains("show-fab") || !timerFab2Element.classList.contains("show-fab")) {
+      timerFab1Element.classList.add("show-fab");
+      timerFab2Element.classList.add("show-fab");
     }
-    if (!document.getElementById("pulsingDot1").classList.contains("hide") || !document.getElementById("pulsingDot2").classList.contains("hide")) {
-      document.getElementById("pulsingDot1").classList.add("hide");
-      document.getElementById("pulsingDot2").classList.add("hide");
+    if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
+      pulsingDot1Element.classList.add("hide");
+      pulsingDot2Element.classList.add("hide");
     }
 
     setTheme("work");
@@ -181,79 +202,79 @@ function reset() {
 
 function setTheme(cycleType) {
   if (cycleType === "work") {
-    document.getElementById("heroNumber1").style.color = "#ffffff";
-    document.getElementById("resetButton1").style.color = "#ffffff";
-    document.getElementById("moreButton1").style.color = "#ffffff";
-    document.getElementById("heroNumber2").style.color = "#ffffff";
-    document.getElementById("resetButton2").style.color = "#ffffff";
-    document.getElementById("moreButton2").style.color = "#ffffff";
-    document.getElementById("layer2div").style.backgroundColor = "#237aff";
-    document.getElementById("layer1div").style.backgroundColor = "#237aff";
-    if (document.getElementById("sharefab1").classList.contains("show-fab") || document.getElementById("sharefab2").classList.contains("show-fab")) {
-      document.getElementById("sharefab1").classList.add("hide-fab");
-      document.getElementById("sharefab1").classList.add("hide");
-      document.getElementById("sharefab2").classList.add("hide-fab");
-      document.getElementById("sharefab2").classList.add("hide");
-      document.getElementById("sharefab1").classList.remove("show-fab");
-      document.getElementById("sharefab2").classList.remove("show-fab");
+    hero1Element.style.color = "#ffffff";
+    resetButton1Element.style.color = "#ffffff";
+    moreButton1Element.style.color = "#ffffff";
+    hero2Element.style.color = "#ffffff";
+    resetButton2Element.style.color = "#ffffff";
+    moreButton2Element.style.color = "#ffffff";
+    layer2DivElement.style.backgroundColor = "#237aff";
+    layer1DivElement.style.backgroundColor = "#237aff";
+    if (shareFab1Element.classList.contains("show-fab") || shareFab2Element.classList.contains("show-fab")) {
+      shareFab1Element.classList.add("hide-fab");
+      shareFab1Element.classList.add("hide");
+      shareFab2Element.classList.add("hide-fab");
+      shareFab2Element.classList.add("hide");
+      shareFab1Element.classList.remove("show-fab");
+      shareFab2Element.classList.remove("show-fab");
     }
-    if (document.getElementById("timerfab1").classList.contains("hide") || document.getElementById("timerfab2").classList.contains("hide")) {
-      document.getElementById("timerfab1").classList.remove("hide");
-      document.getElementById("timerfab2").classList.remove("hide");
-      document.getElementById("timerfab1").classList.remove("hide-fab");
-      document.getElementById("timerfab2").classList.remove("hide-fab");
-      document.getElementById("timerfab1").classList.add("show-fab");
-      document.getElementById("timerfab2").classList.add("show-fab");
+    if (timerFab1Element.classList.contains("hide") || timerFab2Element.classList.contains("hide")) {
+      timerFab1Element.classList.remove("hide");
+      timerFab2Element.classList.remove("hide");
+      timerFab1Element.classList.remove("hide-fab");
+      timerFab2Element.classList.remove("hide-fab");
+      timerFab1Element.classList.add("show-fab");
+      timerFab2Element.classList.add("show-fab");
     }
-    if (!document.getElementById("pulsingDot1").classList.contains("hide") || !document.getElementById("pulsingDot2").classList.contains("hide")) {
-      document.getElementById("pulsingDot1").classList.add("hide");
-      document.getElementById("pulsingDot1").classList.remove("show-dot");
-      document.getElementById("pulsingDotContainer1").classList.remove("pulseStart");
-      document.getElementById("pulsingDot2").classList.add("hide");
-      document.getElementById("pulsingDot2").classList.remove("show-dot");
-      document.getElementById("pulsingDotContainer2").classList.remove("pulseStart");
+    if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
+      pulsingDot1Element.classList.add("hide");
+      pulsingDot1Element.classList.remove("show-dot");
+      pulsingDot1ContainerElement.classList.remove("pulseStart");
+      pulsingDot2Element.classList.add("hide");
+      pulsingDot2Element.classList.remove("show-dot");
+      pulsingDot2ContainerElement.classList.remove("pulseStart");
     }
   }
   if (cycleType === "break") {
-    document.getElementById("heroNumber1").style.color = "#237aff";
-    document.getElementById("resetButton1").style.color = "#237aff";
-    document.getElementById("moreButton1").style.color = "#237aff";
-    document.getElementById("heroNumber2").style.color = "#237aff";
-    document.getElementById("resetButton2").style.color = "#237aff";
-    document.getElementById("moreButton2").style.color = "#237aff";
-    document.getElementById("layer2div").style.backgroundColor = "#ffffff";
-    document.getElementById("layer1div").style.backgroundColor = "#ffffff";
-    if (!document.getElementById("sharefab1").classList.contains("show-fab") || !document.getElementById("sharefab2").classList.contains("show-fab")) {
-      document.getElementById("sharefab1").classList.add("show-fab");
-      document.getElementById("sharefab2").classList.add("show-fab");
-      document.getElementById("sharefab1").classList.remove("hide-fab");
-      document.getElementById("sharefab2").classList.remove("hide-fab");
-      document.getElementById("sharefab1").classList.remove("hide");
-      document.getElementById("sharefab2").classList.remove("hide");
+    hero1Element.style.color = "#237aff";
+    resetButton1Element.style.color = "#237aff";
+    moreButton1Element.style.color = "#237aff";
+    hero2Element.style.color = "#237aff";
+    resetButton2Element.style.color = "#237aff";
+    moreButton2Element.style.color = "#237aff";
+    layer2DivElement.style.backgroundColor = "#ffffff";
+    layer1DivElement.style.backgroundColor = "#ffffff";
+    if (!shareFab1Element.classList.contains("show-fab") || !shareFab2Element.classList.contains("show-fab")) {
+      shareFab1Element.classList.add("show-fab");
+      shareFab2Element.classList.add("show-fab");
+      shareFab1Element.classList.remove("hide-fab");
+      shareFab2Element.classList.remove("hide-fab");
+      shareFab1Element.classList.remove("hide");
+      shareFab2Element.classList.remove("hide");
     }
-    if (!document.getElementById("timerfab1").classList.contains("hide") || !document.getElementById("timerfab2").classList.contains("hide")) {
-      document.getElementById("timerfab1").classList.add("hide");
-      document.getElementById("timerfab2").classList.add("hide");
-      document.getElementById("timerfab1").classList.add("hide-fab");
-      document.getElementById("timerfab2").classList.add("hide-fab");
-      document.getElementById("timerfab1").classList.remove("show-fab");
-      document.getElementById("timerfab2").classList.remove("show-fab");
+    if (!timerFab1Element.classList.contains("hide") || !timerFab2Element.classList.contains("hide")) {
+      timerFab1Element.classList.add("hide");
+      timerFab2Element.classList.add("hide");
+      timerFab1Element.classList.add("hide-fab");
+      timerFab2Element.classList.add("hide-fab");
+      timerFab1Element.classList.remove("show-fab");
+      timerFab2Element.classList.remove("show-fab");
     }
-    if (!document.getElementById("pulsingDot1").classList.contains("hide") || !document.getElementById("pulsingDot2").classList.contains("hide")) {
-      document.getElementById("pulsingDot1").classList.add("hide");
-      document.getElementById("pulsingDot2").classList.add("hide");
-      document.getElementById("pulsingDot1").classList.remove("show-dot");
-      document.getElementById("pulsingDot2").classList.remove("show-dot");
-      document.getElementById("pulsingDotContainer1").classList.remove("pulseStart");
-      document.getElementById("pulsingDotContainer2").classList.remove("pulseStart");
+    if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
+      pulsingDot1Element.classList.add("hide");
+      pulsingDot2Element.classList.add("hide");
+      pulsingDot1Element.classList.remove("show-dot");
+      pulsingDot2Element.classList.remove("show-dot");
+      pulsingDot1ContainerElement.classList.remove("pulseStart");
+      pulsingDot2ContainerElement.classList.remove("pulseStart");
     }
     swipeLayer();
   }
 }
 
 function updateTimer(cycleType) {
-  document.getElementById("heroNumber1").innerHTML = minutesAwayRounded;
-  document.getElementById("heroNumber2").innerHTML = minutesAwayRounded;
+  hero1Element.innerHTML = minutesAwayRounded;
+  hero2Element.innerHTML = minutesAwayRounded;
   // Run notification at 51 mins
   if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 35) {
     notify(cycleType, minutesAwayRounded);
@@ -306,32 +327,32 @@ function getMinutesAway(now, finish) {
 }
 
 function getLayerOrder() {
-  var aLayer = document.getElementById("layer1div");
+  var aLayer = layer1DivElement;
   var aLayerProp = window.getComputedStyle(aLayer, null).getPropertyValue("z-index");
-  var bLayer = document.getElementById("layer2div");
+  var bLayer = layer2DivElement;
   var bLayerProp = window.getComputedStyle(bLayer, null).getPropertyValue("z-index");
   if (bLayerProp > aLayerProp) {
     console.log("layer2div is in front, at position: " + bLayerProp);
-    f = "2";
-    r = "1";
+    f = 2;
+    r = 1;
   } else if (aLayerProp > bLayerProp) {
     console.log("layer1div is in front, at position: " + aLayerProp);
-    f = "1";
-    r = "2";
+    f = 1;
+    r = 2;
   }
 }
 
 function setMinuteColors(cycleType) {
   getLayerOrder();
-  document.getElementById("layer" + f + "div").style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded)];
-  document.getElementById("layer" + r + "div").style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded) + 1];
+  (f === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded)];
+  (r === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded) + 1];
   if (minutesAwayRounded === 35) {
-    document.getElementById("heroNumber1").style.color = "#237aff";
-    document.getElementById("heroNumber2").style.color = "#237aff";
-    document.getElementById("resetButton1").style.color = "#237aff";
-    document.getElementById("moreButton1").style.color = "#237aff";
-    document.getElementById("resetButton2").style.color = "#237aff";
-    document.getElementById("moreButton2").style.color = "#237aff";
+    hero1Element.style.color = "#237aff";
+    hero2Element.style.color = "#237aff";
+    resetButton1Element.style.color = "#237aff";
+    moreButton1Element.style.color = "#237aff";
+    resetButton2Element.style.color = "#237aff";
+    moreButton2Element.style.color = "#237aff";
 
   }
 }
@@ -339,39 +360,39 @@ function setMinuteColors(cycleType) {
 function swipeLayer() {
   getLayerOrder();
 
-  if (f === "2") {
-    document.getElementById("layer2div").classList.add("swipe-background");
+  if (f === 2) {
+    layer2DivElement.classList.add("swipe-background");
     setTimeout(function() {
-      document.getElementById("layer2div").classList.add("unswipe-background");
+      layer2DivElement.classList.add("unswipe-background");
     }, 520);
     setTimeout(function() {
-      document.getElementById("layer2div").style.zIndex = "-2";
+      layer2DivElement.style.zIndex = "-2";
       setTimeout(function() {
-        document.getElementById("layer1div").style.zIndex = "0";
+        layer1DivElement.style.zIndex = "0";
       }, 1);
       setTimeout(function() {
-        document.getElementById("layer2div").style.zIndex = "-1";
+        layer2DivElement.style.zIndex = "-1";
       }, 2);
     }, 512);
     setTimeout(function() {
-      document.getElementById("layer2div").classList.remove("unswipe-background", "swipe-background");
+      layer2DivElement.classList.remove("unswipe-background", "swipe-background");
     }, 1000);
-  } else if (f === "1") {
-    document.getElementById("layer1div").classList.add("swipe-background");
+  } else if (f === 1) {
+    layer1DivElement.classList.add("swipe-background");
     setTimeout(function() {
-      document.getElementById("layer1div").classList.add("unswipe-background");
+      layer1DivElement.classList.add("unswipe-background");
     }, 520);
     setTimeout(function() {
-      document.getElementById("layer1div").style.zIndex = "-2";
+      layer1DivElement.style.zIndex = "-2";
       setTimeout(function() {
-        document.getElementById("layer2div").style.zIndex = "0";
+        layer2DivElement.style.zIndex = "0";
       }, 1);
       setTimeout(function() {
-        document.getElementById("layer1div").style.zIndex = "-1";
+        layer1DivElement.style.zIndex = "-1";
       }, 2);
     }, 512);
     setTimeout(function() {
-      document.getElementById("layer1div").classList.remove("unswipe-background", "swipe-background");
+      layer1DivElement.classList.remove("unswipe-background", "swipe-background");
     }, 1000);
   }
 }
