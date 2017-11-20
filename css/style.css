@@ -140,12 +140,13 @@ body {
   font-weight: 200;
   color: black;
 }
-.mdc-theme--primary {
-  color: #237aff !important;
+a {
+  color: var(--mdc-theme-primary);
 }
---mdc-theme-primary {
-  color: #237aff !important;
+* {
+  --mdc-theme-primary: #237aff !important;
 }
+
 
 /* Diable highlighting of FAB & buttons on mobile */
 
