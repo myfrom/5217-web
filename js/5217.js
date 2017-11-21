@@ -353,7 +353,7 @@ function setMinuteColors(cycleType) {
   getLayerOrder();
   (f === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded)];
   (r === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded) + 1];
-  if (minutesAwayRounded === 35) {
+  if (minutesAwayRounded === 30) {
     hero1Element.style.color = "#237aff";
     hero2Element.style.color = "#237aff";
     resetButton1Element.style.color = "#237aff";
