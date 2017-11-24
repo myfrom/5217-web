@@ -17,6 +17,9 @@ var currentCycle;
 // A literal ARRAY of colors. Ha!
 var workColors = ["#238aff", "#278cff", "#2c8fff", "#3091ff", "#3493ff", "#3996ff", "#3d98ff", "#419aff", "#469cff", "#4a9fff", "#4ea1ff", "#53a3ff", "#57a6ff", "#5ba8ff", "#60aaff", "#64adff", "#68afff", "#6db1ff", "#71b4ff", "#75b6ff", "#7ab8ff", "#7ebaff", "#82bdff", "#87bfff", "#8bc1ff", "#8fc4ff", "#94c6ff", "#98c8ff", "#9ccbff", "#a1cdff", "#a5cfff", "#a9d1ff", "#aed4ff", "#b2d6ff", "#b6d8ff", "#bbdbff", "#bfddff", "#c3dfff", "#c8e2ff", "#cce4ff", "#d0e6ff", "#d5e9ff", "#d9ebff", "#ddedff", "#e2efff", "#e6f2ff", "#eaf4ff", "#eff6ff", "#f3f9ff", "#f7fbff", "#fcfdff", "#ffffff"];
 
+var breakMessages = ["Time for a break! Why not get a cup of coffee?", "Break time!, it's time to get up and stretch!", "Time for a break! Why not take a quick ten-minute walk?", "Break time! Why not do a few jumping jacks?"];
+var chosenBreakMessage;
+
 var minutesAwayRounded = 52;
 var frontLayer = "2";
 var backLayer = "1";
@@ -241,6 +244,9 @@ function setTheme(cycleType) {
     }
   }
   if (cycleType === "break") {
+    chosenBreakMessage = chooseBreakMessage();
+    breakMessage1Element.innerHTML = chosenBreakMessage;
+    breakMessage2Element.innerHTML = chosenBreakMessage;
     breakMessage1Element.style.visibility = "visible";
     breakMessage2Element.style.visibility = "visible";
     hero1Element.style.color = "#237aff";
@@ -404,6 +410,10 @@ function swipeLayer() {
   }
 }
 
+/* Break Message Code */
+function chooseBreakMessage() {
+  return breakMessages[Math.floor((Math.random() * 4) + 1)];
+}
 
 /*
   Notification code
