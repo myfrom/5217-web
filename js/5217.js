@@ -17,7 +17,8 @@ var currentCycle;
 // A literal ARRAY of colors. Ha!
 var workColors = ["#238aff", "#278cff", "#2c8fff", "#3091ff", "#3493ff", "#3996ff", "#3d98ff", "#419aff", "#469cff", "#4a9fff", "#4ea1ff", "#53a3ff", "#57a6ff", "#5ba8ff", "#60aaff", "#64adff", "#68afff", "#6db1ff", "#71b4ff", "#75b6ff", "#7ab8ff", "#7ebaff", "#82bdff", "#87bfff", "#8bc1ff", "#8fc4ff", "#94c6ff", "#98c8ff", "#9ccbff", "#a1cdff", "#a5cfff", "#a9d1ff", "#aed4ff", "#b2d6ff", "#b6d8ff", "#bbdbff", "#bfddff", "#c3dfff", "#c8e2ff", "#cce4ff", "#d0e6ff", "#d5e9ff", "#d9ebff", "#ddedff", "#e2efff", "#e6f2ff", "#eaf4ff", "#eff6ff", "#f3f9ff", "#f7fbff", "#fcfdff", "#ffffff"];
 
-var breakMessages = ["Time for a break! Why not get a cup of coffee?", "Break time!, it's time to get up and stretch!", "Time for a break! Why not take a quick ten-minute walk?", "Break time! Why not do a few jumping jacks?"];
+var breakMessages = ["have a cup of tea!", "put your feet up!", "take a deep breath!", "ponder infinity…", "enjoy the moment!", "order a pizza?", "say hi to a stranger!", "take a walk around!", "stand up and stretch!", "grab some coffee!", "strike a pose!", "catch up on reading!", "have a brainstorm!", "clean your junk drawer!", "have a daydream!", "share your progress!", "clear your mind!", "meditate!", "just relax!", "find a good playlist!", "rest your eyes!", "stretch your legs!", "think of a joke!", "make a quick call!", "read a listicle!", "have a snack!", "play a quick game!", "consider the universe!", "watch a funny video!", "treat yo self!", "… have a KitKat!", "tweet the world!", "tell someone you love 'em"];
+
 var chosenBreakMessage;
 
 var minutesAwayRounded = 52;
@@ -244,7 +245,7 @@ function setTheme(cycleType) {
     }
   }
   if (cycleType === "break") {
-    chosenBreakMessage = chooseBreakMessage();
+    chosenBreakMessage = "Time for a break!" + "<br>" + capitalizeFirstLetter(chooseBreakMessage());
     breakMessage1Element.innerHTML = chosenBreakMessage;
     breakMessage2Element.innerHTML = chosenBreakMessage;
     breakMessage1Element.style.visibility = "visible";
@@ -412,7 +413,11 @@ function swipeLayer() {
 
 /* Break Message Code */
 function chooseBreakMessage() {
-  return breakMessages[Math.floor((Math.random() * 4) + 1)];
+  return breakMessages[Math.floor(Math.random() * breakMessages.length)];
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 /*
@@ -425,8 +430,6 @@ document.addEventListener('DOMContentLoaded', function() {
     Notification.requestPermission();
   }
 });
-
-var breakMessages = ["have a cup of tea!", "put your feet up!", "take a deep breath!", "ponder infinity…", "enjoy the moment!", "order a pizza?", "say hi to a stranger!", "take a walk around!", "stand up and stretch!", "grab some coffee!", "strike a pose!", "catch up on reading!", "have a brainstorm!", "clean your junk drawer!", "have a daydream!", "share your progress!", "clear your mind!", "meditate!", "just relax!", "find a good playlist!", "rest your eyes!", "stretch your legs!", "think of a joke!", "make a quick call!", "read a listicle!", "have a snack!", "play a quick game!", "consider the universe!", "watch a funny video!", "treat yo self!", "… have a KitKat!", "tweet the world!", "tell someone you love 'em"];
 
 function checkIfMobile() {
   if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
@@ -444,7 +447,7 @@ function notify(type, remainingMinutes) {
       } else {
         var options = {
           icon: 'images/icon.png',
-          body: remainingMinutes + " minutes left - " + breakMessages[Math.floor(Math.random() * breakMessages.length)],
+          body: remainingMinutes + " minutes left - " + chooseBreakMessage(),
         };
         var notification = new Notification('Time for a break', options);
         notification.onclick = function() {
