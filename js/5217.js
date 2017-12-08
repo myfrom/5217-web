@@ -29,6 +29,8 @@ var timerRunning = false;
 const worktime = 52;
 const breaktime = 17;
 
+const originalTitle = document.title;
+
 /*
   Elements
 */
@@ -82,6 +84,7 @@ function startWork() {
   getCurrentTime();
   getMinutesAway(currentTime, endTime);
 
+  updateTitle(currentCycle);
   notify(currentCycle, minutesAwayRounded);
 
   /* Animate FAB out */
@@ -290,24 +293,23 @@ function updateTimer(cycleType) {
   hero1Element.innerHTML = minutesAwayRounded;
   hero2Element.innerHTML = minutesAwayRounded;
   // Run notification at 51 mins
-  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 35) {
-    notify(cycleType, minutesAwayRounded);
+  if (placeHolderTime === minutesAwayRounded) return;
+
+  updateTitle(cycleType);
+
+  switch (minutesAwayRounded) {
+    case 35:
+    case 14:
+    case 5:
+      notify(cycleType, minutesAwayRounded);
   }
 
-  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 14) {
-    notify(cycleType, minutesAwayRounded);
-  }
+  placeHolderTime = minutesAwayRounded;
 
-  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 5) {
-    notify(cycleType, minutesAwayRounded);
-  }
+  if (cycleType === "work") {
+    setMinuteColors(currentCycle);
 
-  if (placeHolderTime != minutesAwayRounded) {
-    placeHolderTime = minutesAwayRounded;
-    if (cycleType === "work") {
-      setMinuteColors(currentCycle);
-    }
-    if (minutesAwayRounded != 52 && cycleType === "work") {
+    if (minutesAwayRounded < 52) {
       swipeLayer();
     }
   }
@@ -409,6 +411,10 @@ function swipeLayer() {
       layer1DivElement.classList.remove("unswipe-background", "swipe-background");
     }, 1000);
   }
+}
+
+function updateTitle(cycleType) {
+  document.title = `${minutesAwayRounded}m ${cycleType} remaining - ${originalTitle}`;
 }
 
 /* Break Message Code */
