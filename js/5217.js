@@ -29,6 +29,8 @@ var timerRunning = false;
 const worktime = 52;
 const breaktime = 17;
 
+const originalTitle = document.title;
+
 /*
   Elements
 */
@@ -58,31 +60,18 @@ var breakMessage2Element = document.getElementById("breakMessage2");
 */
 
 // An event listener must be added for both copies of the elements, as there are two.
-timerFab1Element.addEventListener("click", startWork);
+timerFab1Element.addEventListener("click", startTimer);
 resetButton1Element.addEventListener("click", reset);
-timerFab2Element.addEventListener("click", startWork);
+timerFab2Element.addEventListener("click", startTimer);
 resetButton2Element.addEventListener("click", reset);
 /*
   Functions
 */
-function startWork() {
+function startTimer() {
   currentCycle = "work";
   timerRunning = true;
 
-  resetButton1Element.classList.remove("inactive-element");
-  resetButton2Element.classList.remove("inactive-element");
-
-  resetButton1Element.classList.add("active-element");
-  resetButton2Element.classList.add("active-element");
-
-  setTheme(currentCycle);
-
-  getStartTime();
-  getEndTime(currentCycle);
-  getCurrentTime();
-  getMinutesAway(currentTime, endTime);
-
-  notify(currentCycle, minutesAwayRounded);
+  startNewType();
 
   /* Animate FAB out */
   timerFab1Element.classList.add("hide-fab");
@@ -111,30 +100,33 @@ function startWork() {
     getCurrentTime();
     getMinutesAway(currentTime, endTime);
     updateTimer(currentCycle);
+
     if (!timerRunning) {
       // TODO: Try to animate this down the road
       hero1Element.innerHTML = 52;
       hero2Element.innerHTML = 52;
 
-
       clearInterval(x);
       return;
     }
     if (timerRunning && (minutesAwayRounded === 0)) {
-      startBreak();
-      clearInterval(x);
-      return;
+      switchCycles();
+      startNewType();
     }
   }, 10);
 
 }
 
-function startBreak() {
-  currentCycle = "break";
-  timerRunning = true;
-  resetButton1Element.classList.add("activeElement");
-  resetButton2Element.classList.add("activeElement");
+function switchCycles() {
+  currentCycle = currentCycle === "work" ? "break" : "work";
+}
 
+function startNewType() {
+  resetButton1Element.classList.remove("inactive-element");
+  resetButton2Element.classList.remove("inactive-element");
+
+  resetButton1Element.classList.add("active-element");
+  resetButton2Element.classList.add("active-element");
 
   setTheme(currentCycle);
 
@@ -143,29 +135,8 @@ function startBreak() {
   getCurrentTime();
   getMinutesAway(currentTime, endTime);
 
+  updateTitle(currentCycle);
   notify(currentCycle, minutesAwayRounded);
-
-  // No longer needed? updateTimer(currentCycle);
-
-  var y = setInterval(function() {
-    getCurrentTime();
-    getMinutesAway(currentTime, endTime);
-    updateTimer(currentCycle);
-    if (!timerRunning) {
-      // TODO: Try to animate this down the road
-      hero1Element.innerHTML = 52;
-      hero2Element.innerHTML = 52;
-
-      clearInterval(y);
-      return;
-    }
-    if (timerRunning && (minutesAwayRounded === 0)) {
-      startWork();
-      clearInterval(y);
-      return;
-    }
-  }, 10);
-
 }
 
 function reset() {
@@ -186,6 +157,8 @@ function reset() {
 
     timerRunning = false;
     minutesAwayRounded = 52;
+
+    updateTitle(null);
 
     shareFab1Element.classList.add("hide-fab");
     shareFab2Element.classList.add("hide-fab");
@@ -290,24 +263,23 @@ function updateTimer(cycleType) {
   hero1Element.innerHTML = minutesAwayRounded;
   hero2Element.innerHTML = minutesAwayRounded;
   // Run notification at 51 mins
-  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 35) {
-    notify(cycleType, minutesAwayRounded);
+  if (placeHolderTime === minutesAwayRounded) return;
+
+  updateTitle(cycleType);
+
+  switch (minutesAwayRounded) {
+    case 35:
+    case 14:
+    case 5:
+      notify(cycleType, minutesAwayRounded);
   }
 
-  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 14) {
-    notify(cycleType, minutesAwayRounded);
-  }
+  placeHolderTime = minutesAwayRounded;
 
-  if ((placeHolderTime != minutesAwayRounded) && minutesAwayRounded === 5) {
-    notify(cycleType, minutesAwayRounded);
-  }
+  if (cycleType === "work") {
+    setMinuteColors(currentCycle);
 
-  if (placeHolderTime != minutesAwayRounded) {
-    placeHolderTime = minutesAwayRounded;
-    if (cycleType === "work") {
-      setMinuteColors(currentCycle);
-    }
-    if (minutesAwayRounded != 52 && cycleType === "work") {
+    if (minutesAwayRounded < 52) {
       swipeLayer();
     }
   }
@@ -408,6 +380,14 @@ function swipeLayer() {
     setTimeout(function() {
       layer1DivElement.classList.remove("unswipe-background", "swipe-background");
     }, 1000);
+  }
+}
+
+function updateTitle(cycleType) {
+  if (cycleType == null) {
+    document.title = originalTitle;
+  } else {
+    document.title = `${minutesAwayRounded}m ${cycleType} remaining - ${originalTitle}`;
   }
 }
 
