@@ -158,6 +158,8 @@ function reset() {
     timerRunning = false;
     minutesAwayRounded = 52;
 
+    updateTitle(null);
+
     shareFab1Element.classList.add("hide-fab");
     shareFab2Element.classList.add("hide-fab");
 
@@ -382,7 +384,11 @@ function swipeLayer() {
 }
 
 function updateTitle(cycleType) {
-  document.title = `${minutesAwayRounded}m ${cycleType} remaining - ${originalTitle}`;
+  if (cycleType == null) {
+    document.title = originalTitle;
+  } else {
+    document.title = `${minutesAwayRounded}m ${cycleType} remaining - ${originalTitle}`;
+  }
 }
 
 /* Break Message Code */
