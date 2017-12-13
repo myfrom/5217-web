@@ -19,6 +19,15 @@ var workColors = ["#238aff", "#278cff", "#2c8fff", "#3091ff", "#3493ff", "#3996f
 
 var breakMessages = ["have a cup of tea!", "put your feet up!", "take a deep breath!", "ponder infinity…", "enjoy the moment!", "order a pizza?", "say hi to a stranger!", "take a walk around!", "stand up and stretch!", "grab some coffee!", "strike a pose!", "catch up on reading!", "have a brainstorm!", "clean your junk drawer!", "have a daydream!", "share your progress!", "clear your mind!", "meditate!", "just relax!", "find a good playlist!", "rest your eyes!", "stretch your legs!", "think of a joke!", "make a quick call!", "read a listicle!", "have a snack!", "play a quick game!", "consider the universe!", "watch a funny video!", "treat yo self!", "… have a KitKat!", "tweet the world!", "tell someone you love 'em"];
 
+var notificationTitle = {
+  "break": "Time for a break",
+  "work": "Keep working!",
+};
+var notificationBody = {
+  "break": " minutes left - ",
+  "work": " minutes left in this cycle",
+}
+
 var chosenBreakMessage;
 
 var minutesAwayRounded = 52;
@@ -419,36 +428,35 @@ function checkIfMobile() {
   }
 }
 
-function notify(type, remainingMinutes) {
+function notify(type, minutes) {
+  showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
+}
+
+function showNotification(type, title, body) {
   if (!checkIfMobile()) {
-    if (type === "break") {
-      if (Notification.permission !== "granted") {
-        Notification.requestPermission();
-      } else {
-        var options = {
-          icon: 'images/icon.png',
-          body: remainingMinutes + " minutes left - " + chooseBreakMessage(),
-        };
-        var notification = new Notification('Time for a break', options);
-        notification.onclick = function() {
-          window.focus();
-          notification.close();
-        }
-      }
-    } else if (type === "work") {
-      if (Notification.permission !== "granted") {
-        Notification.requestPermission();
-      } else {
-        var options = {
-          icon: 'images/icon.png',
-          body: remainingMinutes + " minutes left in this cycle",
-        };
-        var notification = new Notification('Keep working!', options);
-        notification.onclick = function() {
-          window.focus();
-          notification.close();
-        }
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    } else {
+      var options = {
+        icon: 'images/icon.png',
+        body: body,
+      };
+      var notification = new Notification(title, options);
+      notification.onclick = function () {
+        window.focus();
+        notification.close();
       }
     }
   }
 }
+
+function getNotificationBody(type, remainingMinutes) {
+  if (type === "break") {
+    return remainingMinutes + notificationBody[type] + chooseBreakMessage();
+  } else if (type === "work") {
+    return remainingMinutes + notificationBody[type];
+  } else if (type === "unpaused") {
+    return remainingMinutes + notificationBody[type];
+  }
+}
+
