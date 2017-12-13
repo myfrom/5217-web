@@ -35,6 +35,8 @@ var frontLayer = "2";
 var backLayer = "1";
 var timerRunning = false;
 
+const second = 60000;
+
 const worktime = 52;
 const breaktime = 17;
 
@@ -82,19 +84,23 @@ function startTimer() {
 
   startNewType();
 
-  /* Animate FAB out */
-  timerFab1Element.classList.add("hide-fab");
-  timerFab1Element.classList.remove("show-fab");
   setTimeout(function() {
+    /* Animate FAB out */
     timerFab1Element.classList.add("hide");
-  }, 200);
-
-  /* Animate FAB out */
-  timerFab2Element.classList.add("hide-fab");
-  timerFab2Element.classList.remove("show-fab");
-  setTimeout(function() {
     timerFab2Element.classList.add("hide");
   }, 200);
+
+  resetButton1Element.classList.remove("inactive-element");
+  resetButton2Element.classList.remove("inactive-element");
+
+  resetButton1Element.classList.add("active-element");
+  resetButton2Element.classList.add("active-element");
+
+  timerFab1Element.classList.add("hide-fab");
+  timerFab1Element.classList.remove("show-fab");
+
+  timerFab2Element.classList.add("hide-fab");
+  timerFab2Element.classList.remove("show-fab");
 
   /* Animate Pulsing Dot in */
   pulsingDot1Element.classList.remove("hide");
@@ -106,10 +112,6 @@ function startTimer() {
   pulsingDot2ContainerElement.classList.add("pulseStart");
 
   var x = setInterval(function() {
-    getCurrentTime();
-    getMinutesAway(currentTime, endTime);
-    updateTimer(currentCycle);
-
     if (!timerRunning) {
       // TODO: Try to animate this down the road
       hero1Element.innerHTML = 52;
@@ -118,6 +120,11 @@ function startTimer() {
       clearInterval(x);
       return;
     }
+
+    getCurrentTime();
+    getMinutesAway(currentTime, endTime);
+    updateTimer(currentCycle);
+
     if (timerRunning && (minutesAwayRounded === 0)) {
       switchCycles();
       startNewType();
@@ -131,12 +138,6 @@ function switchCycles() {
 }
 
 function startNewType() {
-  resetButton1Element.classList.remove("inactive-element");
-  resetButton2Element.classList.remove("inactive-element");
-
-  resetButton1Element.classList.add("active-element");
-  resetButton2Element.classList.add("active-element");
-
   setTheme(currentCycle);
 
   getStartTime();
@@ -150,42 +151,43 @@ function startNewType() {
 
 function reset() {
 
-  if (timerRunning === true) {
-    resetButton1Element.classList.remove("active-element");
-    resetButton2Element.classList.remove("active-element");
-    resetButton1Element.classList.add("spinit");
-    resetButton2Element.classList.add("spinit");
+  if (timerRunning !== true) return;
+
+  resetButton1Element.classList.remove("active-element");
+  resetButton2Element.classList.remove("active-element");
+  resetButton1Element.classList.add("spinit");
+  resetButton2Element.classList.add("spinit");
 
 
-    setTimeout(function() {
-      resetButton1Element.classList.remove("spinit");
-      resetButton2Element.classList.remove("spinit");
-      resetButton1Element.classList.add("inactive-element");
-      resetButton2Element.classList.add("inactive-element");
-    }, 610);
+  setTimeout(function() {
+    resetButton1Element.classList.remove("spinit");
+    resetButton2Element.classList.remove("spinit");
+    resetButton1Element.classList.add("inactive-element");
+    resetButton2Element.classList.add("inactive-element");
+  }, 610);
 
-    timerRunning = false;
-    minutesAwayRounded = 52;
+  timerRunning = false;
+  minutesAwayRounded = 52;
 
-    updateTitle(null);
+  updateTitle(null);
 
-    shareFab1Element.classList.add("hide-fab");
-    shareFab2Element.classList.add("hide-fab");
+  shareFab1Element.classList.add("hide-fab");
+  shareFab2Element.classList.add("hide-fab");
 
-    timerFab1Element.classList.remove("hide-fab");
-    timerFab2Element.classList.remove("hide-fab");
+  timerFab1Element.classList.remove("hide-fab", "hide");
+  timerFab2Element.classList.remove("hide-fab", "hide");
 
-    if (!timerFab1Element.classList.contains("show-fab") || !timerFab2Element.classList.contains("show-fab")) {
-      timerFab1Element.classList.add("show-fab");
-      timerFab2Element.classList.add("show-fab");
-    }
-    if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
-      pulsingDot1Element.classList.add("hide");
-      pulsingDot2Element.classList.add("hide");
-    }
-
-    setTheme("work");
+  if (!timerFab1Element.classList.contains("show-fab") || !timerFab2Element.classList.contains("show-fab")) {
+    timerFab1Element.classList.add("show-fab");
+    timerFab2Element.classList.add("show-fab");
   }
+  if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
+    pulsingDot1Element.classList.add("hide");
+    pulsingDot2Element.classList.add("hide");
+  }
+
+  setTheme("work");
+
   currentCycle = null;
 }
 
@@ -209,22 +211,6 @@ function setTheme(cycleType) {
       shareFab1Element.classList.remove("show-fab");
       shareFab2Element.classList.remove("show-fab");
     }
-    if (timerFab1Element.classList.contains("hide") || timerFab2Element.classList.contains("hide")) {
-      timerFab1Element.classList.remove("hide");
-      timerFab2Element.classList.remove("hide");
-      timerFab1Element.classList.remove("hide-fab");
-      timerFab2Element.classList.remove("hide-fab");
-      timerFab1Element.classList.add("show-fab");
-      timerFab2Element.classList.add("show-fab");
-    }
-    if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
-      pulsingDot1Element.classList.add("hide");
-      pulsingDot1Element.classList.remove("show-dot");
-      pulsingDot1ContainerElement.classList.remove("pulseStart");
-      pulsingDot2Element.classList.add("hide");
-      pulsingDot2Element.classList.remove("show-dot");
-      pulsingDot2ContainerElement.classList.remove("pulseStart");
-    }
   }
   if (cycleType === "break") {
     chosenBreakMessage = "Time for a break!" + "<br>" + capitalizeFirstLetter(chooseBreakMessage());
@@ -247,22 +233,6 @@ function setTheme(cycleType) {
       shareFab2Element.classList.remove("hide-fab");
       shareFab1Element.classList.remove("hide");
       shareFab2Element.classList.remove("hide");
-    }
-    if (!timerFab1Element.classList.contains("hide") || !timerFab2Element.classList.contains("hide")) {
-      timerFab1Element.classList.add("hide");
-      timerFab2Element.classList.add("hide");
-      timerFab1Element.classList.add("hide-fab");
-      timerFab2Element.classList.add("hide-fab");
-      timerFab1Element.classList.remove("show-fab");
-      timerFab2Element.classList.remove("show-fab");
-    }
-    if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
-      pulsingDot1Element.classList.add("hide");
-      pulsingDot2Element.classList.add("hide");
-      pulsingDot1Element.classList.remove("show-dot");
-      pulsingDot2Element.classList.remove("show-dot");
-      pulsingDot1ContainerElement.classList.remove("pulseStart");
-      pulsingDot2ContainerElement.classList.remove("pulseStart");
     }
     swipeLayer();
   }
@@ -306,17 +276,17 @@ function getCurrentTime() {
 
 function getEndTime(cycleType) {
   if (cycleType === "work") {
-    endTime = new Date(startTime + (worktime * 60000)).getTime();
+    endTime = new Date(startTime + (worktime * second)).getTime();
     placeHolderTime = worktime;
   } else if (cycleType === "break") {
-    endTime = new Date(startTime + (breaktime * 60000)).getTime();
+    endTime = new Date(startTime + (breaktime * second)).getTime();
     placeHolderTime = breaktime;
   }
   return endTime;
 }
 
 function getMinutesAway(now, finish) {
-  minutesAway = (finish - now) / 60000;
+  minutesAway = (finish - now) / second;
   minutesAwayRounded = Math.ceil(minutesAway);
   return minutesAwayRounded;
 }
