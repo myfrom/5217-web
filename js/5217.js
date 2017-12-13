@@ -3,6 +3,18 @@
     Based on 5217 by Francisco Franco
     Developed by Jackson Hayes
 */
+
+/*
+  Constants
+*/
+
+const second = 60000;
+
+const worktime = 52;
+const breaktime = 17;
+
+const originalTitle = document.title;
+
 /*
   Variables
 */
@@ -30,17 +42,10 @@ var notificationBody = {
 
 var chosenBreakMessage;
 
-var minutesAwayRounded = 52;
+var minutesAwayRounded = worktime;
 var frontLayer = "2";
 var backLayer = "1";
 var timerRunning = false;
-
-const second = 60000;
-
-const worktime = 52;
-const breaktime = 17;
-
-const originalTitle = document.title;
 
 /*
   Elements
@@ -114,8 +119,8 @@ function startTimer() {
   var x = setInterval(function() {
     if (!timerRunning) {
       // TODO: Try to animate this down the road
-      hero1Element.innerHTML = 52;
-      hero2Element.innerHTML = 52;
+      hero1Element.innerHTML = worktime;
+      hero2Element.innerHTML = worktime;
 
       clearInterval(x);
       return;
@@ -167,7 +172,7 @@ function reset() {
   }, 610);
 
   timerRunning = false;
-  minutesAwayRounded = 52;
+  minutesAwayRounded = worktime;
 
   updateTitle(null);
 
@@ -258,7 +263,7 @@ function updateTimer(cycleType) {
   if (cycleType === "work") {
     setMinuteColors(currentCycle);
 
-    if (minutesAwayRounded < 52) {
+    if (minutesAwayRounded < worktime) {
       swipeLayer();
     }
   }
