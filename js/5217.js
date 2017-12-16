@@ -3,6 +3,18 @@
     Based on 5217 by Francisco Franco
     Developed by Jackson Hayes
 */
+
+/*
+  Constants
+*/
+
+const second = 60000;
+
+const worktime = 52;
+const breaktime = 17;
+
+const originalTitle = document.title;
+
 /*
   Variables
 */
@@ -19,17 +31,21 @@ var workColors = ["#238aff", "#278cff", "#2c8fff", "#3091ff", "#3493ff", "#3996f
 
 var breakMessages = ["have a cup of tea!", "put your feet up!", "take a deep breath!", "ponder infinity…", "enjoy the moment!", "order a pizza?", "say hi to a stranger!", "take a walk around!", "stand up and stretch!", "grab some coffee!", "strike a pose!", "catch up on reading!", "have a brainstorm!", "clean your junk drawer!", "have a daydream!", "share your progress!", "clear your mind!", "meditate!", "just relax!", "find a good playlist!", "rest your eyes!", "stretch your legs!", "think of a joke!", "make a quick call!", "read a listicle!", "have a snack!", "play a quick game!", "consider the universe!", "watch a funny video!", "treat yo self!", "… have a KitKat!", "tweet the world!", "tell someone you love 'em"];
 
+var notificationTitle = {
+  "break": "Time for a break",
+  "work": "Keep working!",
+};
+var notificationBody = {
+  "break": " minutes left - ",
+  "work": " minutes left in this cycle",
+}
+
 var chosenBreakMessage;
 
-var minutesAwayRounded = 52;
+var minutesAwayRounded = worktime;
 var frontLayer = "2";
 var backLayer = "1";
 var timerRunning = false;
-
-const worktime = 52;
-const breaktime = 17;
-
-const originalTitle = document.title;
 
 /*
   Elements
@@ -73,19 +89,23 @@ function startTimer() {
 
   startNewType();
 
-  /* Animate FAB out */
-  timerFab1Element.classList.add("hide-fab");
-  timerFab1Element.classList.remove("show-fab");
   setTimeout(function() {
+    /* Animate FAB out */
     timerFab1Element.classList.add("hide");
-  }, 200);
-
-  /* Animate FAB out */
-  timerFab2Element.classList.add("hide-fab");
-  timerFab2Element.classList.remove("show-fab");
-  setTimeout(function() {
     timerFab2Element.classList.add("hide");
   }, 200);
+
+  resetButton1Element.classList.remove("inactive-element");
+  resetButton2Element.classList.remove("inactive-element");
+
+  resetButton1Element.classList.add("active-element");
+  resetButton2Element.classList.add("active-element");
+
+  timerFab1Element.classList.add("hide-fab");
+  timerFab1Element.classList.remove("show-fab");
+
+  timerFab2Element.classList.add("hide-fab");
+  timerFab2Element.classList.remove("show-fab");
 
   /* Animate Pulsing Dot in */
   pulsingDot1Element.classList.remove("hide");
@@ -97,18 +117,19 @@ function startTimer() {
   pulsingDot2ContainerElement.classList.add("pulseStart");
 
   var x = setInterval(function() {
-    getCurrentTime();
-    getMinutesAway(currentTime, endTime);
-    updateTimer(currentCycle);
-
     if (!timerRunning) {
       // TODO: Try to animate this down the road
-      hero1Element.innerHTML = 52;
-      hero2Element.innerHTML = 52;
+      hero1Element.innerHTML = worktime;
+      hero2Element.innerHTML = worktime;
 
       clearInterval(x);
       return;
     }
+
+    getCurrentTime();
+    getMinutesAway(currentTime, endTime);
+    updateTimer(currentCycle);
+
     if (timerRunning && (minutesAwayRounded === 0)) {
       switchCycles();
       startNewType();
@@ -122,12 +143,6 @@ function switchCycles() {
 }
 
 function startNewType() {
-  resetButton1Element.classList.remove("inactive-element");
-  resetButton2Element.classList.remove("inactive-element");
-
-  resetButton1Element.classList.add("active-element");
-  resetButton2Element.classList.add("active-element");
-
   setTheme(currentCycle);
 
   getStartTime();
@@ -141,42 +156,43 @@ function startNewType() {
 
 function reset() {
 
-  if (timerRunning === true) {
-    resetButton1Element.classList.remove("active-element");
-    resetButton2Element.classList.remove("active-element");
-    resetButton1Element.classList.add("spinit");
-    resetButton2Element.classList.add("spinit");
+  if (timerRunning !== true) return;
+
+  resetButton1Element.classList.remove("active-element");
+  resetButton2Element.classList.remove("active-element");
+  resetButton1Element.classList.add("spinit");
+  resetButton2Element.classList.add("spinit");
 
 
-    setTimeout(function() {
-      resetButton1Element.classList.remove("spinit");
-      resetButton2Element.classList.remove("spinit");
-      resetButton1Element.classList.add("inactive-element");
-      resetButton2Element.classList.add("inactive-element");
-    }, 610);
+  setTimeout(function() {
+    resetButton1Element.classList.remove("spinit");
+    resetButton2Element.classList.remove("spinit");
+    resetButton1Element.classList.add("inactive-element");
+    resetButton2Element.classList.add("inactive-element");
+  }, 610);
 
-    timerRunning = false;
-    minutesAwayRounded = 52;
+  timerRunning = false;
+  minutesAwayRounded = worktime;
 
-    updateTitle(null);
+  updateTitle(null);
 
-    shareFab1Element.classList.add("hide-fab");
-    shareFab2Element.classList.add("hide-fab");
+  shareFab1Element.classList.add("hide-fab");
+  shareFab2Element.classList.add("hide-fab");
 
-    timerFab1Element.classList.remove("hide-fab");
-    timerFab2Element.classList.remove("hide-fab");
+  timerFab1Element.classList.remove("hide-fab", "hide");
+  timerFab2Element.classList.remove("hide-fab", "hide");
 
-    if (!timerFab1Element.classList.contains("show-fab") || !timerFab2Element.classList.contains("show-fab")) {
-      timerFab1Element.classList.add("show-fab");
-      timerFab2Element.classList.add("show-fab");
-    }
-    if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
-      pulsingDot1Element.classList.add("hide");
-      pulsingDot2Element.classList.add("hide");
-    }
-
-    setTheme("work");
+  if (!timerFab1Element.classList.contains("show-fab") || !timerFab2Element.classList.contains("show-fab")) {
+    timerFab1Element.classList.add("show-fab");
+    timerFab2Element.classList.add("show-fab");
   }
+  if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
+    pulsingDot1Element.classList.add("hide");
+    pulsingDot2Element.classList.add("hide");
+  }
+
+  setTheme("work");
+
   currentCycle = null;
 }
 
@@ -200,22 +216,6 @@ function setTheme(cycleType) {
       shareFab1Element.classList.remove("show-fab");
       shareFab2Element.classList.remove("show-fab");
     }
-    if (timerFab1Element.classList.contains("hide") || timerFab2Element.classList.contains("hide")) {
-      timerFab1Element.classList.remove("hide");
-      timerFab2Element.classList.remove("hide");
-      timerFab1Element.classList.remove("hide-fab");
-      timerFab2Element.classList.remove("hide-fab");
-      timerFab1Element.classList.add("show-fab");
-      timerFab2Element.classList.add("show-fab");
-    }
-    if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
-      pulsingDot1Element.classList.add("hide");
-      pulsingDot1Element.classList.remove("show-dot");
-      pulsingDot1ContainerElement.classList.remove("pulseStart");
-      pulsingDot2Element.classList.add("hide");
-      pulsingDot2Element.classList.remove("show-dot");
-      pulsingDot2ContainerElement.classList.remove("pulseStart");
-    }
   }
   if (cycleType === "break") {
     chosenBreakMessage = "Time for a break!" + "<br>" + capitalizeFirstLetter(chooseBreakMessage());
@@ -238,22 +238,6 @@ function setTheme(cycleType) {
       shareFab2Element.classList.remove("hide-fab");
       shareFab1Element.classList.remove("hide");
       shareFab2Element.classList.remove("hide");
-    }
-    if (!timerFab1Element.classList.contains("hide") || !timerFab2Element.classList.contains("hide")) {
-      timerFab1Element.classList.add("hide");
-      timerFab2Element.classList.add("hide");
-      timerFab1Element.classList.add("hide-fab");
-      timerFab2Element.classList.add("hide-fab");
-      timerFab1Element.classList.remove("show-fab");
-      timerFab2Element.classList.remove("show-fab");
-    }
-    if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
-      pulsingDot1Element.classList.add("hide");
-      pulsingDot2Element.classList.add("hide");
-      pulsingDot1Element.classList.remove("show-dot");
-      pulsingDot2Element.classList.remove("show-dot");
-      pulsingDot1ContainerElement.classList.remove("pulseStart");
-      pulsingDot2ContainerElement.classList.remove("pulseStart");
     }
     swipeLayer();
   }
@@ -279,7 +263,7 @@ function updateTimer(cycleType) {
   if (cycleType === "work") {
     setMinuteColors(currentCycle);
 
-    if (minutesAwayRounded < 52) {
+    if (minutesAwayRounded < worktime) {
       swipeLayer();
     }
   }
@@ -297,17 +281,17 @@ function getCurrentTime() {
 
 function getEndTime(cycleType) {
   if (cycleType === "work") {
-    endTime = new Date(startTime + (worktime * 60000)).getTime();
+    endTime = new Date(startTime + (worktime * second)).getTime();
     placeHolderTime = worktime;
   } else if (cycleType === "break") {
-    endTime = new Date(startTime + (breaktime * 60000)).getTime();
+    endTime = new Date(startTime + (breaktime * second)).getTime();
     placeHolderTime = breaktime;
   }
   return endTime;
 }
 
 function getMinutesAway(now, finish) {
-  minutesAway = (finish - now) / 60000;
+  minutesAway = (finish - now) / second;
   minutesAwayRounded = Math.ceil(minutesAway);
   return minutesAwayRounded;
 }
@@ -419,36 +403,35 @@ function checkIfMobile() {
   }
 }
 
-function notify(type, remainingMinutes) {
+function notify(type, minutes) {
+  showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
+}
+
+function showNotification(type, title, body) {
   if (!checkIfMobile()) {
-    if (type === "break") {
-      if (Notification.permission !== "granted") {
-        Notification.requestPermission();
-      } else {
-        var options = {
-          icon: 'images/icon.png',
-          body: remainingMinutes + " minutes left - " + chooseBreakMessage(),
-        };
-        var notification = new Notification('Time for a break', options);
-        notification.onclick = function() {
-          window.focus();
-          notification.close();
-        }
-      }
-    } else if (type === "work") {
-      if (Notification.permission !== "granted") {
-        Notification.requestPermission();
-      } else {
-        var options = {
-          icon: 'images/icon.png',
-          body: remainingMinutes + " minutes left in this cycle",
-        };
-        var notification = new Notification('Keep working!', options);
-        notification.onclick = function() {
-          window.focus();
-          notification.close();
-        }
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    } else {
+      var options = {
+        icon: 'images/icon.png',
+        body: body,
+      };
+      var notification = new Notification(title, options);
+      notification.onclick = function () {
+        window.focus();
+        notification.close();
       }
     }
   }
 }
+
+function getNotificationBody(type, remainingMinutes) {
+  if (type === "break") {
+    return remainingMinutes + notificationBody[type] + chooseBreakMessage();
+  } else if (type === "work") {
+    return remainingMinutes + notificationBody[type];
+  } else if (type === "unpaused") {
+    return remainingMinutes + notificationBody[type];
+  }
+}
+
