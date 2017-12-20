@@ -53,56 +53,14 @@
 <body>
   <div id="layer1div">
     <div class="row">
-      <div class="valign-wrapper">
-        <div class="col s12 center" style="margin-top: 50px;">
-              <p id="breakMessage1">This is a break message.</p>
-        </div>
-      </div>
-    </div>
-    <div class="row">
       <div class="container">
         <div class="col s12 center" style="margin-top: 80px;">
           <p id="heroNumber1">52</p>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="container">
-        <div class="col s12">
-          <div class="fixed-action-btn threeDots">
-            <a class="material-icons dropdown-button modal-trigger" id="moreButton1" href="#about-modal">info_outline</a>
-          </div>
-
-          <div class="fixed-action-btn">
-            <button class="mdc-fab material-icons" id="timerfab1" aria-label="Start">
-              <img class="fabicon fabimage" src="images/ic_5217.svg" alt="5217 icon">
-            </button>
-
-            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.franco.timer&text=5217%20is%20an%20amazing%20app%20for%20productivity%21%20Try%20it%20today%21&hashtags=%235217" rel="noopener noreferrer" target="_blank">
-              <button class="mdc-fab material-icons hide" id="sharefab1">
-              <span class="mdc-fab__icon fabiconshare">
-                share
-              </span>
-            </button></a>
-          </div>
-          <div id="pulsingDotContainer1">
-            <div class="hide fixed-action-btn" id="pulsingDot1"></div>
-          </div>
-          <div class="fixed-action-btn killButton">
-            <i class="material-icons inactive-element" id="resetButton1">settings_backup_restore</i>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <div id="layer2div">
-    <div class="row">
-      <div class="valign-wrapper">
-        <div class="col s12 center" style="margin-top: 50px;">
-              <p id="breakMessage2">This is a break message.</p>
-        </div>
-      </div>
-    </div>
     <div class="row">
       <div class="container">
         <div class="col s12 center" style="margin-top: 80px;">
@@ -110,34 +68,39 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div id="uidiv">
     <div class="row">
       <div class="container">
         <div class="col s12">
           <div class="fixed-action-btn threeDots">
-            <i class="material-icons dropdown-button modal-trigger" id="moreButton2">info_outline</i>
+            <a class="material-icons dropdown-button modal-trigger" id="moreButton" href="#about-moda">info_outline</a>
           </div>
+
           <div class="fixed-action-btn">
-            <button class="mdc-fab material-icons" id="timerfab2" aria-label="Start">
+            <button class="mdc-fab material-icons" id="timerfab" aria-label="Start">
               <img class="fabicon fabimage" src="images/ic_5217.svg" alt="5217 icon">
             </button>
 
-            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.franco.timer&text=5217%20is%20an%20amazing%20app%20for%20productivity%21%20Try%20it%20today%21&hashtags=%235217" rel="noopener noreferrer" target="_blank"><button class="mdc-fab material-icons hide" id="sharefab2">
-                        <span class="mdc-fab__icon fabiconshare">
-                            share
-                        </span>
-                    </button></a>
+            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.franco.timer&text=5217%20is%20an%20amazing%20app%20for%20productivity%21%20Try%20it%20today%21&hashtags=%235217" rel="noopener noreferrer" target="_blank">
+              <button class="mdc-fab material-icons hide" id="sharefab">
+              <span class="mdc-fab__icon fabiconshare">
+                share
+              </span>
+            </button></a>
           </div>
-
-          <div id="pulsingDotContainer2">
-            <div class="hide fixed-action-btn" id="pulsingDot2"></div>
+          <div id="pulsingDotContainer">
+            <div class="hide fixed-action-btn" id="pulsingDot"></div>
           </div>
           <div class="fixed-action-btn killButton">
-            <i class="material-icons inactive-element" id="resetButton2">settings_backup_restore</i>
+            <i class="material-icons inactive-element" id="resetButton">settings_backup_restore</i>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <aside id="my-mdc-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="my-mdc-dialog-label" aria-describedby="my-mdc-dialog-description">
     <div class="mdc-dialog__surface">
       <header class="mdc-dialog__header">
@@ -187,11 +150,7 @@
       console.log('canceled');
     })
 
-    document.querySelector('#moreButton1').addEventListener('click', function(evt) {
-      dialog.lastFocusedTarget = evt.target;
-      dialog.show();
-    })
-    document.querySelector('#moreButton2').addEventListener('click', function(evt) {
+    document.querySelector('#moreButton').addEventListener('click', function(evt) {
       dialog.lastFocusedTarget = evt.target;
       dialog.show();
     })

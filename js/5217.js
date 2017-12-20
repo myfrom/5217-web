@@ -51,24 +51,18 @@ var timerRunning = false;
   Elements
 */
 
-var timerFab1Element = document.getElementById("timerfab1");
-var resetButton1Element = document.getElementById("resetButton1");
-var timerFab2Element = document.getElementById("timerfab2");
-var resetButton2Element = document.getElementById("resetButton2");
-var pulsingDot1Element = document.getElementById("pulsingDot1");
-var pulsingDot1ContainerElement = document.getElementById("pulsingDotContainer1");
-var pulsingDot2Element = document.getElementById("pulsingDot2");
-var pulsingDot2ContainerElement = document.getElementById("pulsingDotContainer2");
+var timerFab1Element = document.getElementById("timerfab");
+var resetButton1Element = document.getElementById("resetButton");
+var pulsingDot1Element = document.getElementById("pulsingDot");
+var pulsingDot1ContainerElement = document.getElementById("pulsingDotContainer");
 var hero1Element = document.getElementById("heroNumber1");
 var hero2Element = document.getElementById("heroNumber2");
-var shareFab1Element = document.getElementById("sharefab1");
-var shareFab2Element = document.getElementById("sharefab2");
-var moreButton1Element = document.getElementById("moreButton1");
-var moreButton2Element = document.getElementById("moreButton2");
+var shareFab1Element = document.getElementById("sharefab");
+var moreButton1Element = document.getElementById("moreButton");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
-var breakMessage1Element = document.getElementById("breakMessage1");
-var breakMessage2Element = document.getElementById("breakMessage2");
+/* var breakMessage1Element = document.getElementById("breakMessage1");
+var breakMessage2Element = document.getElementById("breakMessage2"); */
 
 
 /*
@@ -78,8 +72,6 @@ var breakMessage2Element = document.getElementById("breakMessage2");
 // An event listener must be added for both copies of the elements, as there are two.
 timerFab1Element.addEventListener("click", startTimer);
 resetButton1Element.addEventListener("click", reset);
-timerFab2Element.addEventListener("click", startTimer);
-resetButton2Element.addEventListener("click", reset);
 /*
   Functions
 */
@@ -92,29 +84,19 @@ function startTimer() {
   setTimeout(function() {
     /* Animate FAB out */
     timerFab1Element.classList.add("hide");
-    timerFab2Element.classList.add("hide");
   }, 200);
 
   resetButton1Element.classList.remove("inactive-element");
-  resetButton2Element.classList.remove("inactive-element");
 
   resetButton1Element.classList.add("active-element");
-  resetButton2Element.classList.add("active-element");
 
   timerFab1Element.classList.add("hide-fab");
   timerFab1Element.classList.remove("show-fab");
-
-  timerFab2Element.classList.add("hide-fab");
-  timerFab2Element.classList.remove("show-fab");
 
   /* Animate Pulsing Dot in */
   pulsingDot1Element.classList.remove("hide");
   pulsingDot1Element.classList.add("show-dot");
   pulsingDot1ContainerElement.classList.add("pulseStart");
-
-  pulsingDot2Element.classList.remove("hide");
-  pulsingDot2Element.classList.add("show-dot");
-  pulsingDot2ContainerElement.classList.add("pulseStart");
 
   var x = setInterval(function() {
     if (!timerRunning) {
@@ -159,16 +141,12 @@ function reset() {
   if (timerRunning !== true) return;
 
   resetButton1Element.classList.remove("active-element");
-  resetButton2Element.classList.remove("active-element");
   resetButton1Element.classList.add("spinit");
-  resetButton2Element.classList.add("spinit");
 
 
   setTimeout(function() {
     resetButton1Element.classList.remove("spinit");
-    resetButton2Element.classList.remove("spinit");
     resetButton1Element.classList.add("inactive-element");
-    resetButton2Element.classList.add("inactive-element");
   }, 610);
 
   timerRunning = false;
@@ -177,18 +155,14 @@ function reset() {
   updateTitle(null);
 
   shareFab1Element.classList.add("hide-fab");
-  shareFab2Element.classList.add("hide-fab");
 
   timerFab1Element.classList.remove("hide-fab", "hide");
-  timerFab2Element.classList.remove("hide-fab", "hide");
 
-  if (!timerFab1Element.classList.contains("show-fab") || !timerFab2Element.classList.contains("show-fab")) {
+  if (!timerFab1Element.classList.contains("show-fab")) {
     timerFab1Element.classList.add("show-fab");
-    timerFab2Element.classList.add("show-fab");
   }
-  if (!pulsingDot1Element.classList.contains("hide") || !pulsingDot2Element.classList.contains("hide")) {
+  if (!pulsingDot1Element.classList.contains("hide")) {
     pulsingDot1Element.classList.add("hide");
-    pulsingDot2Element.classList.add("hide");
   }
 
   setTheme("work");
@@ -204,17 +178,12 @@ function setTheme(cycleType) {
     resetButton1Element.style.color = "#ffffff";
     moreButton1Element.style.color = "#ffffff";
     hero2Element.style.color = "#ffffff";
-    resetButton2Element.style.color = "#ffffff";
-    moreButton2Element.style.color = "#ffffff";
     layer2DivElement.style.backgroundColor = "#237aff";
     layer1DivElement.style.backgroundColor = "#237aff";
-    if (shareFab1Element.classList.contains("show-fab") || shareFab2Element.classList.contains("show-fab")) {
+    if (shareFab1Element.classList.contains("show-fab")) {
       shareFab1Element.classList.add("hide-fab");
       shareFab1Element.classList.add("hide");
-      shareFab2Element.classList.add("hide-fab");
-      shareFab2Element.classList.add("hide");
       shareFab1Element.classList.remove("show-fab");
-      shareFab2Element.classList.remove("show-fab");
     }
   }
   if (cycleType === "break") {
@@ -227,17 +196,12 @@ function setTheme(cycleType) {
     resetButton1Element.style.color = "#237aff";
     moreButton1Element.style.color = "#237aff";
     hero2Element.style.color = "#237aff";
-    resetButton2Element.style.color = "#237aff";
-    moreButton2Element.style.color = "#237aff";
     layer2DivElement.style.backgroundColor = "#ffffff";
     layer1DivElement.style.backgroundColor = "#ffffff";
-    if (!shareFab1Element.classList.contains("show-fab") || !shareFab2Element.classList.contains("show-fab")) {
+    if (!shareFab1Element.classList.contains("show-fab")) {
       shareFab1Element.classList.add("show-fab");
-      shareFab2Element.classList.add("show-fab");
       shareFab1Element.classList.remove("hide-fab");
-      shareFab2Element.classList.remove("hide-fab");
       shareFab1Element.classList.remove("hide");
-      shareFab2Element.classList.remove("hide");
     }
     swipeLayer();
   }
@@ -321,8 +285,6 @@ function setMinuteColors(cycleType) {
     hero2Element.style.color = "#237aff";
     resetButton1Element.style.color = "#237aff";
     moreButton1Element.style.color = "#237aff";
-    resetButton2Element.style.color = "#237aff";
-    moreButton2Element.style.color = "#237aff";
 
   }
 }
@@ -434,4 +396,3 @@ function getNotificationBody(type, remainingMinutes) {
     return remainingMinutes + notificationBody[type];
   }
 }
-
