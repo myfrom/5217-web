@@ -51,13 +51,13 @@ var timerRunning = false;
   Elements
 */
 
-var timerFab1Element = document.getElementById("timerfab");
-var resetButton1Element = document.getElementById("resetButton");
-var pulsingDot1Element = document.getElementById("pulsingDot");
+var timerFab1Element = document.getElementById("timerfab1");
+var resetButton1Element = document.getElementById("resetButton1");
+var pulsingDot1Element = document.getElementById("pulsingDot1");
 var pulsingDot1ContainerElement = document.getElementById("pulsingDotContainer");
 var hero1Element = document.getElementById("heroNumber1");
 var hero2Element = document.getElementById("heroNumber2");
-var shareFab1Element = document.getElementById("sharefab");
+var shareFab1Element = document.getElementById("sharefab1");
 var moreButton1Element = document.getElementById("moreButton");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
@@ -172,8 +172,8 @@ function reset() {
 
 function setTheme(cycleType) {
   if (cycleType === "work") {
-    breakMessage1Element.style.visibility = "hidden";
-    breakMessage2Element.style.visibility = "hidden";
+    // breakMessage1Element.style.visibility = "hidden";
+    // breakMessage2Element.style.visibility = "hidden";
     hero1Element.style.color = "#ffffff";
     resetButton1Element.style.color = "#ffffff";
     moreButton1Element.style.color = "#ffffff";
@@ -187,11 +187,11 @@ function setTheme(cycleType) {
     }
   }
   if (cycleType === "break") {
-    chosenBreakMessage = "Time for a break!" + "<br>" + capitalizeFirstLetter(chooseBreakMessage());
-    breakMessage1Element.innerHTML = chosenBreakMessage;
-    breakMessage2Element.innerHTML = chosenBreakMessage;
-    breakMessage1Element.style.visibility = "visible";
-    breakMessage2Element.style.visibility = "visible";
+    // chosenBreakMessage = "Time for a break!" + "<br>" + capitalizeFirstLetter(chooseBreakMessage());
+    // breakMessage1Element.innerHTML = chosenBreakMessage;
+    // breakMessage2Element.innerHTML = chosenBreakMessage;
+    // breakMessage1Element.style.visibility = "visible";
+    // breakMessage2Element.style.visibility = "visible";
     hero1Element.style.color = "#237aff";
     resetButton1Element.style.color = "#237aff";
     moreButton1Element.style.color = "#237aff";
