@@ -116,7 +116,7 @@ function startTimer() {
       switchCycles();
       startNewType();
     }
-  }, 10);
+  }, 1000);
 
 }
 
@@ -208,8 +208,19 @@ function setTheme(cycleType) {
 }
 
 function updateTimer(cycleType) {
-  hero1Element.innerHTML = minutesAwayRounded;
-  hero2Element.innerHTML = minutesAwayRounded;
+  getLayerOrder();
+  if (f === 2) {
+    hero1Element.innerHTML = minutesAwayRounded;
+    setTimeout(function() {
+      hero2Element.innerHTML = minutesAwayRounded;
+    }, 520);
+  } else if (f === 1) {
+    hero2Element.innerHTML = minutesAwayRounded;
+    setTimeout(function() {
+      hero1Element.innerHTML = minutesAwayRounded;
+    }, 520);
+  }
+
   // Run notification at 51 mins
   if (placeHolderTime === minutesAwayRounded) return;
 
