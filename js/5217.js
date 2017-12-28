@@ -65,8 +65,7 @@ var notificationToggleElement = document.getElementById("notificationSwitch");
 var soundToggleElement = document.getElementById("soundSwitch");
 var notification;
 var sound;
-notificationCookie();
-soundCookie();
+setCookies();
 /* var breakMessage1Element = document.getElementById("breakMessage1");
 var breakMessage2Element = document.getElementById("breakMessage2"); */
 
@@ -81,7 +80,7 @@ resetButton1Element.addEventListener("click", reset);
 /*
   Functions
 */
-function notificationCookie() {
+function setCookies() {
   if (Cookies.get('notification')===undefined) {
     Cookies.set('notification', 'true');
   }
@@ -91,8 +90,6 @@ function notificationCookie() {
     notificationToggleElement.attributes.setNamedItem(h);
   }
   console.log("Notification is set to " + notification);
-}
-function soundCookie() {
   if (Cookies.get('sound')===undefined) {
     Cookies.set('sound', 'false');
   }
@@ -104,35 +101,11 @@ function soundCookie() {
   console.log("Sound is set to: " + sound);
 }
 
-
-// function cookieStuff() {
-//   if (cookie === undefined) {
-//     cookie = "notification=true;sound=false;";
-//   }
-//   var sound = cookie.getCookie("sound");
-//   if (notification === "" || notification === null) {
-//     cookie = cookie + "notification=true";
-//   }
-//   if (sound === "" || sound === null) {
-//     cookie = cookie + "sound=false";
-//   }
-//   if (notification != "" && notification != undefined && notification === "true") {
-//     var h = document.createAttribute("checked");
-//     notificationToggleElement.attributes.setNamedItem(h);
-//   }
-//   if (sound != "" && sound === "true") {
-//     var s = document.createAttribute("checked");
-//     soundToggleElement.attributes.setNamedItem(s);
-//   }
-// }
-
 function saveSettings() {
   var notificationSetting = notificationToggleElement.checked;
   var soundSetting = soundToggleElement.checked;
   Cookies.set('notification', notificationSetting);
   Cookies.set('sound', soundSetting);
-  console.log(document.cookie);
-
 }
 
 
