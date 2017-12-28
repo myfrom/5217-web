@@ -177,6 +177,7 @@ a {
 }
 .mdc-simple-menu {
   margin-bottom: 32px;
+  z-index: 1000;
 }
 
 /* Diable highlighting of FAB & buttons on mobile */
