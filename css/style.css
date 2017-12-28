@@ -91,7 +91,6 @@ body {
   left: 0px;
   z-index: -1;
 }
-
 #layer2div {
   background-color: #237aff;
   min-height: 100vh;
@@ -108,14 +107,12 @@ body {
   top: 0px;
   left: 0px;
 }
-
 #backgroundbcontainer {
   z-index: -2;
   position: absolute;
   top: 0px;
   left: 0px;
 }
-
 #backgroundb {
   background-color: #267dff;
   min-height: 100vh;
@@ -160,18 +157,19 @@ body {
 #timerfab1 {
   background-color: #96ffbb;
 }
+
 .alphaversion {
   font-family: 'Dosis', sans-serif;
   font-weight: 200;
   color: black;
 }
+
 a {
   color: var(--mdc-theme-primary);
 }
 * {
   --mdc-theme-primary: #237aff !important;
 }
-
 
 /* Diable highlighting of FAB & buttons on mobile */
 
