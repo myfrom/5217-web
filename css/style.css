@@ -8,7 +8,6 @@
 body {
   min-height: 100vh;
   overflow-y: hidden;
-  overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -169,6 +168,12 @@ a {
 }
 * {
   --mdc-theme-primary: #237aff !important;
+}
+.mdc-menu-anchor {
+  position: absolute !important;
+  left: calc(35% - 28px);
+  bottom: 35px;
+  padding-bottom: 18px;
 }
 
 /* Diable highlighting of FAB & buttons on mobile */
