@@ -183,8 +183,7 @@ a {
   margin-right: 36px !important;
 }
 .switch label input[type=checkbox]:checked+.lever {
-    background-color: #237aff !important;
-    opacity: 0.8;
+    background-color: #419aff !important;
 }
 .switch label input[type=checkbox]:checked+.lever:after {
     background-color: #237aff !important;

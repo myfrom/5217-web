@@ -61,6 +61,12 @@ var shareFab1Element = document.getElementById("sharefab1");
 var moreButton1Element = document.getElementById("moreButton1");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
+var notificationToggleElement = document.getElementById("notificationSwitch");
+var soundToggleElement = document.getElementById("soundSwitch");
+var notification;
+var sound;
+notificationCookie();
+soundCookie();
 /* var breakMessage1Element = document.getElementById("breakMessage1");
 var breakMessage2Element = document.getElementById("breakMessage2"); */
 
@@ -75,6 +81,61 @@ resetButton1Element.addEventListener("click", reset);
 /*
   Functions
 */
+function notificationCookie() {
+  if (Cookies.get('notification')===undefined) {
+    Cookies.set('notification', 'true');
+  }
+  notification = Cookies.get('notification');
+  if (notification != "" && notification != undefined && notification === "true") {
+    var h = document.createAttribute("checked");
+    notificationToggleElement.attributes.setNamedItem(h);
+  }
+  console.log("Notification is set to " + notification);
+}
+function soundCookie() {
+  if (Cookies.get('sound')===undefined) {
+    Cookies.set('sound', 'false');
+  }
+  sound = Cookies.get('sound');
+  if (sound != "" && sound != undefined && sound === "true") {
+    var v = document.createAttribute("checked");
+    soundToggleElement.attributes.setNamedItem(v);
+  }
+  console.log("Sound is set to: " + sound);
+}
+
+
+// function cookieStuff() {
+//   if (cookie === undefined) {
+//     cookie = "notification=true;sound=false;";
+//   }
+//   var sound = cookie.getCookie("sound");
+//   if (notification === "" || notification === null) {
+//     cookie = cookie + "notification=true";
+//   }
+//   if (sound === "" || sound === null) {
+//     cookie = cookie + "sound=false";
+//   }
+//   if (notification != "" && notification != undefined && notification === "true") {
+//     var h = document.createAttribute("checked");
+//     notificationToggleElement.attributes.setNamedItem(h);
+//   }
+//   if (sound != "" && sound === "true") {
+//     var s = document.createAttribute("checked");
+//     soundToggleElement.attributes.setNamedItem(s);
+//   }
+// }
+
+function saveSettings() {
+  var notificationSetting = notificationToggleElement.checked;
+  var soundSetting = soundToggleElement.checked;
+  Cookies.set('notification', notificationSetting);
+  Cookies.set('sound', soundSetting);
+  console.log(document.cookie);
+
+}
+
+
 function startTimer() {
   currentCycle = "work";
   timerRunning = true;

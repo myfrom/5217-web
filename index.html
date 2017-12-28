@@ -125,7 +125,7 @@
             Notification
             <div class="switch mdc-list-item__end-detail">
               <label>
-                <input type="checkbox" onchange="console.log('Notification ' + this.checked)">
+                <input type="checkbox" onchange="console.log('Notification ' + this.checked)" id="notificationSwitch">
                 <span class="lever"></span>
               </label>
             </div>
@@ -135,7 +135,7 @@
             Sound
             <div class="switch mdc-list-item__end-detail">
               <label>
-                <input type="checkbox" onchange="console.log('Sound ' + this.checked)">
+                <input type="checkbox" onchange="console.log('Sound ' + this.checked)" id="soundSwitch">
                 <span class="lever"></span>
               </label>
             </div>
@@ -175,6 +175,8 @@
     <div class="mdc-dialog__backdrop"></div>
   </aside>
   <!--Import jQuery before materialize.js-->
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script type="text/javascript" src="js/5217.js"></script>
@@ -197,7 +199,7 @@
     })
 
     aboutDialog.listen('MDCDialog:cancel', function() {
-      console.log('canceled');
+      console.log('bug');
     })
 
      document.querySelector('#about-dialog-trigger').addEventListener('click', function(evt) {
@@ -206,7 +208,7 @@
      })
 
      settingsDialog.listen('MDCDialog:accept', function() {
-       console.log('accepted');
+       saveSettings();
      })
 
      settingsDialog.listen('MDCDialog:cancel', function() {
