@@ -163,7 +163,7 @@ body {
   font-weight: 200;
   color: black;
 }
-
+.bob {margin-right: 10px;}
 a {
   color: var(--mdc-theme-primary);
 }
@@ -179,7 +179,9 @@ a {
   margin-bottom: 32px;
   z-index: 1000;
 }
-
+.mdc-list-item__end-detail {
+  margin-right: 36px !important;
+}
 /* Diable highlighting of FAB & buttons on mobile */
 
 .timerfab, .sharefab, .killButton, .moreButton {
@@ -188,7 +190,7 @@ a {
 
 /* Increase visibility (font weight & size) of main text of modal */
 
-#my-mdc-dialog-description {
+#about-dialog-description {
   font-weight: 500 !important;
   font-size: 1rem !important;
 }

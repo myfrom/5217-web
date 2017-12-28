@@ -120,18 +120,32 @@
         </h2>
       </header>
       <section id="settings-dialog-description" class="mdc-dialog__body">
-        5217 is a simple productivity timer based on 52/17 work cycle described by <i>the muse</i> <a rel="noopener noreferrer" target="_blank" href="https://www.themuse.com/advice/the-rule-of-52-and-17-its-random-but-it-ups-your-productivity">here</a>.
-        <br>
-        <br>Designed with care by <a rel="noopener noreferrer" target="_blank" href="https://www.liamspradlin.com/">Liam Spradlin</a>
-        <br>Android app magically developed by <a rel="noopener noreferrer" target="_blank" href="https://twitter.com/franciscof_1990">Francisco Franco</a>
-        <br>Web app enthusiastically coded by <a rel="noopener noreferrer" target="_blank" href="https://jacksonhayes.me">Jackson Hayes</a>
-        <br>
-        <br>Get the Android app <a href="https://play.google.com/store/apps/details?id=com.franco.timer" rel="noopener noreferrer" target="_blank">here</a>.
-        <br><br><div id="testingcontainer"><a href="https://medium.com/@jacksonhvisuals/a-bit-about-5217-web-3924679d65d2" rel="noopener noreferrer" target="_blank"><span>alpha version 0.1.8</span></a></div>
+        <ul class="mdc-list">
+          <li class="mdc-list-item">
+            Notification
+            <div class="switch mdc-list-item__end-detail">
+              <label>
+                <input type="checkbox" onchange="console.log('Notification ' + this.checked)">
+                <span class="lever"></span>
+              </label>
+            </div>
+
+          </li>
+          <li class="mdc-list-item">
+            Sound
+            <div class="switch mdc-list-item__end-detail">
+              <label>
+                <input type="checkbox" onchange="console.log('Sound ' + this.checked)">
+                <span class="lever"></span>
+              </label>
+            </div>
+
+          </li>
+          </ul>
       </section>
       <footer class="mdc-dialog__footer">
-        <a class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel" href="https://github.com/jacksonhvisuals/5217-web/issues" rel="noopener noreferrer" target="_blank">Report a bug</a>
-        <a class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Gotcha</a>
+        <a class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Cancel</a>
+        <a class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Save</a>
       </footer>
     </div>
     <div class="mdc-dialog__backdrop"></div>
