@@ -182,6 +182,14 @@ a {
 .mdc-list-item__end-detail {
   margin-right: 36px !important;
 }
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: #237aff !important;
+    opacity: 0.8;
+}
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #237aff !important;
+
+}
 /* Diable highlighting of FAB & buttons on mobile */
 
 .timerfab, .sharefab, .killButton, .moreButton {
