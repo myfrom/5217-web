@@ -58,7 +58,7 @@ var pulsingDot1ContainerElement = document.getElementById("pulsingDotContainer")
 var hero1Element = document.getElementById("heroNumber1");
 var hero2Element = document.getElementById("heroNumber2");
 var shareFab1Element = document.getElementById("sharefab1");
-var moreButton1Element = document.getElementById("moreButton1");
+var moreButton1Element = document.getElementById("moreButton");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
 var notificationToggleElement = document.getElementById("notificationSwitch");
@@ -84,21 +84,24 @@ function setCookies() {
   if (Cookies.get('notification')===undefined) {
     Cookies.set('notification', 'true');
   }
-  notification = Cookies.get('notification');
-  if (notification != "" && notification != undefined && notification === "true") {
-    var h = document.createAttribute("checked");
-    notificationToggleElement.attributes.setNamedItem(h);
-  }
-  console.log("Notification is set to " + notification);
   if (Cookies.get('sound')===undefined) {
     Cookies.set('sound', 'false');
   }
+  notification = Cookies.get('notification');
   sound = Cookies.get('sound');
-  if (sound != "" && sound != undefined && sound === "true") {
+  if (notification === "true") {
+    var h = document.createAttribute("checked");
+    notificationToggleElement.attributes.setNamedItem(h);
+  }
+
+  if (sound === "true") {
     var v = document.createAttribute("checked");
     soundToggleElement.attributes.setNamedItem(v);
   }
+
+  console.log("Notification is set to: " + notification);
   console.log("Sound is set to: " + sound);
+
 }
 
 function saveSettings() {
@@ -106,6 +109,8 @@ function saveSettings() {
   var soundSetting = soundToggleElement.checked;
   Cookies.set('notification', notificationSetting);
   Cookies.set('sound', soundSetting);
+  notification = Cookies.get('notification');
+  sound = Cookies.get('sound');
 }
 
 
@@ -411,11 +416,14 @@ function checkIfMobile() {
 }
 
 function notify(type, minutes) {
+  if (notification === "true"){
   showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
+}
 }
 
 function showNotification(type, title, body) {
   if (!checkIfMobile()) {
+    console.log("notifying");
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
     } else {
