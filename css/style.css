@@ -121,8 +121,9 @@ body {
   left: 0px;
 }
 
-#moreButton1 {
-  color: #ffffff;cursor: pointer;
+#moreButton {
+  color: #ffffff;
+  cursor: pointer;
 }
 
 .fabimage {
@@ -173,7 +174,9 @@ a {
   position: absolute !important;
   left: calc(35% - 28px);
   bottom: 35px;
-  padding-bottom: 18px;
+}
+.mdc-simple-menu {
+  margin-bottom: 32px;
 }
 
 /* Diable highlighting of FAB & buttons on mobile */

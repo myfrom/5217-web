@@ -74,20 +74,21 @@
     <div class="row">
       <div class="container">
         <div class="col s12">
-          <div class="mdc-menu-anchor">
-          <div class="fixed-action-btn threeDots noselect">
-            <a class="material-icons dropdown-button more-button" id="moreButton1">more_horiz</a>
-          </div>
-          <div class="mdc-simple-menu mdc-simple-menu--open-from-bottom-left" tabindex="-1">
-            <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
-              <li class="mdc-list-item" role="menuitem" tabindex="0">
-                A Menu Item
-              </li>
-              <li class="mdc-list-item modal-trigger" role="menuitem" tabindex="0" href="#about-modal">
-                About
-              </li>
-            </ul>
-          </div>
+            <div class="fixed-action-btn threeDots noselect">
+              <a class="material-icons dropdown-button" id="moreButton">more_horiz</a>
+            </div>
+            <div class="mdc-menu-anchor">
+
+            <div class="mdc-simple-menu mdc-simple-menu--open-from-bottom-left" tabindex="-1" style="z-index: 1000">
+              <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
+                <li class="mdc-list-item" role="menuitem" tabindex="0">
+                  Options
+                </li>
+                <li class="mdc-list-item modal-trigger" role="menuitem" tabindex="0" id="modalTrigger" href="#about-modal">
+                  About
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="fixed-action-btn noselect">
             <button class="mdc-fab material-icons" id="timerfab1" aria-label="Start">
@@ -161,13 +162,14 @@
       console.log('canceled');
     })
 
-    // document.querySelector('#moreButton1').addEventListener('click', function(evt) {
-    //   dialog.lastFocusedTarget = evt.target;
-    //   dialog.show();
-    // })
+     document.querySelector('#modalTrigger').addEventListener('click', function(evt) {
+       dialog.lastFocusedTarget = evt.target;
+       dialog.show();
+       console.log("clicked");
+     })
 
     let menu = new mdc.menu.MDCSimpleMenu(document.querySelector('.mdc-simple-menu'));
-    document.querySelector('.more-button').addEventListener('click', () => menu.open = !menu.open);
+    document.querySelector('#moreButton').addEventListener('click', () => menu.open = !menu.open);
   </script>
 
 </body>
