@@ -407,88 +407,35 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-var version = detectIE();
-function testIfIE() {
-  if (version === false) {
-    return false;
-  } else if (version >= 12) {
+function checkIfMobile() {
+  if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
     return true;
   } else {
-    return true;
+    return false;
   }
-}
-
-
-
-
-function detectIE() {
-  var ua = window.navigator.userAgent;
-
-  var msie = ua.indexOf('MSIE ');
-  if (msie > 0) {
-    // IE 10 or older => return version number
-    return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
-  }
-
-  var trident = ua.indexOf('Trident/');
-  if (trident > 0) {
-    // IE 11 => return version number
-    var rv = ua.indexOf('rv:');
-    return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-  }
-
-  var edge = ua.indexOf('Edge/');
-  if (edge > 0) {
-    // Edge (IE 12+) => return version number
-    return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-  }
-
-  // other browser
-  return false;
 }
 
 function notify(type, minutes) {
   if (notification === "true"){
-  createNotification(type, notificationTitle[type], getNotificationBody(type, minutes));
+    showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
   }
 }
-
-function createNotification(type, title, body, minutes) {
-    console.log("notifying");
+function showNotification(type, title, body) {
+  if (!checkIfMobile()) {
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
-    } else if (!testIfIE()){
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-            var options = {
-              body: getNotificationBody(type,minutesAwayRounded),
-              icon: 'images/icon.png',
-              badge: 'images/ic_notif_white.png',
-              vibrate: [100, 50, 100],
-              tag: 'notification',
-              renotify: true,
-              data: {
-                dateOfArrival: Date.now(),
-                primaryKey: 1
-              }
-            };
-            reg.showNotification("5217 Web", options);
-          });
-      setPlayAudio(type);
-    //   reg.onclick = function () {
-    //     window.focus();
-    //     notification.close();
-    // }
-  } else {
-    var options = {
+    } else {
+      var options = {
         icon: 'images/icon.png',
         body: body,
       };
       var notification = new Notification(title, options);
+      setPlayAudio(type);
       notification.onclick = function () {
         window.focus();
         notification.close();
       }
-
+    }
   }
 }
 
@@ -513,9 +460,3 @@ function setPlayAudio(type) {
     }
   }
 }
-
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-             .register('./service-worker.js')
-             .then(function() { console.log('Service Worker Registered'); });
-  }
