@@ -6,6 +6,7 @@ var filesToCache = [
   '/5217-web/css/materialize.min.css',
   '/5217-web/css/style.css',
   '/5217-web/images/ic_5217.svg',
+  '/5217-web/images/ic_notif_white.svg',
   '/5217-web/images/icon.png',
   '/5217-web/js/5217.js',
   '/5217-web/js/materialize.js',
