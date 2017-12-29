@@ -90,15 +90,15 @@ function setCookies() {
   notification = Cookies.get('notification');
   sound = Cookies.get('sound');
   if (notification === "true") {
-    var h = document.createAttribute("checked");
-    notificationToggleElement.attributes.setNamedItem(h);
-  }
+    let checked = document.createAttribute("checked");
 
+    notificationToggleElement.attributes.setNamedItem(checked);
+  }
   if (sound === "true") {
-    var v = document.createAttribute("checked");
-    soundToggleElement.attributes.setNamedItem(v);
-  }
+    let checked = document.createAttribute("checked");
 
+    soundToggleElement.attributes.setNamedItem(checked);
+  }
   console.log("Notification is set to: " + notification);
   console.log("Sound is set to: " + sound);
 
