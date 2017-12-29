@@ -462,14 +462,14 @@ function createNotification(type, title, body, minutes) {
             var options = {
               body: getNotificationBody(type,minutesAwayRounded),
               icon: 'images/icon.png',
+              badge: 'images/ic_notif_white.png',
               vibrate: [100, 50, 100],
               tag: 'notification',
               renotify: true,
-              badge: 'images/ic_notif_white.png',
               data: {
                 dateOfArrival: Date.now(),
                 primaryKey: 1
-              },
+              }
             };
             reg.showNotification("5217 Web", options);
           });
