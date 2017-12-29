@@ -45,3 +45,25 @@ self.addEventListener('fetch', function(e) {
     })
   );
 });
+self.addEventListener('notificationclick', event => {
+  // do your notification magic
+  //     notification.close();
+    const rootUrl = new URL('/', location).href;
+    // Enumerate windows, and call window.focus(), or open a new one.
+    event.waitUntil(
+      clients.matchAll().then(matchedClients => {
+        for (let client of matchedClients) {
+          if (client.url === rootUrl) {
+            return client.focus();
+          }
+        }
+         return clients.openWindow("/");
+      })
+    );
+  // close all notifications
+  self.registration.getNotifications().then(function(notifications) {
+    notifications.forEach(function(notification) {
+      notification.close();
+    });
+  });
+});

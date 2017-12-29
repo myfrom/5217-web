@@ -407,37 +407,34 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-function checkIfMobile() {
-  if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function notify(type, minutes) {
   if (notification === "true"){
-  showNotification(type, notificationTitle[type], getNotificationBody(type, minutes));
+  createNotification(type, notificationTitle[type], getNotificationBody(type, minutes));
   }
 }
 
-function showNotification(type, title, body) {
-  if (!checkIfMobile()) {
+function createNotification(type, title, bbody, minutes) {
     console.log("notifying");
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
     } else {
-      var options = {
-        icon: 'images/icon.png',
-        body: body,
-      };
-      var notification = new Notification(title, options);
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+            var options = {
+              body: getNotificationBody(type, minutes),
+              icon: 'images/icon.png',
+              vibrate: [100, 50, 100],
+              data: {
+                dateOfArrival: Date.now(),
+                primaryKey: 1
+              },
+            };
+            reg.showNotification("5217 Web", options);
+          });
       setPlayAudio(type);
-      notification.onclick = function () {
-        window.focus();
-        notification.close();
-      }
-    }
+    //   reg.onclick = function () {
+    //     window.focus();
+    //     notification.close();
+    // }
   }
 }
 
