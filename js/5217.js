@@ -417,8 +417,8 @@ function checkIfMobile() {
 
 function notify(type, minutes) {
   if (notification === "true"){
-  showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
-}
+  showNotification(type, notificationTitle[type], getNotificationBody(type, minutes));
+  }
 }
 
 function showNotification(type, title, body) {
