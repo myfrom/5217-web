@@ -407,17 +407,57 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+var version = detectIE();
+function testIfIE() {
+  if (version === false) {
+    return false;
+  } else if (version >= 12) {
+    return true;
+  } else {
+    return true;
+  }
+}
+
+
+
+
+function detectIE() {
+  var ua = window.navigator.userAgent;
+
+  var msie = ua.indexOf('MSIE ');
+  if (msie > 0) {
+    // IE 10 or older => return version number
+    return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+  }
+
+  var trident = ua.indexOf('Trident/');
+  if (trident > 0) {
+    // IE 11 => return version number
+    var rv = ua.indexOf('rv:');
+    return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+  }
+
+  var edge = ua.indexOf('Edge/');
+  if (edge > 0) {
+    // Edge (IE 12+) => return version number
+    return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+  }
+
+  // other browser
+  return false;
+}
+
 function notify(type, minutes) {
   if (notification === "true"){
   createNotification(type, notificationTitle[type], getNotificationBody(type, minutes));
   }
 }
 
-function createNotification(type, title, bbody, minutes) {
+function createNotification(type, title, body, minutes) {
     console.log("notifying");
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
-    } else {
+    } else if (!testIfIE()){
       navigator.serviceWorker.getRegistration().then(function(reg) {
             var options = {
               body: getNotificationBody(type,minutesAwayRounded),
@@ -437,6 +477,17 @@ function createNotification(type, title, bbody, minutes) {
     //     window.focus();
     //     notification.close();
     // }
+  } else {
+    var options = {
+        icon: 'images/icon.png',
+        body: body,
+      };
+      var notification = new Notification(title, options);
+      notification.onclick = function () {
+        window.focus();
+        notification.close();
+      }
+
   }
 }
 
