@@ -465,7 +465,7 @@ function createNotification(type, title, body, minutes) {
               vibrate: [100, 50, 100],
               tag: 'notification',
               renotify: true,
-              badge: 'images/ic_notif_white.png'
+              badge: 'images/ic_notif_white.png',
               data: {
                 dateOfArrival: Date.now(),
                 primaryKey: 1
