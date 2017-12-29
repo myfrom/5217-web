@@ -41,6 +41,15 @@ body {
   color: #ffffff;
   padding-top: 180px;
 }
+.mdc-menu-anchor {
+  position: absolute !important;
+  left: calc(35% - 28px);
+  bottom: 35px;
+}
+.mdc-simple-menu {
+  margin-bottom: 15px;
+  z-index: 1000;
+}
 @media screen and (max-width: 600px) {
   .mdc-menu-anchor {
     left: calc(28% - 28px);
@@ -185,15 +194,7 @@ a {
 * {
   --mdc-theme-primary: #237aff !important;
 }
-.mdc-menu-anchor {
-  position: absolute !important;
-  left: calc(35% - 28px);
-  bottom: 35px;
-}
-.mdc-simple-menu {
-  margin-bottom: 15px;
-  z-index: 1000;
-}
+
 .mdc-list-item__end-detail {
   margin-right: 36px !important;
 }
