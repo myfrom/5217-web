@@ -41,7 +41,19 @@ body {
   color: #ffffff;
   padding-top: 180px;
 }
+@media screen and (max-width: 600px) {
 
+  .threeDots {
+    left: calc(28% - 28px);
+    bottom: 35px;
+  }
+
+  .killButton {
+    left: auto;
+    right: calc(28% - 28px);
+    bottom: 35px;
+  }
+}
 @media screen and (max-height: 750px) {
   #heroNumber, #heroNumber2 {
     padding-top: 120px;
