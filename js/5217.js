@@ -432,6 +432,7 @@ function showNotification(type, title, body) {
         body: body,
       };
       var notification = new Notification(title, options);
+      setPlayAudio(type);
       notification.onclick = function () {
         window.focus();
         notification.close();
@@ -447,5 +448,17 @@ function getNotificationBody(type, remainingMinutes) {
     return remainingMinutes + notificationBody[type];
   } else if (type === "unpaused") {
     return remainingMinutes + notificationBody[type];
+  }
+}
+
+function setPlayAudio(type) {
+  if (sound === "true") {
+    if (type ==="work"){
+      let audio = new Audio("sound/end_break.wav");
+      audio.play();
+    } else if (type === "break") {
+      let audio = new Audio("sound/end_work.wav");
+      audio.play();
+    }
   }
 }
