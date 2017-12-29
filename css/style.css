@@ -8,7 +8,6 @@
 body {
   min-height: 100vh;
   overflow-y: hidden;
-  overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -91,7 +90,6 @@ body {
   left: 0px;
   z-index: -1;
 }
-
 #layer2div {
   background-color: #237aff;
   min-height: 100vh;
@@ -108,14 +106,12 @@ body {
   top: 0px;
   left: 0px;
 }
-
 #backgroundbcontainer {
   z-index: -2;
   position: absolute;
   top: 0px;
   left: 0px;
 }
-
 #backgroundb {
   background-color: #267dff;
   min-height: 100vh;
@@ -125,8 +121,9 @@ body {
   left: 0px;
 }
 
-#moreButton1 {
-  color: #ffffff;cursor: pointer;
+#moreButton {
+  color: #ffffff;
+  cursor: pointer;
 }
 
 .fabimage {
@@ -160,19 +157,38 @@ body {
 #timerfab1 {
   background-color: #96ffbb;
 }
+
 .alphaversion {
   font-family: 'Dosis', sans-serif;
   font-weight: 200;
   color: black;
 }
+.bob {margin-right: 10px;}
 a {
   color: var(--mdc-theme-primary);
 }
 * {
   --mdc-theme-primary: #237aff !important;
 }
+.mdc-menu-anchor {
+  position: absolute !important;
+  left: calc(35% - 28px);
+  bottom: 35px;
+}
+.mdc-simple-menu {
+  margin-bottom: 32px;
+  z-index: 1000;
+}
+.mdc-list-item__end-detail {
+  margin-right: 36px !important;
+}
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: #419aff !important;
+}
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #237aff !important;
 
-
+}
 /* Diable highlighting of FAB & buttons on mobile */
 
 .timerfab, .sharefab, .killButton, .moreButton {
@@ -181,7 +197,7 @@ a {
 
 /* Increase visibility (font weight & size) of main text of modal */
 
-#my-mdc-dialog-description {
+#about-dialog-description {
   font-weight: 500 !important;
   font-size: 1rem !important;
 }

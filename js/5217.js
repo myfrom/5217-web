@@ -58,9 +58,14 @@ var pulsingDot1ContainerElement = document.getElementById("pulsingDotContainer")
 var hero1Element = document.getElementById("heroNumber1");
 var hero2Element = document.getElementById("heroNumber2");
 var shareFab1Element = document.getElementById("sharefab1");
-var moreButton1Element = document.getElementById("moreButton1");
+var moreButton1Element = document.getElementById("moreButton");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
+var notificationToggleElement = document.getElementById("notificationSwitch");
+var soundToggleElement = document.getElementById("soundSwitch");
+var notification;
+var sound;
+setCookies();
 /* var breakMessage1Element = document.getElementById("breakMessage1");
 var breakMessage2Element = document.getElementById("breakMessage2"); */
 
@@ -75,6 +80,40 @@ resetButton1Element.addEventListener("click", reset);
 /*
   Functions
 */
+function setCookies() {
+  if (Cookies.get('notification')===undefined) {
+    Cookies.set('notification', 'true');
+  }
+  if (Cookies.get('sound')===undefined) {
+    Cookies.set('sound', 'false');
+  }
+  notification = Cookies.get('notification');
+  sound = Cookies.get('sound');
+  if (notification === "true") {
+    let checked = document.createAttribute("checked");
+
+    notificationToggleElement.attributes.setNamedItem(checked);
+  }
+  if (sound === "true") {
+    let checked = document.createAttribute("checked");
+
+    soundToggleElement.attributes.setNamedItem(checked);
+  }
+  console.log("Notification is set to: " + notification);
+  console.log("Sound is set to: " + sound);
+
+}
+
+function saveSettings() {
+  var notificationSetting = notificationToggleElement.checked;
+  var soundSetting = soundToggleElement.checked;
+  Cookies.set('notification', notificationSetting);
+  Cookies.set('sound', soundSetting);
+  notification = Cookies.get('notification');
+  sound = Cookies.get('sound');
+}
+
+
 function startTimer() {
   currentCycle = "work";
   timerRunning = true;
@@ -368,24 +407,78 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-function checkIfMobile() {
-  if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+var version = detectIE();
+function testIfIE() {
+  if (version === false) {
+    return false;
+  } else if (version >= 12) {
     return true;
   } else {
-    return false;
+    return true;
   }
 }
 
-function notify(type, minutes) {
-  showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
+
+
+
+function detectIE() {
+  var ua = window.navigator.userAgent;
+
+  var msie = ua.indexOf('MSIE ');
+  if (msie > 0) {
+    // IE 10 or older => return version number
+    return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+  }
+
+  var trident = ua.indexOf('Trident/');
+  if (trident > 0) {
+    // IE 11 => return version number
+    var rv = ua.indexOf('rv:');
+    return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+  }
+
+  var edge = ua.indexOf('Edge/');
+  if (edge > 0) {
+    // Edge (IE 12+) => return version number
+    return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+  }
+
+  // other browser
+  return false;
 }
 
-function showNotification(type, title, body) {
-  if (!checkIfMobile()) {
+function notify(type, minutes) {
+  if (notification === "true"){
+  createNotification(type, notificationTitle[type], getNotificationBody(type, minutes));
+  }
+}
+
+function createNotification(type, title, body, minutes) {
+    console.log("notifying");
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
-    } else {
-      var options = {
+    } else if (!testIfIE()){
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+            var options = {
+              body: getNotificationBody(type,minutesAwayRounded),
+              icon: 'images/icon.png',
+              vibrate: [100, 50, 100],
+              tag: 'notification',
+              renotify: true,
+              data: {
+                dateOfArrival: Date.now(),
+                primaryKey: 1
+              },
+            };
+            reg.showNotification("5217 Web", options);
+          });
+      setPlayAudio(type);
+    //   reg.onclick = function () {
+    //     window.focus();
+    //     notification.close();
+    // }
+  } else {
+    var options = {
         icon: 'images/icon.png',
         body: body,
       };
@@ -394,7 +487,7 @@ function showNotification(type, title, body) {
         window.focus();
         notification.close();
       }
-    }
+
   }
 }
 
@@ -407,3 +500,21 @@ function getNotificationBody(type, remainingMinutes) {
     return remainingMinutes + notificationBody[type];
   }
 }
+
+function setPlayAudio(type) {
+  if (sound === "true") {
+    if (type ==="work"){
+      let audio = new Audio("sound/end_break.wav");
+      audio.play();
+    } else if (type === "break") {
+      let audio = new Audio("sound/end_work.wav");
+      audio.play();
+    }
+  }
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+             .register('./service-worker.js')
+             .then(function() { console.log('Service Worker Registered'); });
+  }
