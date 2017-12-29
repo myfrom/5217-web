@@ -420,9 +420,11 @@ function createNotification(type, title, bbody, minutes) {
     } else {
       navigator.serviceWorker.getRegistration().then(function(reg) {
             var options = {
-              body: getNotificationBody(type, minutes),
+              body: getNotificationBody(type,minutesAwayRounded),
               icon: 'images/icon.png',
               vibrate: [100, 50, 100],
+              tag: 'notification',
+              renotify: true,
               data: {
                 dateOfArrival: Date.now(),
                 primaryKey: 1
