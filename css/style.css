@@ -42,7 +42,10 @@ body {
   padding-top: 180px;
 }
 @media screen and (max-width: 600px) {
-
+  .mdc-menu-anchor {
+    left: calc(28% - 28px);
+    bottom: 35px;
+  }
   .threeDots {
     left: calc(28% - 28px);
     bottom: 35px;
@@ -188,7 +191,7 @@ a {
   bottom: 35px;
 }
 .mdc-simple-menu {
-  margin-bottom: 32px;
+  margin-bottom: 15px;
   z-index: 1000;
 }
 .mdc-list-item__end-detail {
