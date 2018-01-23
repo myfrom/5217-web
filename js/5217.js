@@ -450,7 +450,7 @@ function getNotificationBody(type, remainingMinutes) {
 }
 
 function setPlayAudio(type) {
-  if (sound === "true") {
+  if (sound === "true" && (minutesAwayRounded === 52 || (minutesAwayRounded === 17 && cycleType === "break"))) {
     if (type ==="work"){
       let audio = new Audio("sound/end_break.wav");
       audio.play();
