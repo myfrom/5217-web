@@ -460,3 +460,14 @@ function setPlayAudio(type) {
     }
   }
 }
+
+// Prompt user if they try to close the tab when timerRunning
+window.onbeforeunload = function (e) {
+  e = e || window.event;
+  // For IE and Firefox prior to version 4
+  if (e && timerRunning) {
+      e.returnValue = '5217 is still running! Are you sure you want to quit?';
+  }
+  // For Safari
+  return '5217 is still running! Are you sure you want to quit?';
+};
