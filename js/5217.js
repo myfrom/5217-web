@@ -69,7 +69,6 @@ setCookies();
 /* var breakMessage1Element = document.getElementById("breakMessage1");
 var breakMessage2Element = document.getElementById("breakMessage2"); */
 
-
 /*
   Event Listeners
 */
@@ -111,7 +110,6 @@ function saveSettings() {
   localStorage.notifpref = notificationSetting;
   localStorage.soundpref = soundSetting;
 }
-
 
 function startTimer() {
   currentCycle = "work";
@@ -432,6 +430,7 @@ function notify(type, minutes) {
     showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
   }
 }
+
 function showNotification(type, title, body) {
   if (!checkIfMobile()) {
     if (Notification.permission !== "granted") {
@@ -474,9 +473,8 @@ function setPlayAudio(type) {
 }
 
 // Prompt user if they try to close the tab when timerRunning
-  window.onbeforeunload = function (e) {
-    if (timerRunning === true) {
-
+window.onbeforeunload = function (e) {
+  if (timerRunning === true) {
     e = e || window.event;
     // For IE and Firefox prior to version 4
     if (e) {
@@ -485,4 +483,4 @@ function setPlayAudio(type) {
     // For Safari
     return '5217 is still running! Are you sure you want to quit?';
   }
-  };
+};
