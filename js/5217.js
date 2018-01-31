@@ -189,8 +189,6 @@ function reset() {
   }, 610);
 
   timerRunning = false;
-  minutesAwayRounded = worktime;
-
   updateTitle(null);
 
   shareFab1Element.classList.add("hide-fab");
@@ -203,7 +201,6 @@ function reset() {
   if (!pulsingDot1Element.classList.contains("hide")) {
     pulsingDot1Element.classList.add("hide");
   }
-
   setTheme("work");
 
   currentCycle = null;
@@ -211,6 +208,7 @@ function reset() {
 
 function setTheme(cycleType) {
   if (cycleType === "work") {
+    increaseAnimation(worktime);
     // breakMessage1Element.style.visibility = "hidden";
     // breakMessage2Element.style.visibility = "hidden";
     hero1Element.style.color = "#ffffff";
@@ -226,6 +224,7 @@ function setTheme(cycleType) {
     }
   }
   if (cycleType === "break") {
+    increaseAnimation(breaktime);
     // chosenBreakMessage = "Time for a break!" + "<br>" + capitalizeFirstLetter(chooseBreakMessage());
     // breakMessage1Element.innerHTML = chosenBreakMessage;
     // breakMessage2Element.innerHTML = chosenBreakMessage;
@@ -316,11 +315,11 @@ function getLayerOrder() {
   var bLayer = layer2DivElement;
   var bLayerProp = window.getComputedStyle(bLayer, null).getPropertyValue("z-index");
   if (bLayerProp > aLayerProp) {
-    console.log("layer2div is in front, at position: " + bLayerProp);
+    // console.log("layer2div is in front, at position: " + bLayerProp);
     f = 2;
     r = 1;
   } else if (aLayerProp > bLayerProp) {
-    console.log("layer1div is in front, at position: " + aLayerProp);
+    // console.log("layer1div is in front, at position: " + aLayerProp);
     f = 1;
     r = 2;
   }
@@ -386,6 +385,20 @@ function updateTitle(cycleType) {
     document.title = `${minutesAwayRounded}m ${cycleType} remaining - ${originalTitle}`;
   }
 }
+
+function increaseAnimation(animType) {
+    var increase = setInterval(function() {
+      hero1Element.innerHTML = minutesAwayRounded;
+      hero2Element.innerHTML = minutesAwayRounded;
+      console.log("Incrementing minutesAwayRounded to: " + minutesAwayRounded);
+
+      if (minutesAwayRounded === animType) {
+        clearInterval(increase);
+        return;
+      }
+      minutesAwayRounded++;
+    }, 80);
+  }
 
 /* Break Message Code */
 function chooseBreakMessage() {
