@@ -81,36 +81,35 @@ resetButton1Element.addEventListener("click", reset);
   Functions
 */
 function setCookies() {
-  if (Cookies.get('notification')===undefined) {
-    Cookies.set('notification', 'true');
-  }
-  if (Cookies.get('sound')===undefined) {
-    Cookies.set('sound', 'false');
-  }
-  notification = Cookies.get('notification');
-  sound = Cookies.get('sound');
-  if (notification === "true") {
-    let checked = document.createAttribute("checked");
+    if(typeof(Storage) !== "undefined") {
+        if (typeof(localStorage.notifpref) === "undefined") {
+            localStorage.notifpref = true;
+        }
+        if (typeof(localStorage.soundpref) === "undefined") {
+            localStorage.soundpref = false;
+        }
+        notification = localStorage.notifpref;
+        sound = localStorage.soundpref;
 
-    notificationToggleElement.attributes.setNamedItem(checked);
-  }
-  if (sound === "true") {
-    let checked = document.createAttribute("checked");
+        if (notification === "true") {
+          let checked = document.createAttribute("checked");
+          notificationToggleElement.attributes.setNamedItem(checked);
+        }
+        if (sound === "true") {
+          let checked = document.createAttribute("checked");
+          soundToggleElement.attributes.setNamedItem(checked);
+        }
 
-    soundToggleElement.attributes.setNamedItem(checked);
-  }
-  console.log("Notification is set to: " + notification);
-  console.log("Sound is set to: " + sound);
-
+        console.log("Notification Preferences is set to " + localStorage.notifpref + ".");
+        console.log("Sound Preferences is set to " + localStorage.soundpref + ".");
+    }
 }
 
 function saveSettings() {
   var notificationSetting = notificationToggleElement.checked;
   var soundSetting = soundToggleElement.checked;
-  Cookies.set('notification', notificationSetting);
-  Cookies.set('sound', soundSetting);
-  notification = Cookies.get('notification');
-  sound = Cookies.get('sound');
+  localStorage.notifpref = notificationSetting;
+  localStorage.soundpref = soundSetting;
 }
 
 
