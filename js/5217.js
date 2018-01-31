@@ -396,7 +396,7 @@ function increaseAnimation(animType) {
         return;
       }
       minutesAwayRounded++;
-    }, 80);
+    }, 30);
   }
 
 /* Break Message Code */
