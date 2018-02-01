@@ -69,7 +69,6 @@ setCookies();
 /* var breakMessage1Element = document.getElementById("breakMessage1");
 var breakMessage2Element = document.getElementById("breakMessage2"); */
 
-
 /*
   Event Listeners
 */
@@ -81,38 +80,36 @@ resetButton1Element.addEventListener("click", reset);
   Functions
 */
 function setCookies() {
-  if (Cookies.get('notification')===undefined) {
-    Cookies.set('notification', 'true');
-  }
-  if (Cookies.get('sound')===undefined) {
-    Cookies.set('sound', 'false');
-  }
-  notification = Cookies.get('notification');
-  sound = Cookies.get('sound');
-  if (notification === "true") {
-    let checked = document.createAttribute("checked");
+    if(typeof(Storage) !== "undefined") {
+        if (typeof(localStorage.notifpref) === "undefined") {
+            localStorage.notifpref = true;
+        }
+        if (typeof(localStorage.soundpref) === "undefined") {
+            localStorage.soundpref = false;
+        }
+        notification = localStorage.notifpref;
+        sound = localStorage.soundpref;
 
-    notificationToggleElement.attributes.setNamedItem(checked);
-  }
-  if (sound === "true") {
-    let checked = document.createAttribute("checked");
+        if (notification === "true") {
+          let checked = document.createAttribute("checked");
+          notificationToggleElement.attributes.setNamedItem(checked);
+        }
+        if (sound === "true") {
+          let checked = document.createAttribute("checked");
+          soundToggleElement.attributes.setNamedItem(checked);
+        }
 
-    soundToggleElement.attributes.setNamedItem(checked);
-  }
-  console.log("Notification is set to: " + notification);
-  console.log("Sound is set to: " + sound);
-
+        console.log("Notification Preferences is set to " + localStorage.notifpref + ".");
+        console.log("Sound Preferences is set to " + localStorage.soundpref + ".");
+    }
 }
 
 function saveSettings() {
   var notificationSetting = notificationToggleElement.checked;
   var soundSetting = soundToggleElement.checked;
-  Cookies.set('notification', notificationSetting);
-  Cookies.set('sound', soundSetting);
-  notification = Cookies.get('notification');
-  sound = Cookies.get('sound');
+  localStorage.notifpref = notificationSetting;
+  localStorage.soundpref = soundSetting;
 }
-
 
 function startTimer() {
   currentCycle = "work";
@@ -189,8 +186,6 @@ function reset() {
   }, 610);
 
   timerRunning = false;
-  minutesAwayRounded = worktime;
-
   updateTitle(null);
 
   shareFab1Element.classList.add("hide-fab");
@@ -203,7 +198,6 @@ function reset() {
   if (!pulsingDot1Element.classList.contains("hide")) {
     pulsingDot1Element.classList.add("hide");
   }
-
   setTheme("work");
 
   currentCycle = null;
@@ -211,6 +205,7 @@ function reset() {
 
 function setTheme(cycleType) {
   if (cycleType === "work") {
+    increaseAnimation(worktime);
     // breakMessage1Element.style.visibility = "hidden";
     // breakMessage2Element.style.visibility = "hidden";
     hero1Element.style.color = "#ffffff";
@@ -226,6 +221,7 @@ function setTheme(cycleType) {
     }
   }
   if (cycleType === "break") {
+    increaseAnimation(breaktime);
     // chosenBreakMessage = "Time for a break!" + "<br>" + capitalizeFirstLetter(chooseBreakMessage());
     // breakMessage1Element.innerHTML = chosenBreakMessage;
     // breakMessage2Element.innerHTML = chosenBreakMessage;
@@ -316,11 +312,11 @@ function getLayerOrder() {
   var bLayer = layer2DivElement;
   var bLayerProp = window.getComputedStyle(bLayer, null).getPropertyValue("z-index");
   if (bLayerProp > aLayerProp) {
-    console.log("layer2div is in front, at position: " + bLayerProp);
+    // console.log("layer2div is in front, at position: " + bLayerProp);
     f = 2;
     r = 1;
   } else if (aLayerProp > bLayerProp) {
-    console.log("layer1div is in front, at position: " + aLayerProp);
+    // console.log("layer1div is in front, at position: " + aLayerProp);
     f = 1;
     r = 2;
   }
@@ -387,6 +383,20 @@ function updateTitle(cycleType) {
   }
 }
 
+function increaseAnimation(animType) {
+    var increase = setInterval(function() {
+      hero1Element.innerHTML = minutesAwayRounded;
+      hero2Element.innerHTML = minutesAwayRounded;
+      console.log("Incrementing minutesAwayRounded to: " + minutesAwayRounded);
+
+      if (minutesAwayRounded === animType) {
+        clearInterval(increase);
+        return;
+      }
+      minutesAwayRounded++;
+    }, 30);
+  }
+
 /* Break Message Code */
 function chooseBreakMessage() {
   return breakMessages[Math.floor(Math.random() * breakMessages.length)];
@@ -420,6 +430,7 @@ function notify(type, minutes) {
     showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
   }
 }
+
 function showNotification(type, title, body) {
   if (!checkIfMobile()) {
     if (Notification.permission !== "granted") {
@@ -463,11 +474,13 @@ function setPlayAudio(type) {
 
 // Prompt user if they try to close the tab when timerRunning
 window.onbeforeunload = function (e) {
-  e = e || window.event;
-  // For IE and Firefox prior to version 4
-  if (e && timerRunning) {
-      e.returnValue = '5217 is still running! Are you sure you want to quit?';
+  if (timerRunning === true) {
+    e = e || window.event;
+    // For IE and Firefox prior to version 4
+    if (e) {
+        e.returnValue = '5217 is still running! Are you sure you want to quit?';
+    }
+    // For Safari
+    return '5217 is still running! Are you sure you want to quit?';
   }
-  // For Safari
-  return '5217 is still running! Are you sure you want to quit?';
 };
