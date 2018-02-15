@@ -77,10 +77,10 @@
             <div class="fixed-action-btn threeDots noselect">
               <a class="material-icons dropdown-button" id="moreButton">more_horiz</a>
             </div>
-            <div class="mdc-menu-anchor">
+            <div class="mdc-menu-anchor" style="bottom: 32px;">
 
-            <div class="mdc-simple-menu mdc-simple-menu--open-from-bottom-left" tabindex="-1">
-              <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
+            <div class="mdc-menu mdc-simple-menu--open-from-bottom-left" tabindex="-1" style="z-index: 293847;">
+              <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
                 <li class="mdc-list-item" role="menuitem" tabindex="0" id="settings-dialog-trigger" href="#settings-modal">
                   Options
                 </li>
@@ -220,7 +220,7 @@
         settingsDialog.show();
       })
 
-    let menu = new mdc.menu.MDCSimpleMenu(document.querySelector('.mdc-simple-menu'));
+    let menu = new mdc.menu.MDCMenu(document.querySelector('.mdc-menu'));
     document.querySelector('#moreButton').addEventListener('click', () => menu.open = !menu.open);
   </script>
 

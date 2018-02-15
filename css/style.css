@@ -20,7 +20,9 @@ body {
   left: calc(35% - 28px);
   bottom: 35px;
 }
-
+.mdc-menu {
+  bottom: 32px !important;
+}
 .killButton {
   left: auto;
   right: calc(35% - 28px);
