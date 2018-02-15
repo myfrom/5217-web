@@ -109,6 +109,8 @@ function saveSettings() {
   var soundSetting = soundToggleElement.checked;
   localStorage.notifpref = notificationSetting;
   localStorage.soundpref = soundSetting;
+  notification = localStorage.notifpref;
+  sound = localStorage.soundpref;
 }
 
 function startTimer() {
