@@ -25,6 +25,8 @@ var minutesAwayStamp;
 var currentTimeStamp;
 var placeHolderTime;
 var currentCycle;
+var notificationSetting;
+var soundSetting;
 
 // A literal ARRAY of colors. Ha!
 var workColors = ["#238aff", "#278cff", "#2c8fff", "#3091ff", "#3493ff", "#3996ff", "#3d98ff", "#419aff", "#469cff", "#4a9fff", "#4ea1ff", "#53a3ff", "#57a6ff", "#5ba8ff", "#60aaff", "#64adff", "#68afff", "#6db1ff", "#71b4ff", "#75b6ff", "#7ab8ff", "#7ebaff", "#82bdff", "#87bfff", "#8bc1ff", "#8fc4ff", "#94c6ff", "#98c8ff", "#9ccbff", "#a1cdff", "#a5cfff", "#a9d1ff", "#aed4ff", "#b2d6ff", "#b6d8ff", "#bbdbff", "#bfddff", "#c3dfff", "#c8e2ff", "#cce4ff", "#d0e6ff", "#d5e9ff", "#d9ebff", "#ddedff", "#e2efff", "#e6f2ff", "#eaf4ff", "#eff6ff", "#f3f9ff", "#f7fbff", "#fcfdff", "#ffffff"];
@@ -98,6 +100,11 @@ function setCookies() {
           let checked = document.createAttribute("checked");
           soundToggleElement.attributes.setNamedItem(checked);
         }
+        if (!notification) {
+            let disabled = document.createAttribute("disabled");
+            soundToggleElement.attributes.setNamedItem(disabled);
+            soundToggleElement.removeAttribute("checked");
+        }
 
         console.log("Notification Preferences is set to " + localStorage.notifpref + ".");
         console.log("Sound Preferences is set to " + localStorage.soundpref + ".");
@@ -105,12 +112,24 @@ function setCookies() {
 }
 
 function saveSettings() {
-  var notificationSetting = notificationToggleElement.checked;
-  var soundSetting = soundToggleElement.checked;
+  notificationSetting = notificationToggleElement.checked;
+  soundSetting = soundToggleElement.checked;
   localStorage.notifpref = notificationSetting;
   localStorage.soundpref = soundSetting;
   notification = localStorage.notifpref;
   sound = localStorage.soundpref;
+}
+
+function dependentUI() {
+  notificationSetting = notificationToggleElement.checked;
+  if (!notificationSetting) {
+    soundToggleElement.setAttribute("disabled","");
+    console.log("disabled sound");
+    soundToggleElement.checked = false;
+    soundToggleElement.setAttribute("checked", "false");
+  } else {
+    soundToggleElement.removeAttribute("disabled");
+  }
 }
 
 function startTimer() {

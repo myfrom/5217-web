@@ -27,7 +27,9 @@ body {
   justify-content: space-between;
   padding: 0px !important;
 }
-
+#settings-dialog-description {
+  margin-top: 0px;
+}
 .killButton {
   left: auto;
   right: calc(35% - 28px);
