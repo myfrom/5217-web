@@ -103,9 +103,7 @@ function setCookies() {
         if (notification === "false") {
             soundToggleElement.setAttribute("disabled","");
             soundToggleElement.removeAttribute("checked");
-            console.log("init");
         }
-
         console.log("Notification Preferences is set to " + localStorage.notifpref + ".");
         console.log("Sound Preferences is set to " + localStorage.soundpref + ".");
     }
@@ -124,7 +122,6 @@ function dependentUI() {
   notificationSetting = notificationToggleElement.checked;
   if (!notificationSetting) {
     soundToggleElement.setAttribute("disabled","");
-    console.log("disabled sound");
     soundToggleElement.checked = false;
     soundToggleElement.setAttribute("checked", "false");
   } else {
