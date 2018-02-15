@@ -100,10 +100,10 @@ function setCookies() {
           let checked = document.createAttribute("checked");
           soundToggleElement.attributes.setNamedItem(checked);
         }
-        if (!notification) {
-            let disabled = document.createAttribute("disabled");
-            soundToggleElement.attributes.setNamedItem(disabled);
+        if (notification === "false") {
+            soundToggleElement.setAttribute("disabled","");
             soundToggleElement.removeAttribute("checked");
+            console.log("init");
         }
 
         console.log("Notification Preferences is set to " + localStorage.notifpref + ".");

@@ -29,6 +29,7 @@ body {
 }
 #settings-dialog-description {
   margin-top: 0px;
+  padding: 0px 8px 0px 24px !important;
 }
 .killButton {
   left: auto;
@@ -208,7 +209,6 @@ a {
 }
 .switch label input[type=checkbox]:checked+.lever:after {
     background-color: #237aff !important;
-
 }
 /* Diable highlighting of FAB & buttons on mobile */
 
