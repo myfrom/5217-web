@@ -254,12 +254,11 @@ a {
 }
 
 .pulseStart {
-  -webkit-animation: pulse 2s linear infinite;
-  animation: pulse 2s linear infinite;
+  -webkit-animation: pulse 1s linear infinite;
+  animation: pulse 1s linear infinite;
   -webkit-animation-delay: .6s;
   /* Safari 4.0 - 8.0 */
   animation-delay: .6s;
-  /* Safari 4.0 - 8.0 */
 }
 
 /* Shrink & Grow FAB (and pulsing dot) animations */
