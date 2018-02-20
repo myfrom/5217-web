@@ -258,8 +258,8 @@ a {
 }
 
 .pulseStart {
-  -webkit-animation: pulse 1s linear infinite;
-  animation: pulse 1s linear infinite;
+  -webkit-animation: pulse 0.7s linear infinite;
+  animation: pulse 0.7s linear infinite;
   -webkit-animation-delay: .6s;
   /* Safari 4.0 - 8.0 */
   animation-delay: .6s;
