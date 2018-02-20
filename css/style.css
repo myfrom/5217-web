@@ -223,6 +223,10 @@ a {
   font-size: 1rem !important;
 }
 
+#about-dialog {
+  z-index: 5217;
+}
+
 /*
   Animations... for various elements. Duh.
 */
