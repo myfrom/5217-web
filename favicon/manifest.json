@@ -2,7 +2,7 @@
   "name": "5217 Web",
   "short_name": "5217",
   "lang": "en-US",
-  "start_url": "/5217-web/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#237aff",
