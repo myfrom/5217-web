@@ -8,7 +8,6 @@ workbox.precaching.precacheAndRoute([]);
 
 workbox.precaching.precacheAndRoute([
   "https://fonts.googleapis.com/css?family=Roboto:300",
-  "https://fonts.googleapis.com/css?family=Dosis",
   "https://fonts.googleapis.com/icon?family=Material+Icons",
   "https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" ,
   "https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js",
