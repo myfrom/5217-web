@@ -199,11 +199,6 @@ body {
   background-color: #96ffbb;
 }
 
-.alphaversion {
-  font-family: 'Dosis', sans-serif;
-  font-weight: 200;
-  color: black;
-}
 .bob {margin-right: 10px;}
 a {
   color: var(--mdc-theme-primary);

@@ -7,11 +7,10 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+  <link rel="stylesheet" crossorigin="anonymous" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
 
@@ -50,6 +49,15 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-102200622-5');
+  </script>
+
+  <!-- Service worker -->
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js');
+    });
+  }
   </script>
 
 </head>
