@@ -56,11 +56,11 @@ var timerRunning = false;
 var timerFab1Element = document.getElementById("timerfab1");
 var resetButton1Element = document.getElementById("resetButton1");
 var pulsingDot1Element = document.getElementById("pulsingDot1");
-var pulsingDot1ContainerElement = document.getElementById("pulsingDotContainer");
+var pulsingDot1ContainerElement = document.getElementById("pulsing-dot-container");
 var hero1Element = document.getElementById("heroNumber1");
 var hero2Element = document.getElementById("heroNumber2");
 var shareFab1Element = document.getElementById("sharefab1");
-var moreButton1Element = document.getElementById("moreButton");
+var moreButton1Element = document.getElementById("morebutton");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
 var notificationToggleElement = document.getElementById("notificationSwitch");
@@ -77,7 +77,7 @@ var breakMessage2Element = document.getElementById("breakMessage2"); */
 
 // An event listener must be added for both copies of the elements, as there are two.
 timerFab1Element.addEventListener("click", startTimer);
-resetButton1Element.addEventListener("click", reset);
+resetButton1Element.parentElement.addEventListener("click", reset);
 /*
   Functions
 */
