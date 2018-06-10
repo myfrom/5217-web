@@ -3,95 +3,141 @@
   Stylesheet
 */
 
+/* MDC Theme */
+$mdc-theme-primary: #237aff;
+$mdc-theme-secondary: #237aff;
+
+/* MDC Imports */
+@import '@material/menu/mdc-menu';
+@import '@material/button/mdc-button';
+@import '@material/list/mdc-list';
+@import '@material/fab/mdc-fab';
+@import '@material/dialog/mdc-dialog';
+@import '@material/switch/mdc-switch';
+
+
 /* General Styling */
+
+html {
+  font-size: 14px;
+}
 
 body {
   min-height: 100vh;
   overflow-y: hidden;
   font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
 }
 
-.fixed-action-btn {
-  left: calc(50% - 28px);
-  bottom: 23px;
+.hide {
+  display: none !important;
 }
 
-.threeDots {
-  left: calc(35% - 28px);
-  bottom: 35px;
+#layer1div, #layer2div {
+  background-color: $mdc-theme-primary;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
-.mdc-menu {
-  bottom: 32px !important;
+#layer1div {
+  z-index: -1;
 }
-.settingslist {
-  justify-content: space-between;
-  padding: 0px !important;
-}
-#settings-dialog-description {
-  margin-top: 0px;
-  padding: 0px 8px 0px 24px !important;
-}
-.killButton {
-  left: auto;
-  right: calc(35% - 28px);
-  bottom: 35px;
-}
-
-#layer1div .row .container {
-  min-height: 85vh;
-}
-
-#layer2div .row .container {
-  min-height: 85vh;
+#layer2div {
+  z-index: 0;
 }
 
 #heroNumber1, #heroNumber2 {
   font-size: 80px;
   font-weight: 300;
   color: #ffffff;
-  padding-top: 180px;
-}
-.mdc-menu-anchor {
-  position: absolute !important;
-  left: calc(35% - 28px);
-  bottom: 35px;
-}
-.mdc-simple-menu {
-  margin-bottom: 15px;
-  z-index: 1000;
-}
-@media screen and (max-width: 600px) {
-  .mdc-menu-anchor {
-    left: calc(28% - 28px);
-    bottom: 35px;
-  }
-  .threeDots {
-    left: calc(28% - 28px);
-    bottom: 35px;
-  }
-
-  .killButton {
-    left: auto;
-    right: calc(28% - 28px);
-    bottom: 35px;
-  }
-}
-@media screen and (max-height: 750px) {
-  #heroNumber, #heroNumber2 {
-    padding-top: 120px;
-  }
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
 }
 
-@media screen and (max-height: 550px) {
-  #heroNumber, #heroNumber2 {
-    padding-top: 60px;
-  }
+#uidiv {
+  height: 100px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
-@media screen and (max-height: 450px) {
-  #heroNumber, #heroNumber2 {
-    padding-top: 0px;
-  }
+#uidiv > div {
+  margin: 0 50px;
+}
+
+.icon-button {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  min-width: unset !important;
+  min-height: unset !important;
+  padding: 8px;
+}
+.icon-button .mdc-button__icon {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  margin-right: 0;
+}
+
+#morebutton {
+  color: #ffffff;
+}
+
+#fab-container {
+  width: 56px;
+  height: 56px;
+  position: relative;
+}
+
+.mdc-fab {
+  z-index: 2;
+}
+
+#pulsing-dot-container {
+  position: absolute;
+  top: 13px;
+  bottom: 13px;
+  right: 13px;
+  left: 13px;
+}
+#pulsingDot1 {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #96ffbb;
+  z-index: -1;
+}
+
+.mdc-menu {
+  bottom: 32px !important;
+}
+
+.settingslist {
+  justify-content: space-between;
+  padding: 0px !important;
+}
+
+#settings-dialog-description {
+  margin-top: 0px;
+  padding: 0px 8px 0px 24px !important;
+}
+
+#settings-dialog-description .mdc-switch {
+  margin-right: 16px;
 }
 
 @media screen and (min-width: 450px) {
@@ -104,42 +150,14 @@ body {
 #breakMessage1, #breakMessage2 {
   font-size: 25px;
   font-weight: 400;
-  color: #237aff;
+  color: $mdc-theme-primary;
   visibility: hidden;
   text-align: center;
   padding-left: 12px;
   padding-right: 12px;
 }
 
-#pulsingDot1 {
-  width: 30px;
-  height: 30px;
-  margin-left: 13px;
-  margin-bottom: 15px;
-  border-radius: 15px;
-  background-color: #96ffbb;
-  padding: auto;
-  z-index: -1;
-}
 
-#layer1div {
-  background-color: #237aff;
-  min-height: 100vh;
-  min-width: 100vw;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: -1;
-}
-#layer2div {
-  background-color: #237aff;
-  min-height: 100vh;
-  min-width: 100vw;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 0;
-}
 
 #backgroundfcontainer {
   z-index: -1;
@@ -162,10 +180,7 @@ body {
   left: 0px;
 }
 
-#moreButton {
-  color: #ffffff;
-  cursor: pointer;
-}
+
 
 .fabimage {
   color: #1f538f;
@@ -199,22 +214,9 @@ body {
   background-color: #96ffbb;
 }
 
-.bob {margin-right: 10px;}
-a {
-  color: var(--mdc-theme-primary);
-}
-* {
-  --mdc-theme-primary: #237aff !important;
-}
-.switch label input[type=checkbox]:checked+.lever {
-    background-color: #419aff !important;
-}
-.switch label input[type=checkbox]:checked+.lever:after {
-    background-color: #237aff !important;
-}
 /* Diable highlighting of FAB & buttons on mobile */
 
-.timerfab, .sharefab, .killButton, .moreButton {
+.timerfab, .sharefab, .killButton, .morebutton {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -223,6 +225,11 @@ a {
 #about-dialog-description {
   font-weight: 500 !important;
   font-size: 1rem !important;
+}
+
+#about-dialog-description a {
+  text-decoration: none !important;
+  color: $mdc-theme-primary !important;
 }
 
 #about-dialog, #settings-dialog {
