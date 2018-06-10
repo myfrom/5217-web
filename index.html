@@ -9,10 +9,8 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" crossorigin="anonymous" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-  <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.scss">
 
   <!-- Metadata -->
   <meta property="og:url" content="https://web.5217.app" />
@@ -186,55 +184,10 @@
     </div>
     <div class="mdc-dialog__backdrop"></div>
   </aside>
-  <!--Import jQuery before materialize.js-->
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="js/materialize.min.js"></script>
-  <script type="text/javascript" src="js/5217.js"></script>
-  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-  <script>
-    window.mdc.autoInit();
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      $('.modal').modal();
-    });
-    const MDCDialog = mdc.dialog.MDCDialog;
-    const MDCDialogFoundation = mdc.dialog.MDCDialogFoundation;
-    const util = mdc.dialog.util;
-    var aboutDialog = new mdc.dialog.MDCDialog(document.querySelector('#about-dialog'));
-    var settingsDialog = new mdc.dialog.MDCDialog(document.querySelector('#settings-dialog'));
-
-    aboutDialog.listen('MDCDialog:accept', function() {
-      console.log('accepted');
-    })
-
-    aboutDialog.listen('MDCDialog:cancel', function() {
-      console.log('bug');
-    })
-
-     document.querySelector('#about-dialog-trigger').addEventListener('click', function(evt) {
-       aboutDialog.lastFocusedTarget = evt.target;
-       aboutDialog.show();
-     })
-
-     settingsDialog.listen('MDCDialog:accept', function() {
-       saveSettings();
-     })
-
-     settingsDialog.listen('MDCDialog:cancel', function() {
-       console.log('canceled');
-     })
-
-      document.querySelector('#settings-dialog-trigger').addEventListener('click', function(evt) {
-        settingsDialog.lastFocusedTarget = evt.target;
-        settingsDialog.show();
-      })
-
-    let menu = new mdc.menu.MDCMenu(document.querySelector('.mdc-menu'));
-    document.querySelector('#moreButton').addEventListener('click', () => menu.open = !menu.open);
-  </script>
+  <!-- App scripts -->
+  <script src="js/5217.js" defer></script>
+  <!-- <script src="js/imports.js" defer></script> -->
 
 </body>
 
