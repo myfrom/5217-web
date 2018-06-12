@@ -8,23 +8,21 @@
 
 ### Pull requests
 
-This web app uses Service Worker library [Workbox](https://developers.google.com/web/tools/workbox/) to provide offline functionality. It however requires a few steps before you submit your PR.
+This web app uses Webpack to build all of it's dependencies. You shouldn't have any problem with adding files but you will **have to use `webpack-dev-server`**. It's available without global installation, just run
 
-You must have Workbox CLI installed, you can get it from npm:
 ```
-$ npm install -g workbox-cli
+$ npm install
+$ npm start
 ```
 
-After you **made edits to any of the files in this repository**, run
-```
-$ workbox injectManifest
-```
-to also update the service worker.
 
-If you have also **added external resources**, that is any files that are loaded from other domains, you must add them in [service-worker-template.js](service-worker-template.js).
+Before submitting it's also advised to **test your changes after a production build**.
+When you finish your edits, run `$ npm run build` and serve `/dist` directory with local server of your choice. Be sure to clear site data as used source-worker might not update it on the first reload!
+
+If you're also **adding third-party resources**, you should try serving them locally from Node Modules. If that's impossible and you have to add content served from other domains, edit [service-worker.js](service-worker.js) file according to guide below:
 
 <details>
-  <summary>Where to add them</summary>
+  <summary>How to add external resources</summary>
 
   The first step is to add the link in this array:
 

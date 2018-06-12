@@ -6,13 +6,11 @@
   <title>5217 - Web</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="node_modules/material-design-icons/iconfont/material-icons.css">
+  <link rel="stylesheet" href="fonts/roboto.css">
 
-  <!-- CSS -->
-  <link rel="stylesheet" crossorigin="anonymous" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-  <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.scss">
 
   <!-- Metadata -->
   <meta property="og:url" content="https://web.5217.app" />
@@ -64,66 +62,56 @@
 
 <body>
   <div id="layer1div">
-    <div class="row">
-      <div class="container">
-        <div class="col s12 center" style="margin-top: 80px;">
-          <p class="noselect" id="heroNumber1">52</p>
-        </div>
-      </div>
-    </div>
+    <p class="noselect" id="heroNumber1">52</p>
   </div>
   <div id="layer2div">
-    <div class="row">
-      <div class="container">
-        <div class="col s12 center" style="margin-top: 80px;">
-          <p class="noselect" id="heroNumber2">52</p>
-        </div>
-      </div>
-    </div>
+    <p class="noselect" id="heroNumber2">52</p>
   </div>
 
   <div id="uidiv">
-    <div class="row">
-      <div class="container">
-        <div class="col s12">
-            <div class="fixed-action-btn threeDots noselect">
-              <a class="material-icons dropdown-button" id="moreButton">more_horiz</a>
-            </div>
-            <div class="mdc-menu-anchor" style="bottom: 32px;">
-
-            <div class="mdc-menu mdc-simple-menu--open-from-bottom-left" tabindex="-1" style="z-index: 293847;">
-              <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
-                <li class="mdc-list-item" role="menuitem" tabindex="0" id="settings-dialog-trigger" href="#settings-modal">
-                  Options
-                </li>
-                <li class="mdc-list-item modal-trigger" role="menuitem" tabindex="0" id="about-dialog-trigger" href="#about-modal">
-                  About 5217
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="fixed-action-btn noselect">
-            <button class="mdc-fab material-icons" id="timerfab1" aria-label="Start">
-              <img class="fabicon fabimage" src="images/ic_5217.svg" alt="5217 icon">
-            </button>
-
-            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.franco.timer&text=5217%20is%20an%20amazing%20app%20for%20productivity%21%20Try%20it%20today%21&hashtags=%235217" rel="noopener noreferrer" target="_blank">
-              <button class="mdc-fab material-icons hide noselect" id="sharefab1">
-              <span class="mdc-fab__icon fabiconshare">
-                share
-              </span>
-            </button></a>
-          </div>
-          <div id="pulsingDotContainer" class="pulseStart noselect">
-            <div class="hide fixed-action-btn" id="pulsingDot1"></div>
-          </div>
-          <div class="fixed-action-btn killButton noselect">
-            <i class="material-icons inactive-element" id="resetButton1">settings_backup_restore</i>
-          </div>
+    
+    <div class="fixed-action-btn three-dots noselect">
+      <div class="mdc-menu-anchor">
+        <button class="mdc-button icon-button dropdown-button" id="morebutton" data-mdc-auto-init="ripple">
+          <i class="mdc-button__icon material-icons">more_horiz</i>
+        </button>
+        <div class="mdc-menu mdc-simple-menu--open-from-bottom-left" tabindex="-1" style="z-index: 293847;">
+          <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
+            <li class="mdc-list-item" role="menuitem" tabindex="0" id="settings-dialog-trigger" href="#settings-modal" data-mdc-auto-init="ripple">
+              Options
+            </li>
+            <li class="mdc-list-item modal-trigger" role="menuitem" tabindex="0" id="about-dialog-trigger" href="#about-modal" data-mdc-auto-init="ripple">
+              About 5217
+            </li>
+          </ul>
         </div>
       </div>
     </div>
+
+    <div id="fab-container" class="fixed-action-btn noselect">
+      <button class="mdc-fab material-icons" id="timerfab1" aria-label="Start" data-mdc-auto-init="ripple">
+        <img class="fabicon fabimage" src="images/ic_5217.svg" alt="5217 icon">
+      </button>
+
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.franco.timer&text=5217%20is%20an%20amazing%20app%20for%20productivity%21%20Try%20it%20today%21&hashtags=%235217" rel="noopener noreferrer" target="_blank">
+        <button class="mdc-fab material-icons hide noselect" aria-label="Share your score" id="sharefab1">
+        <span class="mdc-fab__icon">
+          share
+        </span>
+      </button>
+      </a>
+
+      <div id="pulsing-dot-container" class="pulseStart noselect">
+        <div class="hide fixed-action-btn" id="pulsingDot1"></div>
+      </div>
+    </div>
+    <div class="fixed-action-btn killButton noselect">
+      <button class="mdc-button icon-button dropdown-button" data-mdc-auto-init="ripple">
+        <i class="mdc-button__icon material-icons inactive-element" id="resetButton1">settings_backup_restore</i>
+      </button>
+    </div>
   </div>
+
   <aside id="settings-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="settings-dialog-label" aria-describedby="settings-dialog-description">
     <div class="mdc-dialog__surface">
       <header class="mdc-dialog__header">
@@ -135,23 +123,21 @@
         <ul class="mdc-list mdc-list--non-interactive">
           <li class="mdc-list-item settingslist">
             Notification
-            <div class="switch mdc-list-item__end-detail">
-              <label>
-                <input type="checkbox" id="notificationSwitch" onclick="dependentUI()">
-                <span class="lever" ></span>
-              </label>
+            <div class="mdc-switch">
+              <input type="checkbox" aria-label="Use notifications" class="mdc-switch__native-control" role="switch" id="notificationSwitch" onclick="dependentUI()">
+              <div class="mdc-switch__background">
+                <div class="mdc-switch__knob"></div>
+              </div>
             </div>
-
           </li>
           <li class="mdc-list-item settingslist">
             Sound
-            <div class="switch">
-              <label>
-                <input type="checkbox" id="soundSwitch">
-                <span class="lever"></span>
-              </label>
+            <div class="mdc-switch">
+              <input type="checkbox" aria-label="Use notifications" class="mdc-switch__native-control" role="switch" id="soundSwitch">
+              <div class="mdc-switch__background">
+                <div class="mdc-switch__knob"></div>
+              </div>
             </div>
-
           </li>
           </ul>
       </section>
@@ -186,55 +172,10 @@
     </div>
     <div class="mdc-dialog__backdrop"></div>
   </aside>
-  <!--Import jQuery before materialize.js-->
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="js/materialize.min.js"></script>
-  <script type="text/javascript" src="js/5217.js"></script>
-  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-  <script>
-    window.mdc.autoInit();
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      $('.modal').modal();
-    });
-    const MDCDialog = mdc.dialog.MDCDialog;
-    const MDCDialogFoundation = mdc.dialog.MDCDialogFoundation;
-    const util = mdc.dialog.util;
-    var aboutDialog = new mdc.dialog.MDCDialog(document.querySelector('#about-dialog'));
-    var settingsDialog = new mdc.dialog.MDCDialog(document.querySelector('#settings-dialog'));
-
-    aboutDialog.listen('MDCDialog:accept', function() {
-      console.log('accepted');
-    })
-
-    aboutDialog.listen('MDCDialog:cancel', function() {
-      console.log('bug');
-    })
-
-     document.querySelector('#about-dialog-trigger').addEventListener('click', function(evt) {
-       aboutDialog.lastFocusedTarget = evt.target;
-       aboutDialog.show();
-     })
-
-     settingsDialog.listen('MDCDialog:accept', function() {
-       saveSettings();
-     })
-
-     settingsDialog.listen('MDCDialog:cancel', function() {
-       console.log('canceled');
-     })
-
-      document.querySelector('#settings-dialog-trigger').addEventListener('click', function(evt) {
-        settingsDialog.lastFocusedTarget = evt.target;
-        settingsDialog.show();
-      })
-
-    let menu = new mdc.menu.MDCMenu(document.querySelector('.mdc-menu'));
-    document.querySelector('#moreButton').addEventListener('click', () => menu.open = !menu.open);
-  </script>
+  <!-- App scripts -->
+  <script src="js/5217.js" defer></script>
+  <!-- <script src="js/imports.js" defer></script> -->
 
 </body>
 
