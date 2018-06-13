@@ -60,6 +60,7 @@ body {
   -webkit-margin-after: 0;
   -webkit-margin-start: 0;
   -webkit-margin-end: 0;
+  padding-bottom: 1em;
 }
 
 #uidiv {
@@ -140,11 +141,9 @@ body {
   margin-right: 16px;
 }
 
-@media screen and (min-width: 450px) {
-  .mdc-dialog__surface{
-    width: 35%;
-    min-width: unset;
-  }
+.mdc-dialog__surface {
+  max-width: 360px;
+  min-width: 280px;
 }
 
 #breakMessage1, #breakMessage2 {
@@ -157,7 +156,18 @@ body {
   padding-right: 12px;
 }
 
+@media screen and (max-width: 450px) {
 
+  #uidiv > div {
+    margin: 0 10vw;
+    min-width: 40px;
+  }
+
+  #fab-container {
+    min-width: 56px !important;
+  }
+
+}
 
 #backgroundfcontainer {
   z-index: -1;
