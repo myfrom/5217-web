@@ -122,7 +122,7 @@ module.exports = [{
       inject: 'body',
       minify: true
     }),
-    new CopyWebpackPlugin(['./favicon/*', './sound/*', './images/*']),
+    new CopyWebpackPlugin(['./favicon/*', './sound/*', './images/*', './CNAME']),
     new InjectManifest({
       swSrc: './service-worker.js',
       importWorkboxFrom: 'local'
