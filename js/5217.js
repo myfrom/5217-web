@@ -104,8 +104,6 @@ function setCookies() {
             soundToggleElement.setAttribute("disabled","");
             soundToggleElement.removeAttribute("checked");
         }
-        console.log("Notification Preferences is set to " + localStorage.notifpref + ".");
-        console.log("Sound Preferences is set to " + localStorage.soundpref + ".");
     }
 }
 
@@ -330,11 +328,9 @@ function getLayerOrder() {
   var bLayer = layer2DivElement;
   var bLayerProp = window.getComputedStyle(bLayer, null).getPropertyValue("z-index");
   if (bLayerProp > aLayerProp) {
-    // console.log("layer2div is in front, at position: " + bLayerProp);
     f = 2;
     r = 1;
   } else if (aLayerProp > bLayerProp) {
-    // console.log("layer1div is in front, at position: " + aLayerProp);
     f = 1;
     r = 2;
   }
@@ -405,8 +401,6 @@ function increaseAnimation(animType) {
     var increase = setInterval(function() {
       hero1Element.innerHTML = minutesAwayRounded;
       hero2Element.innerHTML = minutesAwayRounded;
-      console.log("Incrementing minutesAwayRounded to: " + minutesAwayRounded);
-
       if (minutesAwayRounded === animType) {
         clearInterval(increase);
         return;
