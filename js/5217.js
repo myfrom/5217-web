@@ -164,7 +164,7 @@ function startTimer() {
     getMinutesAway(currentTime, endTime);
     updateTimer(currentCycle);
 
-    if (timerRunning && (minutesAwayRounded === 0)) {
+    if (timerRunning && (minutesAwayRounded <= 0)) {
       switchCycles();
       startNewType();
     }
