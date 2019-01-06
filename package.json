@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server",
+    "start": "./node_modules/.bin/webpack-dev-server --devtool cheap-module-eval-source-map",
     "build": "./node_modules/.bin/webpack",
     "build:dev": "./node_modules/.bin/webpack --mode development",
     "test": "echo \"No tests yet\""
