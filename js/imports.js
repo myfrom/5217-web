@@ -3,6 +3,23 @@ import {MDCRipple} from '@material/ripple';
 import {MDCMenu} from '@material/menu';
 import {MDCDialog} from '@material/dialog';
 
+
+// Add 2 Home Screen enhancements
+
+window.installPrompt = new Promise(resolve => {
+  window.addEventListener('beforeinstallprompt', e => {
+    // Prevent default, we want our own install banner
+    e.preventDefault();
+    // Pass the event
+    resolve(e);
+  });
+});
+
+('BeforeInstallPromptEvent' in window) && import('./a2hs');
+
+
+// MDC initialisation
+
 const rippleList = document.querySelectorAll('[data-mdc-auto-init="ripple"]');
 Array.prototype.forEach.call(rippleList, el => new MDCRipple(el));
 
