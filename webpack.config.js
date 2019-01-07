@@ -56,7 +56,7 @@ module.exports = [{
           options: {
             presets: [ 'es2015' ],
             plugins: [ 'async-import' ],
-            cacheDirectory: true
+            // cacheDirectory: true
           }
         }
       ],
