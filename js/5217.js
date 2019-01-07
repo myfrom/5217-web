@@ -170,10 +170,26 @@ function startTimer() {
     }
   }, 1000);
 
+  /** 
+   * Event letting the app know about cycle changes,
+   * @event cyclechange
+   * @type {CustomEvent}
+   * @property {string} detail - New cycle name ('work' or 'break')
+   */
+  var event = new CustomEvent('cyclechange', { detail: 'work' });
+  window.dispatchEvent(event);
 }
 
 function switchCycles() {
   currentCycle = currentCycle === "work" ? "break" : "work";
+  /** 
+   * Event letting the app know about cycle changes,
+   * @event cyclechange
+   * @type {CustomEvent}
+   * @property {string} detail - New cycle name ('work' or 'break')
+   */
+  var event = new CustomEvent('cyclechange', { detail: currentCycle });
+  window.dispatchEvent(event);
 }
 
 function startNewType() {
