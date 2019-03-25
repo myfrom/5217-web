@@ -1,5 +1,5 @@
-importScripts("precache-manifest.85aa9cd8b1d2f14d5be4bdab0bd59376.js", "workbox-v3.2.0/workbox-sw.js");
-workbox.setConfig({modulePathPrefix: "workbox-v3.2.0"});
+importScripts("precache-manifest.53813f98ffb9153d8726c9f63a6bcd12.js", "workbox-v3.6.3/workbox-sw.js");
+workbox.setConfig({modulePathPrefix: "workbox-v3.6.3"});
 if (!workbox) {
   console.log('Service Worker - Failed to load Workbox');
 }
