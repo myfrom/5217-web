@@ -102,10 +102,16 @@ module.exports = [{
         }
       ]
     }, {
-      test: /\.(jpe?g|png|svg|woff|woff2|ttf|eot|wav|ico|xml)$/,
+      test: /\.(jpe?g|png|svg|wav|ico|xml)$/,
       loader: 'file-loader',
       options: {
         name: '[path][name].[ext]'
+      }
+    }, {
+      test: /\.(woff|woff2|ttf|eot)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'fonts/[name].[ext]'
       }
     }, {
       type: 'javascript/auto',
