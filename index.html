@@ -71,16 +71,16 @@
   <div id="uidiv">
     
     <div class="fixed-action-btn three-dots noselect">
-      <div class="mdc-menu-anchor">
+      <div class="mdc-menu-surface--anchor">
         <button class="mdc-button icon-button dropdown-button" id="morebutton" data-mdc-auto-init="ripple">
           <i class="mdc-button__icon material-icons">more_horiz</i>
         </button>
-        <div class="mdc-menu mdc-simple-menu--open-from-bottom-left" tabindex="-1" style="z-index: 293847;">
-          <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
-            <li class="mdc-list-item" role="menuitem" tabindex="0" id="settings-dialog-trigger" href="#settings-modal" data-mdc-auto-init="ripple">
+        <div class="mdc-menu mdc-menu-surface mdc-elevation--z12">
+          <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+            <li class="mdc-list-item" role="menuitem"id="settings-dialog-trigger" href="#settings-modal" data-mdc-auto-init="ripple">
               Options
             </li>
-            <li class="mdc-list-item modal-trigger" role="menuitem" tabindex="0" id="about-dialog-trigger" href="#about-modal" data-mdc-auto-init="ripple">
+            <li class="mdc-list-item" role="menuitem" id="about-dialog-trigger" href="#about-modal" data-mdc-auto-init="ripple">
               About 5217
             </li>
           </ul>
@@ -112,66 +112,88 @@
     </div>
   </div>
 
-  <aside id="settings-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="settings-dialog-label" aria-describedby="settings-dialog-description">
-    <div class="mdc-dialog__surface">
-      <header class="mdc-dialog__header">
-        <h2 id="settings-dialog-label" class="mdc-dialog__header__title">
-          Options
-        </h2>
-      </header>
-      <section id="settings-dialog-description" class="mdc-dialog__body">
-        <ul class="mdc-list mdc-list--non-interactive">
-          <li class="mdc-list-item settingslist">
-            Notification
-            <div class="mdc-switch">
-              <input type="checkbox" aria-label="Use notifications" class="mdc-switch__native-control" role="switch" id="notificationSwitch" onclick="dependentUI()">
-              <div class="mdc-switch__background">
-                <div class="mdc-switch__knob"></div>
-              </div>
-            </div>
-          </li>
-          <li class="mdc-list-item settingslist">
-            Sound
-            <div class="mdc-switch">
-              <input type="checkbox" aria-label="Use notifications" class="mdc-switch__native-control" role="switch" id="soundSwitch">
-              <div class="mdc-switch__background">
-                <div class="mdc-switch__knob"></div>
-              </div>
-            </div>
-          </li>
+  <div id="settings-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="settings-dialog-label" aria-describedby="settings-dialog-description" aria-modal="true">
+    <div class="mdc-dialog__container">
+      <div class="mdc-dialog__surface">
+        <h2 id="settings-dialog-label" class="mdc-dialog__title">Options</h2>
+        <div id="settings-dialog-description" class="mdc-dialog__content">
+          <ul id="settingsList" class="mdc-list mdc-list--two-line" aria-label="Options list">
+            <li class="mdc-list-item settingslist" role="switch" data-mdc-auto-init="ripple">
+              <span class="mdc-list-item__text">
+                <label class="mdc-list-item__primary-text" for="notificationSwitch">Show notifications</label>
+                <span class="mdc-list-item__secondary-text settings-hint">remind about time left in cycle</span>
+                <span class="mdc-list-item__secondary-text settings-hint hide">no notifications shown</span>
+              </span>
+              <span class="mdc-list-item__meta">
+                <div class="mdc-switch" id="notificationSwitch" data-mdc-auto-init="switch">
+                  <div class="mdc-switch__track"></div>
+                  <div class="mdc-switch__thumb-underlay">
+                    <div class="mdc-switch__thumb">
+                      <input type="checkbox" role="switch" class="mdc-switch__native-control">
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </li>
+            <li class="mdc-list-item settingslist" role="switch" data-mdc-auto-init="ripple">
+              <span class="mdc-list-item__text">
+                <label class="mdc-list-item__primary-text" for="soundSwitch">Notification sound</label>
+                <span class="mdc-list-item__secondary-text settings-hint">sound will fire every cycle transition</span>
+                <span class="mdc-list-item__secondary-text settings-hint hide">cycle transition will be mute</span>
+              </span>
+              <span class="mdc-list-item__meta">
+                <div class="mdc-switch" id="soundSwitch" data-mdc-auto-init="switch">
+                  <div class="mdc-switch__track"></div>
+                  <div class="mdc-switch__thumb-underlay">
+                    <div class="mdc-switch__thumb">
+                      <input type="checkbox" role="switch" class="mdc-switch__native-control">
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </li>
           </ul>
-      </section>
-      <footer class="mdc-dialog__footer">
-        <a class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Cancel</a>
-        <a class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Save</a>
-      </footer>
+        </div>
+        <footer class="mdc-dialog__actions">
+          <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+            <span class="mdc-button__label">Cancel</span>
+          </button>
+          <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="save">
+            <span class="mdc-button__label">Save</span>
+          </button>
+        </footer>
+      </div>
     </div>
-    <div class="mdc-dialog__backdrop"></div>
-  </aside>
-  <aside id="about-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="about-dialog-label" aria-describedby="about-dialog-description">
-    <div class="mdc-dialog__surface">
-      <header class="mdc-dialog__header">
-        <h2 id="about-dialog-label" class="mdc-dialog__header__title">
-                  About 5217 Web
-              </h2>
-      </header>
-      <section id="about-dialog-description" class="mdc-dialog__body">
-        5217 is a simple productivity timer based on 52/17 work cycle described by <i>the muse</i> <a rel="noopener noreferrer" target="_blank" href="https://www.themuse.com/advice/the-rule-of-52-and-17-its-random-but-it-ups-your-productivity">here</a>.
-        <br>
-        <br>Designed with care by <a rel="noopener noreferrer" target="_blank" href="https://www.liamspradlin.com/">Liam Spradlin</a>
-        <br>Android app magically developed by <a rel="noopener noreferrer" target="_blank" href="https://twitter.com/franciscof_1990">Francisco Franco</a>
-        <br>Web app enthusiastically coded by <a rel="noopener noreferrer" target="_blank" href="https://jacksonhayes.me">Jackson Hayes</a>
-        <br>
-        <br>Get the Android app <a href="https://play.google.com/store/apps/details?id=com.franco.timer" rel="noopener noreferrer" target="_blank">here</a>.
-        <br><br><div id="testingcontainer"><span>beta version 0.2.1</span></div>
-      </section>
-      <footer class="mdc-dialog__footer">
-        <a class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel" href="https://github.com/jacksonhvisuals/5217-web/issues" rel="noopener noreferrer" target="_blank">Report a bug</a>
-        <a class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Gotcha</a>
-      </footer>
+    <div class="mdc-dialog__scrim"></div>
+  </div>
+  <div id="about-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="about-dialog-label" aria-describedby="about-dialog-description" aria-modal="true">
+    <div class="mdc-dialog__container">
+      <div class="mdc-dialog__surface">
+        <h2 id="about-dialog-label" class="mdc-dialog__title">About 5217 Web</h2>
+        <div id="about-dialog-description" class="mdc-dialog__content">
+          5217 is a simple productivity timer based on 52/17 work cycle described by <i>the muse</i> <a rel="noopener noreferrer" target="_blank" href="https://www.themuse.com/advice/the-rule-of-52-and-17-its-random-but-it-ups-your-productivity">here</a>.
+          <br>
+          <br>Designed with care by <a rel="noopener noreferrer" target="_blank" href="https://www.liamspradlin.com/">Liam Spradlin</a>
+          <br>Android app magically developed by <a rel="noopener noreferrer" target="_blank" href="https://twitter.com/franciscof_1990">Francisco Franco</a>
+          <br>Web app enthusiastically coded by <a rel="noopener noreferrer" target="_blank" href="https://jacksonhayes.me">Jackson Hayes</a>
+          <br>
+          <br>Get the Android app <a href="https://play.google.com/store/apps/details?id=com.franco.timer" rel="noopener noreferrer" target="_blank">here</a>.
+          <br><br><div id="testingcontainer"><span>beta version 0.2.1</span></div>
+        </div>
+        <footer class="mdc-dialog__actions">
+          <a href="https://github.com/jacksonhvisuals/5217-web/issues" rel="noopener noreferrer" target="_blank" class="buttonWrapper">
+            <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="bug">
+              <span class="mdc-button__label">Report a bug</span>
+            </button>
+          </a>
+          <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+            <span class="mdc-button__label">Gotcha</span>
+          </button>
+        </footer>
+      </div>
     </div>
-    <div class="mdc-dialog__backdrop"></div>
-  </aside>
+    <div class="mdc-dialog__scrim"></div>
+  </div>
 
   <!-- App scripts -->
   <script src="js/5217.js" defer></script>

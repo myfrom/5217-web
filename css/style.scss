@@ -6,14 +6,19 @@
 /* MDC Theme */
 $mdc-theme-primary: #237aff;
 $mdc-theme-secondary: #237aff;
+$mdc-shape-small-component-radius: 2px;
+$mdc-shape-medium-component-radius: 2px;
+$mdc-shape-large-component-radius: 2px;
 
 /* MDC Imports */
 @import '@material/menu/mdc-menu';
+@import "@material/menu-surface/mdc-menu-surface";
 @import '@material/button/mdc-button';
 @import '@material/list/mdc-list';
 @import '@material/fab/mdc-fab';
 @import '@material/dialog/mdc-dialog';
 @import '@material/switch/mdc-switch';
+@import '@material/elevation/mdc-elevation';
 
 
 /* General Styling */
@@ -77,16 +82,17 @@ body {
 }
 
 #uidiv > div {
-  margin: 0 50px;
+  margin: 0 30px;
 }
 
 .icon-button {
+  @include mdc-states-base-color(white);
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 64px;
+  width: 64px;
   min-width: unset !important;
   min-height: unset !important;
-  padding: 8px;
+  padding: 20px;
 }
 .icon-button .mdc-button__icon {
   width: 24px;
@@ -124,27 +130,30 @@ body {
   z-index: -1;
 }
 
-.mdc-menu {
-  bottom: 32px !important;
-}
-
-.settingslist {
-  justify-content: space-between;
-  padding: 0px !important;
-}
-
 #settings-dialog-description {
-  margin-top: 0px;
-  padding: 0px 8px 0px 24px !important;
+  padding: 0;
+  padding-bottom: 24px;
+
+  .mdc-list-item {
+    padding: 0 24px;
+  }
+
+  .mdc-list-item__meta {
+    padding-left: 24px;
+  }
 }
 
-#settings-dialog-description .mdc-switch {
-  margin-right: 16px;
+a.buttonWrapper {
+  text-decoration: none;
+  color: inherit;
 }
 
-.mdc-dialog__surface {
-  max-width: 360px;
-  min-width: 280px;
+.mdc-dialog {
+  @include mdc-dialog-max-width(360px, 16px);
+
+  .mdc-dialog__surface, .mdc-dialog__container {
+    width: 100%;
+  }
 }
 
 #breakMessage1, #breakMessage2 {

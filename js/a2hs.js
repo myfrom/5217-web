@@ -20,7 +20,6 @@ window.installPrompt.then(installPromptEvent => {
   menuItem.textContent = 'Install';
   menuItem.classList.add('mdc-list-item');
   menuItem.setAttribute('role', 'menuitem');
-  menuItem.setAttribute('tabindex', 0);
   new MDCRipple(menuItem);
   menuItem.addEventListener('click', () => {
     installPromptEvent.userChoice.then(choice => {

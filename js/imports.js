@@ -2,6 +2,8 @@
 import {MDCRipple} from '@material/ripple';
 import {MDCMenu} from '@material/menu';
 import {MDCDialog} from '@material/dialog';
+import {MDCList} from '@material/list';
+import {MDCSwitch} from '@material/switch';
 
 
 // Add 2 Home Screen enhancements
@@ -20,8 +22,8 @@ window.installPrompt = new Promise(resolve => {
 
 // MDC initialisation
 
-const rippleList = document.querySelectorAll('[data-mdc-auto-init="ripple"]');
-Array.prototype.forEach.call(rippleList, el => new MDCRipple(el));
+const rippleElsList = document.querySelectorAll('[data-mdc-auto-init="ripple"]');
+rippleElsList.forEach(el => new MDCRipple(el));
 
 var aboutDialog = new MDCDialog(document.querySelector('#about-dialog'));
 var settingsDialog = new MDCDialog(document.querySelector('#settings-dialog'));
@@ -47,10 +49,10 @@ settingsDialog.listen('MDCDialog:cancel', function() {
   console.log('canceled');
 })
 
-document.querySelector('#settings-dialog-trigger').addEventListener('click', function(evt) {
-  settingsDialog.lastFocusedTarget = evt.target;
-  settingsDialog.show();
-})
+document.querySelector('#settings-dialog-trigger')
+  .addEventListener('click', () => settingsDialog.open());
 
-let menu = new MDCMenu(document.querySelector('.mdc-menu'));
+const menu = new MDCMenu(document.querySelector('.mdc-menu'));
+menu.setAnchorCorner(1); // Sets to bottom left corner
+menu.setAnchorMargin({ top: 20, bottom: 20, left: 20, right: 20 }); // Mind button padding
 document.querySelector('#morebutton').addEventListener('click', () => menu.open = !menu.open);
