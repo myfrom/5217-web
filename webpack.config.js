@@ -12,7 +12,7 @@ const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 module.exports = [{
   mode: 'production',
   entry: [
-    path.resolve(__dirname, 'js', 'imports.js')
+    path.resolve(__dirname, 'js', 'app.js')
   ],
   output: {
     path: OUTPUT_PATH,
@@ -29,24 +29,6 @@ module.exports = [{
             minimize: true
           }
         }
-      ]
-    }, {
-      test: /js\/5217\.js$/,
-      use: [
-        {
-          loader: 'file-loader',
-          options: {
-            name: 'js/[name]-[hash].js'
-          }
-        },
-        // Isn't necessary and is actually breaking the code
-        /* {
-          loader: 'babel-loader',
-          options: {
-            presets: [ '@babel/preset-env' ],
-            cacheDirectory: true
-          }
-        } */
       ]
     }, {
       test: /\.js$/,
