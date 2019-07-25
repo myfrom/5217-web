@@ -6,6 +6,13 @@ import {MDCList} from '@material/list';
 import {MDCSwitch} from '@material/switch';
 
 
+// Instate settings object
+window.SETTINGS = {
+  notification: true,
+  sound: false
+}
+
+
 // Add 2 Home Screen enhancements
 
 window.installPrompt = new Promise(resolve => {
@@ -70,8 +77,8 @@ settingsDialog.listen('MDCDialog:closed', e => {
       sound: soundToggle.checked
     });
   } else {
-    notificationToggle.checked = notification;
-    soundToggle.checked = sound;
+    notificationToggle.checked = SETTINGS.notification;
+    soundToggle.checked = SETTINGS.sound;
   }
 })
 
@@ -183,8 +190,6 @@ var shareFab1Element = document.getElementById("sharefab1");
 var moreButton1Element = document.getElementById("morebutton");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
-var notification;
-var sound;
 setCookies();
 /* var breakMessage1Element = document.getElementById("breakMessage1");
 var breakMessage2Element = document.getElementById("breakMessage2"); */
@@ -247,10 +252,10 @@ function setCookies() {
     if (typeof localStorage.soundpref === 'undefined') {
       localStorage.soundpref = false;
     }
-    notification = localStorage.notifpref == 'true';
-    sound = notification && localStorage.soundpref == 'true';
+    SETTINGS.notification = localStorage.notifpref == 'true';
+    SETTINGS.sound = SETTINGS.notification && localStorage.soundpref == 'true';
 
-    // updateSettingsState({ notification, sound });
+    updateSettingsState({ notification: SETTINGS.notification, sound: SETTINGS.sound });
   }
 }
 
@@ -261,8 +266,8 @@ function saveSettings(input = {}) {
   soundSetting = input.sound || false;
   localStorage.notifpref = notificationSetting;
   localStorage.soundpref = soundSetting;
-  notification = localStorage.notifpref;
-  sound = localStorage.soundpref;
+  SETTINGS.notification = localStorage.notifpref;
+  SETTINGS.sound = localStorage.soundpref;
 }
 
 function startTimer() {
@@ -592,7 +597,7 @@ function checkIfMobile() {
 }
 
 function notify(type, minutes) {
-  if (notification === "true"){
+  if (SETTINGS.notification === "true"){
     showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
   }
 }
@@ -627,7 +632,7 @@ function getNotificationBody(type, remainingMinutes) {
 }
 
 function setPlayAudio(type) {
-  if (sound === "true" && (minutesAwayRounded === 52 || (minutesAwayRounded === 17 && cycleType === "break"))) {
+  if (SETTINGS.sound === "true" && (minutesAwayRounded === 52 || (minutesAwayRounded === 17 && cycleType === "break"))) {
     if (type ==="work"){
       let audio = new Audio("sound/end_break.wav");
       audio.play();
