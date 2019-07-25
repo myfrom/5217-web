@@ -28,8 +28,7 @@ var currentCycle;
 var notificationSetting;
 var soundSetting;
 
-// A literal ARRAY of colors. Ha!
-var workColors = ["#238aff", "#278cff", "#2c8fff", "#3091ff", "#3493ff", "#3996ff", "#3d98ff", "#419aff", "#469cff", "#4a9fff", "#4ea1ff", "#53a3ff", "#57a6ff", "#5ba8ff", "#60aaff", "#64adff", "#68afff", "#6db1ff", "#71b4ff", "#75b6ff", "#7ab8ff", "#7ebaff", "#82bdff", "#87bfff", "#8bc1ff", "#8fc4ff", "#94c6ff", "#98c8ff", "#9ccbff", "#a1cdff", "#a5cfff", "#a9d1ff", "#aed4ff", "#b2d6ff", "#b6d8ff", "#bbdbff", "#bfddff", "#c3dfff", "#c8e2ff", "#cce4ff", "#d0e6ff", "#d5e9ff", "#d9ebff", "#ddedff", "#e2efff", "#e6f2ff", "#eaf4ff", "#eff6ff", "#f3f9ff", "#f7fbff", "#fcfdff", "#ffffff"];
+var workColors = generateColorsList(worktime, '#238aff', '#ffffff');
 
 var breakMessages = ["have a cup of tea!", "put your feet up!", "take a deep breath!", "ponder infinity…", "enjoy the moment!", "order a pizza?", "say hi to a stranger!", "take a walk around!", "stand up and stretch!", "grab some coffee!", "strike a pose!", "catch up on reading!", "have a brainstorm!", "clean your junk drawer!", "have a daydream!", "share your progress!", "clear your mind!", "meditate!", "just relax!", "find a good playlist!", "rest your eyes!", "stretch your legs!", "think of a joke!", "make a quick call!", "read a listicle!", "have a snack!", "play a quick game!", "consider the universe!", "watch a funny video!", "treat yo self!", "… have a KitKat!", "tweet the world!", "tell someone you love 'em"];
 
@@ -81,6 +80,45 @@ resetButton1Element.parentElement.addEventListener("click", reset);
 /*
   Functions
 */
+function generateColorsList(steps, original, target) {
+  // Catch invalid values
+  if (typeof original != 'string' && original.length != 7)
+    throw new Error('Original parameter passed to renderColorsList isn\'t valid hex color value', original);
+  if (typeof target != 'string' && target.length != 7)
+    throw new Error('Target parameter passed to renderColorsList isn\'t valid hex color value', target);
+  
+  const originalRgb = new Uint8ClampedArray(3);
+  // Get each value from the string #HEX color
+  originalRgb[0] = parseInt(original.slice(0,2), 16);
+  originalRgb[1] = parseInt(original.slice(2,4), 16);
+  originalRgb[2] = parseInt(original.slice(4,6), 16);
+
+  const targetRgb = new Uint8ClampedArray(3);
+  // Get each value from the string #HEX color
+  targetRgb[0] = parseInt(target.slice(0,2), 16);
+  targetRgb[1] = parseInt(target.slice(2,4), 16);
+  targetRgb[2] = parseInt(target.slice(4,6), 16);
+
+  const colorsRgbArray = [ originalRgb ];
+
+  const colorDiffs = [
+    (originalRgb[0] - targetRgb[0]) / (steps - 1),
+    (originalRgb[1] - targetRgb[1]) / (steps - 1),
+    (originalRgb[2] - targetRgb[2]) / (steps - 1)
+  ]
+
+  for (let i = 1; i < steps; i++) {
+    colorsRgbArray[i] = new Uint8ClampedArray(3);
+    colorsRgbArray[i][0] = originalRgb[0] - colorDiffs[0] * i;
+    colorsRgbArray[i][1] = originalRgb[1] - colorDiffs[1] * i;
+    colorsRgbArray[i][2] = originalRgb[2] - colorDiffs[2] * i;
+  }
+
+  const hexColorsArray = colorsRgbArray.map(rgb =>
+    `#${rgb[0].toString(16).padStart(2, '0')}${rgb[1].toString(16).padStart(2, '0')}${rgb[2].toString(16).padStart(2, '0')}`);
+
+  return hexColorsArray;
+}
 function setCookies() {
     if(typeof(Storage) !== "undefined") {
         if (typeof(localStorage.notifpref) === "undefined") {
