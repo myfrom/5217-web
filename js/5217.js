@@ -62,8 +62,6 @@ var shareFab1Element = document.getElementById("sharefab1");
 var moreButton1Element = document.getElementById("morebutton");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
-var notificationToggleElement = document.getElementById("notificationSwitch");
-var soundToggleElement = document.getElementById("soundSwitch");
 var notification;
 var sound;
 setCookies();
@@ -119,50 +117,31 @@ function generateColorsList(steps, original, target) {
 
   return hexColorsArray;
 }
-function setCookies() {
-    if(typeof(Storage) !== "undefined") {
-        if (typeof(localStorage.notifpref) === "undefined") {
-            localStorage.notifpref = true;
-        }
-        if (typeof(localStorage.soundpref) === "undefined") {
-            localStorage.soundpref = false;
-        }
-        notification = localStorage.notifpref;
-        sound = localStorage.soundpref;
 
-        if (notification === "true") {
-          let checked = document.createAttribute("checked");
-          notificationToggleElement.attributes.setNamedItem(checked);
-        }
-        if (sound === "true") {
-          let checked = document.createAttribute("checked");
-          soundToggleElement.attributes.setNamedItem(checked);
-        }
-        if (notification === "false") {
-            soundToggleElement.setAttribute("disabled","");
-            soundToggleElement.removeAttribute("checked");
-        }
+function setCookies() {
+  if (typeof Storage !== 'undefined') {
+    if (typeof localStorage.notifpref === 'undefined') {
+      localStorage.notifpref = true;
     }
+    if (typeof localStorage.soundpref === 'undefined') {
+      localStorage.soundpref = false;
+    }
+    notification = localStorage.notifpref == 'true';
+    sound = notification && localStorage.soundpref == 'true';
+
+    // updateSettingsState({ notification, sound });
+  }
 }
 
-function saveSettings() {
-  notificationSetting = notificationToggleElement.checked;
-  soundSetting = soundToggleElement.checked;
+function saveSettings(input = {}) {
+  if (typeof input != 'object')
+    throw new Error('saveSettings called with invalid input, expected { notification, sound }, got ', input);
+  notificationSetting = input.notification || false;
+  soundSetting = input.sound || false;
   localStorage.notifpref = notificationSetting;
   localStorage.soundpref = soundSetting;
   notification = localStorage.notifpref;
   sound = localStorage.soundpref;
-}
-
-function dependentUI() {
-  notificationSetting = notificationToggleElement.checked;
-  if (!notificationSetting) {
-    soundToggleElement.setAttribute("disabled","");
-    soundToggleElement.checked = false;
-    soundToggleElement.setAttribute("checked", "false");
-  } else {
-    soundToggleElement.removeAttribute("disabled");
-  }
 }
 
 function startTimer() {
