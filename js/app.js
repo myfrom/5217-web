@@ -69,6 +69,9 @@ settingsDialog.listen('MDCDialog:closed', e => {
       notification: notificationToggle.checked,
       sound: soundToggle.checked
     });
+  } else {
+    notificationToggle.checked = notification;
+    soundToggle.checked = sound;
   }
 })
 
@@ -88,25 +91,21 @@ function updateSettingsState(settings = {}) {
 
   if (settings.notification) {
     notificationToggle.checked = true;
+    soundToggle.disabled = false;
   } else {
     notificationToggle.checked = false;
     soundToggle.checked = false;
     soundToggle.disabled = true;
   }
-  if (sound === 'true') {
-    let checked = document.createAttribute('checked');
-    soundToggleElement.attributes.setNamedItem(checked);
-  }
-  if (notification === 'false') {
-    soundToggleElement.setAttribute('disabled', '');
-    soundToggleElement.removeAttribute('checked');
+  if (settings.sound) {
+    soundToggle.checked = true;
+  } else {
+    soundToggle.checked = false;
   }
 
   // Also change settings hints
   const settingsItems = document.querySelectorAll('.settingslist');
-    settingsHints[0].classList.add('hide');
-    settingsHints[1].classList.remove('hide');
-  const settingsHints = settingsItems.map(item => item.querySelectorAll('.settings-hint'));
+  const settingsHints = Array.from(settingsItems).map(item => item.querySelectorAll('.settings-hint'));
   // Notification
   settingsHints[0][0].classList.toggle('hide', !notification);
   settingsHints[0][1].classList.toggle('hide', notification);
