@@ -8,10 +8,10 @@
   Constants
 */
 
-const second = 60000;
+const minute = window.DEBUG.MINUTE || 60000;
 
-const worktime = 52;
-const breaktime = 17;
+const worktime = window.DEBUG.WORKTIME || 52;
+const breaktime = window.DEBUG.BREAKTIME || 17;
 
 const originalTitle = document.title;
 
@@ -323,17 +323,17 @@ function getCurrentTime() {
 
 function getEndTime(cycleType) {
   if (cycleType === "work") {
-    endTime = new Date(startTime + (worktime * second)).getTime();
+    endTime = new Date(startTime + (worktime * minute)).getTime();
     placeHolderTime = worktime;
   } else if (cycleType === "break") {
-    endTime = new Date(startTime + (breaktime * second)).getTime();
+    endTime = new Date(startTime + (breaktime * minute)).getTime();
     placeHolderTime = breaktime;
   }
   return endTime;
 }
 
 function getMinutesAway(now, finish) {
-  minutesAway = (finish - now) / second;
+  minutesAway = (finish - now) / minute;
   minutesAwayRounded = Math.ceil(minutesAway);
   return minutesAwayRounded;
 }
