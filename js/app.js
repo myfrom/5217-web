@@ -140,11 +140,11 @@ function updateSettingsState(settings = {}) {
   const settingsItems = document.querySelectorAll('.settingslist');
   const settingsHints = Array.from(settingsItems).map(item => item.querySelectorAll('.settings-hint'));
   // Notification
-  settingsHints[0][0].classList.toggle('hide', !notification);
-  settingsHints[0][1].classList.toggle('hide', notification);
+  settingsHints[0][0].classList.toggle('hide', !settings.notification);
+  settingsHints[0][1].classList.toggle('hide', settings.notification);
   // Sound
-  settingsHints[1][0].classList.toggle('hide', !sound);
-  settingsHints[1][1].classList.toggle('hide', sound);
+  settingsHints[1][0].classList.toggle('hide', !settings.sound);
+  settingsHints[1][1].classList.toggle('hide', settings.sound);
 }
 
 
