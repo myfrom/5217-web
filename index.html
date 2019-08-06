@@ -152,6 +152,30 @@
                 </div>
               </span>
             </li>
+            <li class="mdc-list-item settingslist" id="themeSelectContainer" data-mdc-auto-init="ripple">
+              <select class="hide">
+                <option value="auto">follow system</option>
+                <option value="light">light</option>
+                <option value="dark">dark</option>
+              </select>
+              <span class="mdc-list-item__text">
+                <span class="mdc-list-item__primary-text" for="themeSelect">App theme</label>
+                <span class="mdc-list-item__secondary-text settings-select-value">follow system</span>
+              </span>
+              <div class="mdc-menu mdc-menu-surface" id="themeMenu">
+                <ul class="mdc-list" role="listbox" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+                  <li class="mdc-list-item" role="option" data-option-index="0">
+                    <span class="mdc-list-item__text">Follow system</span>
+                  </li>
+                  <li class="mdc-list-item" role="option" data-option-index="1">
+                    <span class="mdc-list-item__text">Light</span>
+                  </li>
+                  <li class="mdc-list-item" role="option" data-option-index="2">
+                    <span class="mdc-list-item__text">Dark</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
         <footer class="mdc-dialog__actions">
@@ -195,6 +219,15 @@
     <div class="mdc-dialog__scrim"></div>
   </div>
 
+  
+  <!-- FIXME: Remove before publishing -->
+  <script>
+    window.DEBUG = {
+      MINUTE: 5000,
+      WORKTIME: 20,
+      BREAKTIME: 20
+    }
+  </script>
   <!-- App scripts, this is inserted by Webpack -->
   <!-- <script src="js/imports.js" defer></script> -->
 

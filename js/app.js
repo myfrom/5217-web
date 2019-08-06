@@ -9,7 +9,8 @@ import {MDCSwitch} from '@material/switch';
 // Instate settings object
 window.SETTINGS = {
   notification: true,
-  sound: false
+  sound: false,
+  theme: 'auto'
 }
 
 
@@ -85,10 +86,35 @@ settingsDialog.listen('MDCDialog:closed', e => {
 document.querySelector('#settings-dialog-trigger')
   .addEventListener('click', () => settingsDialog.open());
 
-const menu = new MDCMenu(document.querySelector('.mdc-menu'));
-menu.setAnchorCorner(1); // Sets to bottom left corner
-menu.setAnchorMargin({ top: 20, bottom: 20, left: 20, right: 20 }); // Mind button padding
-document.querySelector('#morebutton').addEventListener('click', () => menu.open = !menu.open);
+const threeDotMenu = new MDCMenu(document.querySelector('#uidiv .mdc-menu'));
+threeDotMenu.setAnchorCorner(1); // Sets to bottom left corner
+threeDotMenu.setAnchorMargin({ top: 20, bottom: 20, left: 20, right: 20 }); // Mind button padding
+document.querySelector('#morebutton').addEventListener('click', () => threeDotMenu.open = !threeDotMenu.open);
+
+// Hook up theme selection
+const themeMenu = new MDCMenu(document.querySelector('#themeMenu'));
+themeMenu.hoistMenuToBody();
+themeMenu.setAnchorCorner(4); // Sets to top right corner
+const themeSelectContainer = document.querySelector('#themeSelectContainer');
+const themeSelect = document.querySelector('#themeSelectContainer select');
+themeSelectContainer.addEventListener('click', () => {
+  const position = themeSelectContainer.getBoundingClientRect();
+  themeMenu.setAbsolutePosition(
+    position.right - 24,
+    position.y - 48 * themeSelect.selectedIndex
+  );
+  themeMenu.list_.selectedIndex = themeSelect.selectedIndex;
+  themeMenu.open = !themeMenu.open;
+});
+themeMenu.items.forEach(el => {
+  el.addEventListener('click', e => {
+    const selectedIndex = Number(e.target.getAttribute('data-option-index'));
+    themeSelect.selectedIndex = selectedIndex;
+    themeSelectContainer.querySelector('.settings-select-value').textContent =
+      themeSelect.item(selectedIndex).textContent;
+    // FIXME: Init theme change
+  });
+});
 
 
 // Expose a function to change settings from code

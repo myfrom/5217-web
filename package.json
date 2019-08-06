@@ -33,7 +33,6 @@
     "@material/list": "^3.1.0",
     "@material/menu": "^3.1.0",
     "@material/ripple": "^3.1.0",
-    "@material/select": "^3.1.0",
     "@material/switch": "^3.1.0",
     "@material/theme": "^3.1.0",
     "material-design-icons": "^3.0.1"
