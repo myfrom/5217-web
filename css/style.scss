@@ -19,6 +19,7 @@ $mdc-shape-large-component-radius: 2px;
 @import '@material/dialog/mdc-dialog';
 @import '@material/switch/mdc-switch';
 @import '@material/elevation/mdc-elevation';
+@import "@material/icon-button/mdc-icon-button";
 
 
 /* General Styling */
@@ -81,28 +82,26 @@ body {
   z-index: 2;
 }
 
-#uidiv > div {
-  margin: 0 30px;
-}
+#uidiv {
+  & > div {
+    margin: 0 30px;
+  }
 
-.icon-button {
-  @include mdc-states-base-color(white);
-  border-radius: 50%;
-  height: 64px;
-  width: 64px;
-  min-width: unset !important;
-  min-height: unset !important;
-  padding: 20px;
-}
-.icon-button .mdc-button__icon {
-  width: 24px;
-  height: 24px;
-  font-size: 24px;
-  margin-right: 0;
-}
-
-#morebutton {
-  color: #ffffff;
+  .mdc-icon-button {
+    @include mdc-icon-button-ink-color(white);
+    border-radius: 50%;
+    height: 64px;
+    width: 64px;
+    min-width: unset !important;
+    min-height: unset !important;
+    padding: 20px;
+  }
+  .mdc-icon-button .mdc-button__icon {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    margin-right: 0;
+  }
 }
 
 #fab-container {

@@ -32,6 +32,11 @@ window.installPrompt = new Promise(resolve => {
 
 const rippleElsList = document.querySelectorAll('[data-mdc-auto-init="ripple"]');
 rippleElsList.forEach(el => new MDCRipple(el));
+const rippleUnElsList = document.querySelectorAll('[data-mdc-auto-init="ripple-unbounded"]');
+rippleUnElsList.forEach(el => {
+  const ripple = new MDCRipple(el);
+  ripple.unbounded = true;
+});
 
 const notificationToggle = new MDCSwitch(document.getElementById("notificationSwitch"));
 const soundToggle = new MDCSwitch(document.getElementById("soundSwitch"));
@@ -74,17 +79,11 @@ settingsDialog.listen('MDCDialog:opened', () => {
   settingsList.layout();
 })
 
-settingsDialog.listen('MDCDialog:closed', e => {
-  if (e.detail.action == 'save') {
-    saveSettings({
+settingsDialog.listen('MDCDialog:closed', e => saveSettings({
       notification: notificationToggle.checked,
-      sound: soundToggle.checked
-    });
-  } else {
-    notificationToggle.checked = SETTINGS.notification;
-    soundToggle.checked = SETTINGS.sound;
-  }
-})
+  sound: soundToggle.checked,
+  theme: themeSelect.value
+}))
 
 document.querySelector('#settings-dialog-trigger')
   .addEventListener('click', () => settingsDialog.open());
