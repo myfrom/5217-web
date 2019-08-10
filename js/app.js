@@ -67,6 +67,9 @@ const settingsDialog = new MDCDialog(document.querySelector('#settings-dialog'))
 document.querySelector('#about-dialog-trigger')
   .addEventListener('click', () => aboutDialog.open());
 
+document.querySelector('#settings-dialog-close-button')
+  .addEventListener('click', () => settingsDialog.close('close'));
+
 settingsDialog.listen('MDCDialog:opened', () => {
   settingsList.layout();
 })

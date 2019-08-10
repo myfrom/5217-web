@@ -130,12 +130,32 @@ body {
   z-index: -1;
 }
 
+#settings-dialog-header {
+  display: flex;
+  align-items: center;
+  color: $mdc-theme-primary;
+  height: 64px;
+
+  button {
+    @include mdc-icon-button-ink-color($mdc-theme-primary);
+  }
+
+  span {
+    font-size: 1.3em;
+    font-weight: 500;
+  }
+}
 #settings-dialog-description {
   padding: 0;
-  padding-bottom: 24px;
+
+  .mdc-list {
+    padding-top: 0;
+  }
 
   .mdc-list-item {
-    padding: 0 24px;
+    @include mdc-states-base-color($mdc-theme-primary);
+    padding: 0 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
   }
 
   .mdc-list-item__meta {

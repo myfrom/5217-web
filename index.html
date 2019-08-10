@@ -112,13 +112,18 @@
     </div>
   </div>
 
-  <div id="settings-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="settings-dialog-label" aria-describedby="settings-dialog-description" aria-modal="true">
+  <div id="settings-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="settings-dialog-title" aria-describedby="settings-dialog-description" aria-modal="true">
     <div class="mdc-dialog__container">
       <div class="mdc-dialog__surface">
-        <h2 id="settings-dialog-label" class="mdc-dialog__title">Options</h2>
         <div id="settings-dialog-description" class="mdc-dialog__content">
-          <ul id="settingsList" class="mdc-list mdc-list--two-line" aria-label="Options list">
-            <li class="mdc-list-item settingslist" role="switch" data-mdc-auto-init="ripple">
+          <div id="settings-dialog-header">
+            <button class="mdc-icon-button material-icons" id="settings-dialog-close-button" data-mdc-auto-init="ripple-unbounded">
+              close
+            </button>
+            <span id="settings-dialog-title">Options</span>
+          </div>
+          <ul id="settingsList" class="mdc-list mdc-list--two-line" aria-label="Options list" role="listbox">
+            <li class="mdc-list-item settingslist" role="switch" data-mdc-auto-init="ripple" tabindex="0">
               <span class="mdc-list-item__text">
                 <label class="mdc-list-item__primary-text" for="notificationSwitch">Show notifications</label>
                 <span class="mdc-list-item__secondary-text settings-hint">remind about time left in cycle</span>
@@ -178,14 +183,6 @@
             </li>
           </ul>
         </div>
-        <footer class="mdc-dialog__actions">
-          <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
-            <span class="mdc-button__label">Cancel</span>
-          </button>
-          <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="save">
-            <span class="mdc-button__label">Save</span>
-          </button>
-        </footer>
       </div>
     </div>
     <div class="mdc-dialog__scrim"></div>
