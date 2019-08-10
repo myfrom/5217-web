@@ -10,7 +10,14 @@ import {MDCSwitch} from '@material/switch';
 window.SETTINGS = {
   notification: true,
   sound: false,
-  theme: 'auto'
+  theme: 'auto',
+  getComputedTheme: function() {
+    if (this.theme == 'auto') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    } else {
+      return this.theme;
+    }
+  }
 }
 
 
@@ -36,6 +43,43 @@ const rippleUnElsList = document.querySelectorAll('[data-mdc-auto-init="ripple-u
 rippleUnElsList.forEach(el => {
   const ripple = new MDCRipple(el);
   ripple.unbounded = true;
+});
+
+// Hook up theme selection
+const themeMenu = new MDCMenu(document.querySelector('#themeMenu'));
+themeMenu.hoistMenuToBody();
+themeMenu.setAnchorCorner(4); // Sets to top right corner
+const themeSelectContainer = document.querySelector('#themeSelectContainer');
+const themeSelect = document.querySelector('#themeSelectContainer select');
+themeSelectContainer.addEventListener('click', () => {
+  const position = themeSelectContainer.getBoundingClientRect();
+  themeMenu.setAbsolutePosition(
+    position.right - 24,
+    position.y - 48 * themeSelect.selectedIndex
+  );
+  themeMenu.list_.selectedIndex = themeSelect.selectedIndex;
+  themeMenu.open = !themeMenu.open;
+});
+themeMenu.items.forEach(el => {
+  el.addEventListener('click', e => {
+    const selectedIndex = Number(e.target.getAttribute('data-option-index'));
+    themeSelect.selectedIndex = selectedIndex;
+    themeSelectContainer.querySelector('.settings-select-value').textContent =
+      themeSelect.item(selectedIndex).textContent;
+    // Notify about change if necessary
+    const oldTheme = SETTINGS.getComputedTheme();
+    SETTINGS.theme = themeSelect.value;
+    const newTheme = SETTINGS.getComputedTheme();
+    if (newTheme !== oldTheme) {
+      /**
+       * Event indicating that the theme needs to be changed,
+       * @event themechange
+       * @type {CustomEvent}
+       * @property {string} detail - New theme ('light' or 'dark')
+       */
+      window.dispatchEvent(new CustomEvent('themechange', { detail: newTheme }));
+    }
+  });
 });
 
 const notificationToggle = new MDCSwitch(document.getElementById("notificationSwitch"));
@@ -80,7 +124,7 @@ settingsDialog.listen('MDCDialog:opened', () => {
 })
 
 settingsDialog.listen('MDCDialog:closed', e => saveSettings({
-      notification: notificationToggle.checked,
+  notification: notificationToggle.checked,
   sound: soundToggle.checked,
   theme: themeSelect.value
 }))
@@ -93,36 +137,11 @@ threeDotMenu.setAnchorCorner(1); // Sets to bottom left corner
 threeDotMenu.setAnchorMargin({ top: 20, bottom: 20, left: 20, right: 20 }); // Mind button padding
 document.querySelector('#morebutton').addEventListener('click', () => threeDotMenu.open = !threeDotMenu.open);
 
-// Hook up theme selection
-const themeMenu = new MDCMenu(document.querySelector('#themeMenu'));
-themeMenu.hoistMenuToBody();
-themeMenu.setAnchorCorner(4); // Sets to top right corner
-const themeSelectContainer = document.querySelector('#themeSelectContainer');
-const themeSelect = document.querySelector('#themeSelectContainer select');
-themeSelectContainer.addEventListener('click', () => {
-  const position = themeSelectContainer.getBoundingClientRect();
-  themeMenu.setAbsolutePosition(
-    position.right - 24,
-    position.y - 48 * themeSelect.selectedIndex
-  );
-  themeMenu.list_.selectedIndex = themeSelect.selectedIndex;
-  themeMenu.open = !themeMenu.open;
-});
-themeMenu.items.forEach(el => {
-  el.addEventListener('click', e => {
-    const selectedIndex = Number(e.target.getAttribute('data-option-index'));
-    themeSelect.selectedIndex = selectedIndex;
-    themeSelectContainer.querySelector('.settings-select-value').textContent =
-      themeSelect.item(selectedIndex).textContent;
-    // FIXME: Init theme change
-  });
-});
-
 
 // Expose a function to change settings from code
 function updateSettingsState(settings = {}) {
   if (typeof settings != 'object')
-    throw new Error('changeSettingsState called with invalid input, expected { notification, sound }, got ', settings);
+    throw new Error('changeSettingsState called with invalid input, expected { notification, sound, theme }, got ', settings);
 
   if (settings.notification) {
     notificationToggle.checked = true;
@@ -138,6 +157,19 @@ function updateSettingsState(settings = {}) {
     soundToggle.checked = false;
   }
 
+  let selectedThemeIndex = 0;
+  switch (settings.theme) {
+    case 'light':
+      selectedThemeIndex = 1;
+      break;
+    case 'dark':
+      selectedThemeIndex = 2;
+      break;
+    default:
+      selectedThemeIndex = 0;
+  }
+  themeSelect.selectedIndex = selectedThemeIndex;
+
   // Also change settings hints
   const settingsItems = document.querySelectorAll('.settingslist');
   const settingsHints = Array.from(settingsItems).map(item => item.querySelectorAll('.settings-hint'));
@@ -147,6 +179,9 @@ function updateSettingsState(settings = {}) {
   // Sound
   settingsHints[1][0].classList.toggle('hide', !settings.sound);
   settingsHints[1][1].classList.toggle('hide', settings.sound);
+  // Theme
+  themeSelectContainer.querySelector('.settings-select-value').textContent =
+    themeSelect.item(selectedThemeIndex).textContent;
 }
 
 
@@ -181,8 +216,6 @@ var minutesAwayStamp;
 var currentTimeStamp;
 var placeHolderTime;
 var currentCycle;
-var notificationSetting;
-var soundSetting;
 
 var workColors = generateColorsList(worktime, '#238aff', '#ffffff');
 
@@ -209,7 +242,7 @@ var timerRunning = false;
 */
 
 var timerFab1Element = document.getElementById("timerfab1");
-var resetButton1Element = document.getElementById("resetButton1");
+var resetButton1Element = document.getElementById("killButton");
 var pulsingDot1Element = document.getElementById("pulsingDot1");
 var pulsingDot1ContainerElement = document.getElementById("pulsing-dot-container");
 var hero1Element = document.getElementById("heroNumber1");
@@ -228,7 +261,7 @@ var breakMessage2Element = document.getElementById("breakMessage2"); */
 
 // An event listener must be added for both copies of the elements, as there are two.
 timerFab1Element.addEventListener("click", startTimer);
-resetButton1Element.parentElement.addEventListener("click", reset);
+resetButton1Element.addEventListener("click", reset);
 /*
   Functions
 */
@@ -280,22 +313,41 @@ function setCookies() {
     if (typeof localStorage.soundpref === 'undefined') {
       localStorage.soundpref = false;
     }
+    if (typeof localStorage.themepref === 'undefined') {
+      localStorage.themepref = 'auto';
+    }
+
     SETTINGS.notification = localStorage.notifpref == 'true';
     SETTINGS.sound = SETTINGS.notification && localStorage.soundpref == 'true';
+    SETTINGS.theme = localStorage.themepref;
 
-    updateSettingsState({ notification: SETTINGS.notification, sound: SETTINGS.sound });
+    updateSettingsState(SETTINGS);
+
+    // If we need a theme different than default, notify
+    if (SETTINGS.getComputedTheme() != 'light') {
+      /**
+       * Event indicating that the theme needs to be changed,
+       * @event themechange
+       * @type {CustomEvent}
+       * @property {string} detail - New theme ('light' or 'dark')
+       */
+      window.dispatchEvent(new CustomEvent('themechange', { detail: newTheme }));
+    }
   }
 }
 
 function saveSettings(input = {}) {
   if (typeof input != 'object')
-    throw new Error('saveSettings called with invalid input, expected { notification, sound }, got ', input);
-  notificationSetting = input.notification || false;
-  soundSetting = input.sound || false;
+    throw new Error('saveSettings called with invalid input, expected { notification, sound, theme }, got ', input);
+  const notificationSetting = input.notification || false;
+  const soundSetting = input.sound || false;
+  const themeSetting = input.theme || 'auto';
   localStorage.notifpref = notificationSetting;
   localStorage.soundpref = soundSetting;
-  SETTINGS.notification = localStorage.notifpref;
-  SETTINGS.sound = localStorage.soundpref;
+  localStorage.themepref = themeSetting;
+  SETTINGS.notification = notificationSetting;
+  SETTINGS.sound = soundSetting;
+  SETTINGS.theme = themeSetting;
 }
 
 function startTimer() {
