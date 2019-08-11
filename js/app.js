@@ -210,10 +210,10 @@ const originalTitle = document.title;
   Variables
 */
 
-var startTimeStamp;
-var endTimeStamp;
-var minutesAwayStamp;
-var currentTimeStamp;
+var startTime;
+var endTime;
+var minutesAway;
+var currentTime;
 var placeHolderTime;
 var currentCycle;
 
@@ -233,8 +233,8 @@ var notificationBody = {
 var chosenBreakMessage;
 
 var minutesAwayRounded = worktime;
-var frontLayer = "2";
-var backLayer = "1";
+var frontLayer = 2;
+var backLayer = 1;
 var timerRunning = false;
 
 /*
@@ -242,7 +242,7 @@ var timerRunning = false;
 */
 
 var timerFab1Element = document.getElementById("timerfab1");
-var resetButton1Element = document.getElementById("killButton");
+var resetButton1Element = document.getElementById("resetButton");
 var pulsingDot1Element = document.getElementById("pulsingDot1");
 var pulsingDot1ContainerElement = document.getElementById("pulsing-dot-container");
 var hero1Element = document.getElementById("heroNumber1");
@@ -499,12 +499,12 @@ function setTheme(cycleType) {
 
 function updateTimer(cycleType) {
   getLayerOrder();
-  if (f === 2) {
+  if (frontLayer === 2) {
     hero1Element.innerHTML = minutesAwayRounded;
     setTimeout(function() {
       hero2Element.innerHTML = minutesAwayRounded;
     }, 520);
-  } else if (f === 1) {
+  } else if (frontLayer === 1) {
     hero2Element.innerHTML = minutesAwayRounded;
     setTimeout(function() {
       hero1Element.innerHTML = minutesAwayRounded;
@@ -567,18 +567,18 @@ function getLayerOrder() {
   var bLayer = layer2DivElement;
   var bLayerProp = window.getComputedStyle(bLayer, null).getPropertyValue("z-index");
   if (bLayerProp > aLayerProp) {
-    f = 2;
-    r = 1;
+    frontLayer = 2;
+    backLayer = 1;
   } else if (aLayerProp > bLayerProp) {
-    f = 1;
-    r = 2;
+    frontLayer = 1;
+    backLayer = 2;
   }
 }
 
 function setMinuteColors(cycleType) {
   getLayerOrder();
-  (f === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded)];
-  (r === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded) + 1];
+  (frontLayer === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded)];
+  (backLayer === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded) + 1];
   if (minutesAwayRounded === 30) {
     hero1Element.style.color = "#237aff";
     hero2Element.style.color = "#237aff";
@@ -591,7 +591,7 @@ function setMinuteColors(cycleType) {
 function swipeLayer() {
   getLayerOrder();
 
-  if (f === 2) {
+  if (frontLayer === 2) {
     layer2DivElement.classList.add("swipe-background");
     setTimeout(function() {
       layer2DivElement.classList.add("unswipe-background");
@@ -608,7 +608,7 @@ function swipeLayer() {
     setTimeout(function() {
       layer2DivElement.classList.remove("unswipe-background", "swipe-background");
     }, 1000);
-  } else if (f === 1) {
+  } else if (frontLayer === 1) {
     layer1DivElement.classList.add("swipe-background");
     setTimeout(function() {
       layer1DivElement.classList.add("unswipe-background");
