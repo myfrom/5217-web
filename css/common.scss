@@ -1,26 +1,8 @@
 /*
   5217 - Web
   Stylesheet
+  Common, no colours
 */
-
-/* MDC Theme */
-$mdc-theme-primary: #237aff;
-$mdc-theme-secondary: #237aff;
-$mdc-shape-small-component-radius: 2px;
-$mdc-shape-medium-component-radius: 2px;
-$mdc-shape-large-component-radius: 2px;
-
-/* MDC Imports */
-@import '@material/menu/mdc-menu';
-@import "@material/menu-surface/mdc-menu-surface";
-@import '@material/button/mdc-button';
-@import '@material/list/mdc-list';
-@import '@material/fab/mdc-fab';
-@import '@material/dialog/mdc-dialog';
-@import '@material/switch/mdc-switch';
-@import '@material/elevation/mdc-elevation';
-@import "@material/icon-button/mdc-icon-button";
-
 
 /* General Styling */
 
@@ -40,7 +22,6 @@ body {
 }
 
 #layer1div, #layer2div {
-  background-color: $mdc-theme-primary;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -61,7 +42,6 @@ body {
 #heroNumber1, #heroNumber2 {
   font-size: 80px;
   font-weight: 300;
-  color: #ffffff;
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
   -webkit-margin-start: 0;
@@ -88,7 +68,6 @@ body {
   }
 
   .mdc-icon-button {
-    @include mdc-icon-button-ink-color(white);
     border-radius: 50%;
     height: 64px;
     width: 64px;
@@ -125,19 +104,13 @@ body {
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  background-color: #96ffbb;
   z-index: -1;
 }
 
 #settings-dialog-header {
   display: flex;
   align-items: center;
-  color: $mdc-theme-primary;
   height: 64px;
-
-  button {
-    @include mdc-icon-button-ink-color($mdc-theme-primary);
-  }
 
   span {
     font-size: 1.3em;
@@ -152,9 +125,7 @@ body {
   }
 
   .mdc-list-item {
-    @include mdc-states-base-color($mdc-theme-primary);
     padding: 0 16px;
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
   }
 
   .mdc-list-item__meta {
@@ -172,8 +143,6 @@ a.buttonWrapper {
 }
 
 .mdc-dialog {
-  @include mdc-dialog-max-width(360px, 16px);
-
   .mdc-dialog__surface, .mdc-dialog__container {
     width: 100%;
   }
@@ -182,7 +151,6 @@ a.buttonWrapper {
 #breakMessage1, #breakMessage2 {
   font-size: 25px;
   font-weight: 400;
-  color: $mdc-theme-primary;
   visibility: hidden;
   text-align: center;
   padding-left: 12px;
@@ -202,31 +170,8 @@ a.buttonWrapper {
 
 }
 
-#backgroundfcontainer {
-  z-index: -1;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
-#backgroundbcontainer {
-  z-index: -2;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
-#backgroundb {
-  background-color: #267dff;
-  min-height: 100vh;
-  min-width: 100vw;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
-
-
 
 .fabimage {
-  color: #1f538f;
   height: 100%;
   width: 24px;
   margin-top: auto;
@@ -235,15 +180,10 @@ a.buttonWrapper {
 
 #sharefab1 {
   cursor: pointer;
-  background-color: #ffffff;
-}
-
-#sharefab1>span {
-  color: #237aff;
 }
 
 #resetButton1 {
-  color: #ffffff; cursor:pointer;
+  cursor: pointer;
 }
 
 .inactive-element {
@@ -251,10 +191,6 @@ a.buttonWrapper {
 }
 .active-element {
   opacity: 1.0;
-}
-
-#timerfab1 {
-  background-color: #96ffbb;
 }
 
 /* Diable highlighting of FAB & buttons on mobile */
@@ -272,7 +208,6 @@ a.buttonWrapper {
 
 #about-dialog-description a {
   text-decoration: none !important;
-  color: $mdc-theme-primary !important;
 }
 
 #about-dialog, #settings-dialog {
@@ -490,10 +425,6 @@ a.buttonWrapper {
 
 .mdc-dialog__footer__button--cancel a {
   color: inherit;
-}
-
-#testingcontainer span {
-  color: var(--mdc-theme-text-secondary-on-light,rgba(0,0,0,.54));
 }
 
 .noselect {

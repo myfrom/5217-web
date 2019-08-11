@@ -1,0 +1,93 @@
+/*
+  5217 - Web
+  Stylesheet
+  Common, light theme
+*/
+
+/* MDC Theme */
+$mdc-theme-primary: #237aff;
+$mdc-theme-secondary: #237aff;
+$mdc-shape-small-component-radius: 2px;
+$mdc-shape-medium-component-radius: 2px;
+$mdc-shape-large-component-radius: 2px;
+
+/* MDC Imports */
+@import '@material/menu/mdc-menu';
+@import "@material/menu-surface/mdc-menu-surface";
+@import '@material/button/mdc-button';
+@import '@material/list/mdc-list';
+@import '@material/fab/mdc-fab';
+@import '@material/dialog/mdc-dialog';
+@import '@material/switch/mdc-switch';
+@import '@material/elevation/mdc-elevation';
+@import "@material/icon-button/mdc-icon-button";
+
+
+
+/* General styles */
+
+#layer1div, #layer2div {
+  background-color: $mdc-theme-primary;
+}
+
+#heroNumber1, #heroNumber2 {
+  color: #ffffff;
+}
+
+#uidiv .mdc-icon-button {
+  @include mdc-icon-button-ink-color(white);
+}
+
+#pulsingDot1 {
+  background-color: #96ffbb;
+}
+
+#settings-dialog-header {
+  color: $mdc-theme-primary;
+
+  button {
+    @include mdc-icon-button-ink-color($mdc-theme-primary);
+  }
+}
+
+#settings-dialog-description .mdc-list-item {
+  @include mdc-states-base-color($mdc-theme-primary);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mdc-dialog {
+  @include mdc-dialog-max-width(360px, 16px);
+}
+
+#about-dialog-description a {
+  text-decoration: none !important;
+  color: $mdc-theme-primary !important;
+}
+
+#breakMessage1, #breakMessage2 {
+  color: $mdc-theme-primary;
+}
+
+.fabimage {
+  color: #1f538f;
+}
+
+#sharefab1 {
+  background-color: #ffffff;
+}
+
+#sharefab1 > span {
+  color: #237aff;
+}
+
+#resetButton1 {
+  color: #ffffff;
+}
+
+#timerfab1 {
+  background-color: #96ffbb;
+}
+
+#testingcontainer span {
+  color: var(--mdc-theme-text-secondary-on-light,rgba(0,0,0,.54));
+}
