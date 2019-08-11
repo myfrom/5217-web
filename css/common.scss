@@ -182,15 +182,8 @@ a.buttonWrapper {
   cursor: pointer;
 }
 
-#resetButton1 {
-  cursor: pointer;
-}
-
-.inactive-element {
+#resetButton:disabled {
   opacity: 0.5;
-}
-.active-element {
-  opacity: 1.0;
 }
 
 /* Diable highlighting of FAB & buttons on mobile */

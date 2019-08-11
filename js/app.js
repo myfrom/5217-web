@@ -385,9 +385,7 @@ function startTimer() {
     timerFab1Element.classList.add("hide");
   }, 200);
 
-  resetButton1Element.classList.remove("inactive-element");
-
-  resetButton1Element.classList.add("active-element");
+  resetButton1Element.disabled = false;
 
   timerFab1Element.classList.add("hide-fab");
   timerFab1Element.classList.remove("show-fab");
@@ -455,13 +453,12 @@ function reset() {
 
   if (timerRunning !== true) return;
 
-  resetButton1Element.classList.remove("active-element");
   resetButton1Element.classList.add("spinit");
 
 
   setTimeout(function() {
     resetButton1Element.classList.remove("spinit");
-    resetButton1Element.classList.add("inactive-element");
+    resetButton1Element.disabled = true;
   }, 610);
 
   timerRunning = false;
