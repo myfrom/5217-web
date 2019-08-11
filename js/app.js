@@ -199,10 +199,10 @@ function updateSettingsState(settings = {}) {
   Constants
 */
 
-const minute = window.DEBUG.MINUTE || 60000;
+const minute = (window.DEBUG && window.DEBUG.MINUTE) ? window.DEBUG.MINUTE : 60000;
 
-const worktime = window.DEBUG.WORKTIME || 52;
-const breaktime = window.DEBUG.BREAKTIME || 17;
+const worktime = (window.DEBUG && window.DEBUG.WORKTIME) ? window.DEBUG.WORKTIME : 52;
+const breaktime = (window.DEBUG && window.DEBUG.BREAKTIME) ? window.DEBUG.BREAKTIME : 17;
 
 const originalTitle = document.title;
 
