@@ -5,8 +5,10 @@
 */
 
 /* MDC Theme */
-$mdc-theme-primary: #0952c1;
-$mdc-theme-secondary: #0952c1;
+$mdc-theme-primary: #4790ff;
+$mdc-theme-secondary: #4790ff;
+$mdc-theme-surface: #121212;
+$mdc-theme-on-surface: white;
 $mdc-shape-small-component-radius: 2px;
 $mdc-shape-medium-component-radius: 2px;
 $mdc-shape-large-component-radius: 2px;
@@ -26,16 +28,26 @@ $mdc-shape-large-component-radius: 2px;
 
 /* General styles */
 
+body {
+  color: white;
+}
+
 #layer1div, #layer2div {
   background-color: $mdc-theme-primary;
 }
 
 #heroNumber1, #heroNumber2 {
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-#uidiv .mdc-icon-button {
-  @include mdc-icon-button-ink-color(white);
+#uidiv {
+  .mdc-icon-button {
+    @include mdc-icon-button-ink-color(rgba(255, 255, 255, 0.9));
+  }
+
+  .mdc-menu-surface {
+    @include mdc-menu-surface-fill-color(#1E1E1E);
+  }
 }
 
 #pulsingDot1 {
@@ -50,13 +62,31 @@ $mdc-shape-large-component-radius: 2px;
   }
 }
 
-#settings-dialog-description .mdc-list-item {
-  @include mdc-states-base-color($mdc-theme-primary);
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+#settings-dialog-description {
+  .mdc-list-item {
+    @include mdc-states-base-color($mdc-theme-primary);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .mdc-switch {
+    @include mdc-switch-toggled-off-color(#585858);
+
+  }
 }
 
 .mdc-dialog {
   @include mdc-dialog-max-width(360px, 16px);
+  @include mdc-dialog-scrim-color(black, 0.32);
+  @include mdc-dialog-container-fill-color(#1E1E1E);
+  @include mdc-dialog-content-ink-color(white, 1);
+}
+
+#settingsList {
+  @include mdc-list-item-primary-text-ink-color(white);
+  @include mdc-list-item-secondary-text-ink-color(rgba(255, 255, 255, 0.6));
+}
+
+#themeMenu {
+  @include mdc-menu-surface-fill-color(#282828);
 }
 
 #about-dialog-description a {
@@ -73,15 +103,11 @@ $mdc-shape-large-component-radius: 2px;
 }
 
 #sharefab1 {
-  background-color: #ffffff;
+  background-color: #1E1E1E;
 }
 
 #sharefab1 > span {
   color: #237aff;
-}
-
-#resetButton1 {
-  color: #ffffff;
 }
 
 #timerfab1 {
@@ -89,5 +115,5 @@ $mdc-shape-large-component-radius: 2px;
 }
 
 #testingcontainer span {
-  color: var(--mdc-theme-text-secondary-on-light,rgba(0,0,0,.54));
+  color: rgba(255,255,255,0.6);
 }

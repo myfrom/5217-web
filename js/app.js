@@ -279,7 +279,7 @@ window.addEventListener('themechange', e => {
   // Swap colours in runtime
   workColors = themeLight ?
     generateColorsList(worktime, '#237aff', '#ffffff') :
-    generateColorsList(worktime, '#0952c1', '#121212');
+    generateColorsList(worktime, '#237aff', '#121212');
   setMinuteColors();
 });
 
@@ -597,8 +597,8 @@ function setMinuteColors(cycleType = currentCycle) {
     layer2DivElement.style.backgroundColor = workColors[worktime - 1];
     document.body.classList.add('invert');
   } else {
-  (frontLayer === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded)];
-  (backLayer === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded) + 1];
+    (frontLayer === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded)];
+    (backLayer === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded) + 1];
     if (minutesAwayRounded / worktime < 0.58)
       document.body.classList.add('invert')
     else

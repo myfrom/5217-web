@@ -26,6 +26,18 @@ $mdc-shape-large-component-radius: 2px;
 
 /* General styles */
 
+body.invert {
+
+  #heroNumber1, #heroNumber2 {
+    color: $mdc-theme-primary;
+  }
+
+  #uidiv .mdc-icon-button {
+    @include mdc-icon-button-ink-color($mdc-theme-primary);
+  }
+
+}
+
 #layer1div, #layer2div {
   background-color: $mdc-theme-primary;
 }
@@ -78,10 +90,6 @@ $mdc-shape-large-component-radius: 2px;
 
 #sharefab1 > span {
   color: #237aff;
-}
-
-#resetButton1 {
-  color: #ffffff;
 }
 
 #timerfab1 {
