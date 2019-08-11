@@ -261,6 +261,28 @@ var breakMessage2Element = document.getElementById("breakMessage2"); */
 // An event listener must be added for both copies of the elements, as there are two.
 timerFab1Element.addEventListener("click", startTimer);
 resetButton1Element.addEventListener("click", reset);
+
+
+/* Listen for theme changes */
+window.addEventListener('themechange', e => {
+  const themeLight = e.detail == 'light';
+  const darkThemeLink = document.querySelector('#dark-theme-preload');
+  if (themeLight) {
+    if (darkThemeLink.rel == 'stylesheet')
+      darkThemeLink.sheet.disabled = true;
+  } else {
+    if (darkThemeLink.rel == 'stylesheet')
+      darkThemeLink.sheet.disabled = false;
+    else
+      darkThemeLink.rel = 'stylesheet';
+  }
+  // Swap colours in runtime
+  workColors = themeLight ?
+    generateColorsList(worktime, '#237aff', '#ffffff') :
+    generateColorsList(worktime, '#0952c1', '#121212');
+  setMinuteColors();
+});
+
 /*
   Functions
 */
@@ -739,3 +761,18 @@ window.onbeforeunload = function (e) {
 
 /* Load settings and other important things */
 setCookies();
+// If supported, notify about system theme chnages
+if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
+  window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+    // If theme isn't auto, skip
+    if (SETTINGS.theme !== 'auto')
+      return;
+    /**
+     * Event indicating that the theme needs to be changed,
+     * @event themechange
+     * @type {CustomEvent}
+     * @property {string} detail - New theme ('light' or 'dark')
+     */
+    window.dispatchEvent(new CustomEvent('themechange', { detail: e.matches ? 'dark' : 'light' }));
+  })
+}
