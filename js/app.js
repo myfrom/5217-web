@@ -251,7 +251,6 @@ var shareFab1Element = document.getElementById("sharefab1");
 var moreButton1Element = document.getElementById("morebutton");
 var layer1DivElement = document.getElementById("layer1div");
 var layer2DivElement = document.getElementById("layer2div");
-setCookies();
 /* var breakMessage1Element = document.getElementById("breakMessage1");
 var breakMessage2Element = document.getElementById("breakMessage2"); */
 
@@ -735,3 +734,8 @@ window.onbeforeunload = function (e) {
     return '5217 is still running! Are you sure you want to quit?';
   }
 };
+
+
+
+/* Load settings and other important things */
+setCookies();
