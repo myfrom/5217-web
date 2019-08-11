@@ -484,12 +484,9 @@ function setTheme(cycleType) {
     increaseAnimation(worktime);
     // breakMessage1Element.style.visibility = "hidden";
     // breakMessage2Element.style.visibility = "hidden";
-    hero1Element.style.color = "#ffffff";
-    resetButton1Element.style.color = "#ffffff";
-    moreButton1Element.style.color = "#ffffff";
-    hero2Element.style.color = "#ffffff";
-    layer2DivElement.style.backgroundColor = "#237aff";
-    layer1DivElement.style.backgroundColor = "#237aff";
+    document.body.classList.remove('invert');
+    layer2DivElement.style.backgroundColor = workColors[0];
+    layer1DivElement.style.backgroundColor = workColors[0];
     if (shareFab1Element.classList.contains("show-fab")) {
       shareFab1Element.classList.add("hide-fab");
       shareFab1Element.classList.add("hide");
@@ -503,12 +500,9 @@ function setTheme(cycleType) {
     // breakMessage2Element.innerHTML = chosenBreakMessage;
     // breakMessage1Element.style.visibility = "visible";
     // breakMessage2Element.style.visibility = "visible";
-    hero1Element.style.color = "#237aff";
-    resetButton1Element.style.color = "#237aff";
-    moreButton1Element.style.color = "#237aff";
-    hero2Element.style.color = "#237aff";
-    layer2DivElement.style.backgroundColor = "#ffffff";
-    layer1DivElement.style.backgroundColor = "#ffffff";
+    document.body.classList.add('invert');
+    layer2DivElement.style.backgroundColor = workColors[worktime - 1];
+    layer1DivElement.style.backgroundColor = workColors[worktime - 1];
     if (!shareFab1Element.classList.contains("show-fab")) {
       shareFab1Element.classList.add("show-fab");
       shareFab1Element.classList.remove("hide-fab");
@@ -596,16 +590,19 @@ function getLayerOrder() {
   }
 }
 
-function setMinuteColors(cycleType) {
+function setMinuteColors(cycleType = currentCycle) {
   getLayerOrder();
+  if (cycleType === 'break') {
+    layer1DivElement.style.backgroundColor = workColors[worktime - 1];
+    layer2DivElement.style.backgroundColor = workColors[worktime - 1];
+    document.body.classList.add('invert');
+  } else {
   (frontLayer === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded)];
   (backLayer === 1 ? layer1DivElement : layer2DivElement).style.backgroundColor = workColors[Math.abs(worktime - minutesAwayRounded) + 1];
-  if (minutesAwayRounded === 30) {
-    hero1Element.style.color = "#237aff";
-    hero2Element.style.color = "#237aff";
-    resetButton1Element.style.color = "#237aff";
-    moreButton1Element.style.color = "#237aff";
-
+    if (minutesAwayRounded / worktime < 0.58)
+      document.body.classList.add('invert')
+    else
+      document.body.classList.remove('invert');
   }
 }
 
