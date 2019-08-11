@@ -292,6 +292,9 @@ function generateColorsList(steps, original, target) {
     throw new Error('Original parameter passed to renderColorsList isn\'t valid hex color value', original);
   if (typeof target != 'string' && target.length != 7)
     throw new Error('Target parameter passed to renderColorsList isn\'t valid hex color value', target);
+
+  original = original.slice(1, 7);
+  target = target.slice(1, 7);
   
   const originalRgb = new Uint8ClampedArray(3);
   // Get each value from the string #HEX color
@@ -352,7 +355,7 @@ function setCookies() {
        * @type {CustomEvent}
        * @property {string} detail - New theme ('light' or 'dark')
        */
-      window.dispatchEvent(new CustomEvent('themechange', { detail: newTheme }));
+      window.dispatchEvent(new CustomEvent('themechange', { detail: 'dark' }));
     }
   }
 }
