@@ -686,35 +686,25 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-function checkIfMobile() {
-  if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function notify(type, minutes) {
-  if (SETTINGS.notification === "true"){
+  if (SETTINGS.notification){
     showNotification(type, notificationTitle[type], getNotificationBody(type, minutes))
   }
 }
 
 function showNotification(type, title, body) {
-  if (!checkIfMobile()) {
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission();
-    } else {
-      var options = {
-        icon: 'images/icon.png',
-        body: body,
-      };
-      var notification = new Notification(title, options);
-      setPlayAudio(type);
-      notification.onclick = function () {
-        window.focus();
-        notification.close();
-      }
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  } else {
+    var options = {
+      icon: 'images/icon.png',
+      body: body,
+    };
+    var notification = new Notification(title, options);
+    setPlayAudio(type);
+    notification.onclick = function () {
+      window.focus();
+      notification.close();
     }
   }
 }
@@ -730,7 +720,7 @@ function getNotificationBody(type, remainingMinutes) {
 }
 
 function setPlayAudio(type) {
-  if (SETTINGS.sound === "true" && (minutesAwayRounded === 52 || (minutesAwayRounded === 17 && cycleType === "break"))) {
+  if (SETTINGS.sound && (minutesAwayRounded === 52 || (minutesAwayRounded === 17 && cycleType === "break"))) {
     if (type ==="work"){
       let audio = new Audio("sound/end_break.wav");
       audio.play();
