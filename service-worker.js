@@ -36,19 +36,20 @@ function matchURL(conditions, options = {}) {
       return matched;
     } else return false;
   }
-};
+}
 
-workbox.skipWaiting();
-workbox.clientsClaim();
+workbox.core.skipWaiting();
+workbox.core.clientsClaim();
 
+const cacheStrategy = new workbox.strategies.CacheFirst({
+  cacheName: 'unmutable-cache',
+  plugins: [ new workbox.expiration.Plugin({
+    maxAgeSeconds: 60 * 60 * 24 * 30 * 12 // 1 year
+  }) ]
+});
 
 // All local routes are unmutable so cache forever
 workbox.routing.registerRoute(
   matchURL([/.*/], { acceptIndex: true, sameOrigin: true }),
-  workbox.strategies.cacheFirst({
-    cacheName: 'unmutable-cache',
-    plugins: [ new workbox.expiration.Plugin({
-      maxAgeSeconds: 60 * 60 * 24 * 30 * 12 // 1 year
-    }) ]
-  })
+  cacheStrategy.handle.bind(cacheStrategy) //this will be fixed in v5, see https://github.com/GoogleChrome/workbox/issues/2180
 );

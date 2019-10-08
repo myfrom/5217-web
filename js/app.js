@@ -18,7 +18,7 @@ window.SETTINGS = {
       return this.theme;
     }
   }
-}
+};
 
 
 // Add 2 Home Screen enhancements
@@ -103,7 +103,7 @@ const handleSwitchSettingsHint = e => {
   const hints = e.target.closest('li').querySelectorAll('.settings-hint');
   hints[0].classList.toggle('hide', !checked);
   hints[1].classList.toggle('hide', checked);
-}
+};
 
 notificationToggle.listen('change', handleSwitchSettingsHint);
 soundToggle.listen('change', handleSwitchSettingsHint);
@@ -121,13 +121,13 @@ document.querySelector('#settings-dialog-close-button')
 
 settingsDialog.listen('MDCDialog:opened', () => {
   settingsList.layout();
-})
+});
 
 settingsDialog.listen('MDCDialog:closed', e => saveSettings({
   notification: notificationToggle.checked,
   sound: soundToggle.checked,
   theme: themeSelect.value
-}))
+}));
 
 document.querySelector('#settings-dialog-trigger')
   .addEventListener('click', () => settingsDialog.open());
@@ -314,7 +314,7 @@ function generateColorsList(steps, original, target) {
     (originalRgb[0] - targetRgb[0]) / (steps - 1),
     (originalRgb[1] - targetRgb[1]) / (steps - 1),
     (originalRgb[2] - targetRgb[2]) / (steps - 1)
-  ]
+  ];
 
   for (let i = 1; i < steps; i++) {
     colorsRgbArray[i] = new Uint8ClampedArray(3);

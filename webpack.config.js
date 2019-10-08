@@ -1,13 +1,8 @@
 const path = require('path'),
       CopyWebpackPlugin = require('copy-webpack-plugin'),
-      CleanWebpackPlugin = require('clean-webpack-plugin'),
+      { CleanWebpackPlugin } = require('clean-webpack-plugin'),
       HtmlWebpackPlugin = require('html-webpack-plugin'),
       { InjectManifest } = require('workbox-webpack-plugin');
-
-
-// Constants
-const OUTPUT_PATH = path.resolve(__dirname, 'dist');
-
 
 module.exports = [{
   mode: 'production',
@@ -15,7 +10,7 @@ module.exports = [{
     path.resolve(__dirname, 'js', 'app.js')
   ],
   output: {
-    path: OUTPUT_PATH,
+    path: path.resolve(__dirname, 'dist'),
     filename: 'js/bundle.js'
   },
   module: {
@@ -36,7 +31,7 @@ module.exports = [{
         {
           loader: 'babel-loader',
           options: {
-            presets: [ 'es2015' ],
+            presets: [ '@babel/preset-env' ],
             plugins: [ 'async-import' ],
             // cacheDirectory: true
           }
@@ -53,16 +48,13 @@ module.exports = [{
           }
         },
         { loader: 'extract-loader' },
-        {
-          loader: 'css-loader',
-          options: {
-            minimize: true
-          }
-        },
+        { loader: 'css-loader' },
         {
           loader: 'sass-loader',
           options: {
-            includePaths: ['./node_modules']
+            sassOptions: {
+              includePaths: ['./node_modules']
+            },
           }
         }
       ]
@@ -76,12 +68,7 @@ module.exports = [{
           }
         },
         { loader: 'extract-loader' },
-        {
-          loader: 'css-loader',
-          options: {
-            minimize: true
-          }
-        }
+        { loader: 'css-loader' }
       ]
     }, {
       test: /\.(jpe?g|png|svg|wav|ico|xml)$/,
@@ -105,7 +92,7 @@ module.exports = [{
     }]
   },
   plugins: [
-    new CleanWebpackPlugin(OUTPUT_PATH),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html',
       inject: 'body',
