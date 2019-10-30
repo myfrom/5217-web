@@ -32,6 +32,18 @@ body {
   color: white;
 }
 
+body.invert {
+
+  #heroNumber1, #heroNumber2 {
+    color: $mdc-theme-primary;
+  }
+
+  #uidiv .mdc-icon-button {
+    @include mdc-icon-button-ink-color($mdc-theme-primary);
+  }
+
+}
+
 #layer1div, #layer2div {
   background-color: $mdc-theme-primary;
 }
@@ -107,7 +119,7 @@ body {
 }
 
 #sharefab1 > span {
-  color: #237aff;
+  color: #4790ff;
 }
 
 #timerfab1 {

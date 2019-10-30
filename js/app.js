@@ -279,8 +279,11 @@ window.addEventListener('themechange', e => {
   // Swap colours in runtime
   workColors = themeLight ?
     generateColorsList(worktime, '#237aff', '#ffffff') :
-    generateColorsList(worktime, '#237aff', '#121212');
+    generateColorsList(worktime, '#183767', '#121212');
   setMinuteColors();
+  // Set status bar colour
+  document.querySelector('meta[name="theme-color"]')
+    .setAttribute('content', themeLight ? '#237aff' : '#183767');
 });
 
 /*
