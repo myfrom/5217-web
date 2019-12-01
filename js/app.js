@@ -335,10 +335,10 @@ function generateColorsList(steps, original, target) {
 function setCookies() {
   if (typeof Storage !== 'undefined') {
     if (typeof localStorage.notifpref === 'undefined') {
-      localStorage.notifpref = true;
+      localStorage.notifpref = 'true';
     }
     if (typeof localStorage.soundpref === 'undefined') {
-      localStorage.soundpref = false;
+      localStorage.soundpref = 'false';
     }
     if (typeof localStorage.themepref === 'undefined') {
       localStorage.themepref = 'auto';
