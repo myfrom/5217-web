@@ -159,8 +159,12 @@ a.buttonWrapper {
 
 @media screen and (max-width: 450px) {
 
+  #uidiv {
+    justify-content: space-evenly;
+  }
+
   #uidiv > div {
-    margin: 0 10vw;
+    margin: 0;
     min-width: 40px;
   }
 
